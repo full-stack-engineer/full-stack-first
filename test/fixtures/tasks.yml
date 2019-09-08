@@ -2,12 +2,12 @@
 
 one:
   task_name: MyString
-  user: 
-  parent: one
-  child: one
+  user: one
+  parent_id: 1
+  child_id: 1
 
 two:
   task_name: MyString
-  user: 
-  parent: two
-  child: two
+  user: two
+  parent_id: 1
+  child_id: 1

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
-  resources :tasks
-  resources :users
+  devise_for :users
+  root 'user#index'
 end
+
+
+

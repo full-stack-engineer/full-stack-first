@@ -4,8 +4,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
   root 'user#index'
-  resources :child_tasks, only[:edit, :new]
-  resources :parent_tasks, only[:edit, :new]
+  resources :child_tasks, only:[:edit, :new]
+  resources :parent_tasks, only:[:edit, :new]
 end
 
 

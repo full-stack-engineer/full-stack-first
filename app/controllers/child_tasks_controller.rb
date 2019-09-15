@@ -1,7 +1,2 @@
-class ChildTasksController < ApplicationController
-  def new
-  end
-
-  def edit
-  end
+class ChildTasksController < TaskController
 end

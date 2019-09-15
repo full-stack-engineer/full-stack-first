@@ -1,7 +1,6 @@
 # フルスタックエンジニアへの第一歩
 ```
 docker-compose up -d
-docker-compose run web bin/webpack-dev-server
 ```
 下のコマンドでホットリロードを有効にできる（多分）
 
@@ -18,3 +17,4 @@ docker-compose run web rails webpacker:install
 docker-compose run web rails webpacker:install:react
 docker-compose run web rails webpacker:install:typescript
 ```
+多分何かの競合でエラーが出現するので頑張ってください

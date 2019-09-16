@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import Hello from "./Hello/Hello"
+import Login from "./Login/Login";
+import Main from "./Main/Main"
 
-export default class App extends Component<{}> {
-    constructor(props: {}) {
-        super(props);
-    }
-
+export default class App extends Component {
     render() {
         return (
-            <Hello text="hogehogehoge" />
+            <div>
+                {/* <Login /> */}
+                <Main />
+            </div>
         )
     }
 }

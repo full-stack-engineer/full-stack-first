@@ -1,0 +1,24 @@
+$color: #fff;
+$mainBule: #4665FF;
+$subBule: #6B84FF;
+
+.LoginInputBox {
+    background: $mainBule;
+    border: 5px solid $subBule;
+    border-radius: 32px;
+    color: $color;
+    font-size: 1.4rem;
+    outline: none;
+    padding-left: 32px;
+    width: 100%;
+    height: 64px;
+
+    &:not(:last-of-type) {
+        margin-bottom: 24px;
+    }
+
+    &::placeholder {
+        color: $subBule;
+        font-size: 1.6rem;
+    }
+}

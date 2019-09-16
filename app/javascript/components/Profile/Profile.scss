@@ -1,0 +1,18 @@
+.Profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+
+    &__image {
+        border-radius: 32px;
+        border: 4px solid #fff;
+        margin-right: 16px;
+        width: 64px;
+        height: 64px;
+    }
+
+    &__name {
+        color: #fff;
+        font-size: 1.4rem;
+    }
+}

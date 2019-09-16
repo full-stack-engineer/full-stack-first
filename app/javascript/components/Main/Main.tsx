@@ -14,7 +14,10 @@ export default class Main extends Component {
                         alt="プロフィール画像"
                         name="Three4C"
                     />
-                    <Total title="本日" todos={34} />
+                    <Total
+                        title="本日"
+                        todos={34}
+                    />
                 </div>
             </div>
         )

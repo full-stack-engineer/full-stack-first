@@ -1,0 +1,27 @@
+$color: #fff;
+$mainBule: #4665FF;
+$subBule: #6B84FF;
+
+.LoginSNS {
+   text-align: center;
+   width: 100%;
+    &__text {
+        color: $color;
+        font-size: 1.4rem;
+        margin: 48px 0;
+    }
+
+    &__link {
+        display: inline-block;
+    }
+    &__button {
+        background: $mainBule;
+        border: 5px solid $subBule;
+        border-radius: 32px;
+        color: $color;
+        font-size: 1.6rem;
+        outline: none;
+        width: 64px;
+        height: 64px;
+    }
+}

@@ -1,0 +1,25 @@
+$color: #fff;
+$mainBule: #4665FF;
+$subBule: #6B84FF;
+
+.LoginButton {
+    text-align: center;
+    width: 100%;
+
+    &__button {
+        background: $mainBule;
+        border: 5px solid $subBule;
+        border-radius: 32px;
+        color: $color;
+        font-size: 1.6rem;
+        outline: none;
+        text-align: center;
+        width: 240px;
+        height: 64px;
+    }
+
+    &__link {
+        display: inline-block;
+        margin-top: 96px;
+    }
+}

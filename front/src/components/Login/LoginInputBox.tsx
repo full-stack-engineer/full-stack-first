@@ -1,14 +1,14 @@
 import React from "react";
 import "./LoginInputBox.scss";
 
-interface ILoginInputBoxInterface {
+interface LoginInputBoxInterface {
     placeholder: string;
     type?: string;
     name?: string;
     value?: string;
 }
 
-const LoginInputBox: React.FC<ILoginInputBoxInterface> = props => {
+const LoginInputBox: React.FC<LoginInputBoxInterface> = props => {
     return (
         <input
             className="LoginInputBox"

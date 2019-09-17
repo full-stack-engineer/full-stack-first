@@ -1,12 +1,12 @@
 import React from "react";
 import "./Total.scss";
 
-interface ITotal {
+interface Total {
     title: string;
     todos: number;
 }
 
-const Total: React.FC<ITotal> = props => {
+const Total: React.FC<Total> = props => {
     return (
         <div className="Total">
             <div className="Total__inner">

@@ -1,3 +1,3 @@
-FROM "node:6-alpine"
+FROM "node:8.16-alpine"
 
 WORKDIR /app

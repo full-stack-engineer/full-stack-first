@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import "./Login.scss";
-import LoginButton from "./LoginButton";
 import LoginInputBox from "./LoginInputBox";
+import LoginButton from "./LoginButton";
 import LoginSNS from "./LoginSNS";
+import "./Login.scss";
 
-interface ILoginInterface {
+import image from "../../assets/twitter.svg";
+
+interface LoginInterface {
     buttonText: string;
 }
 
-export default class Login extends Component<{}, ILoginInterface> {
-    constructor(props: ILoginInterface) {
+export default class Login extends Component<{}, LoginInterface> {
+    constructor(props: LoginInterface) {
         super(props);
 
         this.state = {
@@ -17,7 +19,7 @@ export default class Login extends Component<{}, ILoginInterface> {
         }
     }
 
-    public render() {
+    render() {
         return (
             <div className="Login">
                 <div className="Login__inner">
@@ -45,7 +47,7 @@ export default class Login extends Component<{}, ILoginInterface> {
                             buttonText={this.state.buttonText} />
                         <LoginSNS
                             href="#dummy"
-                            src="../../images/twitter.svg"
+                            src={image}
                             alt="Twitterロゴ"
                         />
                     </form>

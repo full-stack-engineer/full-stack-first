@@ -1,13 +1,13 @@
 import React from "react";
 import "./Profile.scss";
 
-interface IProfileInterface {
+interface ProfileInterface {
     src: string;
     alt?: string;
     name: string;
 }
 
-const Profile: React.FC<IProfileInterface> = props => {
+const Profile: React.FC<ProfileInterface> = props => {
     return (
         <div className="Profile">
             <img className="Profile__image" src={props.src} alt={props.alt} />

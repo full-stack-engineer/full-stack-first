@@ -1,0 +1,72 @@
+$color: #fff;
+$mainBule: #4665FF;
+$subBule: #6B84FF;
+
+.Toggle {
+    position: relative;
+    line-height: 1;
+
+    &__input {
+        cursor: pointer;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 4;
+        &:checked {
+            +.Toggle__label > .Toggle__bar {
+                left: 50%
+            }
+        }
+    }
+
+    &__label {
+        background: $mainBule;
+        border-radius: 28px;
+        box-shadow: 0 0 8px rgba($color: #000000, $alpha: 0.24);
+        display: inline-block;
+        position: relative;
+        transition: all .5s;
+        height: 56px;
+        width: 100%;
+
+        &::before {
+            content: "Do";
+            color: $subBule;
+            font-size: 1.6rem;
+            position: absolute;
+            top: 20px;
+            left: 22%;
+            z-index: 2;
+        }
+
+        &::after {
+            content: "Done";
+            color: $subBule;
+            font-size: 1.6rem;
+            position: absolute;
+            top: 20px;
+            right: 19%;
+            z-index: 2;
+        }
+    }
+
+    &__bar {
+        background: $color;
+        border-radius: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all .5s;
+        height: 56px;
+        width: 50%;
+        z-index: 3;;
+    }
+}

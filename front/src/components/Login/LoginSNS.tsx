@@ -1,13 +1,13 @@
 import React from "react";
 import "./LoginSNS.scss";
 
-interface LoginSNSInterface {
+interface ILoginSNSInterface {
     href: string;
     src: string;
     alt?: string;
 }
 
-const LoginInputBox: React.FC<LoginSNSInterface> = props => {
+const LoginInputBox: React.FC<ILoginSNSInterface> = props => {
     return (
         <div className="LoginSNS">
             <p className="LoginSNS__text">または</p>

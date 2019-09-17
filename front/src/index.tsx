@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import App from "./App";
+import "./scss/base.scss";
 import "./scss/reset.scss";
-import "./scss/base.scss"
-import App from "./App"
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(

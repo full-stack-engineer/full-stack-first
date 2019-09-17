@@ -1,7 +1,7 @@
 import React from "react";
 import "./LoginButton.scss"
 
-interface LoginButtonInterface {
+interface ILoginButtonInterface {
     href: string;
     buttonText: string;
     type?: "button" | "submit" | "reset";
@@ -9,7 +9,7 @@ interface LoginButtonInterface {
     value?: string;
 }
 
-const LoginButton: React.FC<LoginButtonInterface> = props => {
+const LoginButton: React.FC<ILoginButtonInterface> = props => {
     return (
         <div className="LoginButton">
             <a className="LoginButton__link" href={props.href}>

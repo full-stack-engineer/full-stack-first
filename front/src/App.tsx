@@ -3,7 +3,7 @@ import Login from "./components/Login/Login";
 import Main from "./components/Main/Main"
 
 export default class App extends Component {
-    render() {
+    public render() {
         return (
             <div>
                 <Login />

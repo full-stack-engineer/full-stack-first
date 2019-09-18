@@ -1,2 +1,0 @@
-class ChildTasksController < TaskController
-end

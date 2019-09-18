@@ -23,7 +23,10 @@ export default class Main extends Component {
                         todos={34}
                     />
                     <Toggle />
-                    <Todo text="タピオカミルクティーを飲むためにGong chaに並ぶ" />
+                    <Todo
+                        todoBarStyle={{ width: 80 + "%" }}
+                        text="タピオカミルクティーを飲むためにGong chaに並ぶ"
+                    />
                 </div>
             </div>
         )

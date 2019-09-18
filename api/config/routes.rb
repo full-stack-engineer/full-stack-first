@@ -5,6 +5,8 @@ Rails.application.routes.draw do
           registrations: 'api/v1/auth/registrations',
           omniauth_callbacks: 'api/v1/auth/omniauth_callbacks'
       }
+      resources :parent_tasks
+      resources :child_tasks
     end
   end
   # root 'home#about'

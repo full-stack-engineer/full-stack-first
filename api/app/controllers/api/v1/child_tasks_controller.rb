@@ -1,0 +1,2 @@
+class ChildTasksController < ApplicationController
+end

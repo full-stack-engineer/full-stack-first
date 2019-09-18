@@ -3,7 +3,7 @@ module Api
         class ParentTasksController < ApplicationController
 
             def index
-                parent_tasks = ParentTask.where(user_id: params[:user_id]).order(created_at: :desc)
+                parent_tasks = ParentTask.where(user_id: params[:user_id]).order(created_at: :asc)
                 render json: { status: 'SUCCESS', message: 'Loaded parent_tasks', data: parent_tasks }
             end
 
@@ -28,14 +28,14 @@ module Api
                     render json: { status: 'ERROR', message: 'Not updated', data: @parent_task }
                 end
             end
-            
+
             private
                 def set_parent_task
                     @parent_task = ParentTask.find(params[:id])
                 end
 
                 def task_params
-                    params.require(:parent_task).permit(:content, :progress)
+                    params.require(:parent_task).permit(:content, :progress, :user_id)
                 end
 
         end

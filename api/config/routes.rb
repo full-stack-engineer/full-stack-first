@@ -6,6 +6,10 @@ Rails.application.routes.draw do
           omniauth_callbacks: 'api/v1/auth/omniauth_callbacks'
       }
     end
+    namespace :v1 do
+      resources :parent_tasks
+      resources :child_tasks
+    end
   end
   # root 'home#about'
  end

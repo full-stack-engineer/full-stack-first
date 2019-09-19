@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_16_121149) do
+ActiveRecord::Schema.define(version: 2019_09_18_112602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "child_tasks", force: :cascade do |t|
+    t.string "content"
+    t.bigint "parent_task_id", null: false
+    t.integer "progress"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parent_task_id"], name: "index_child_tasks_on_parent_task_id"
+  end
+
+  create_table "parent_tasks", force: :cascade do |t|
+    t.string "content"
+    t.bigint "user_id", null: false
+    t.integer "progress"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_parent_tasks_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -36,4 +54,6 @@ ActiveRecord::Schema.define(version: 2019_09_16_121149) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "child_tasks", "parent_tasks"
+  add_foreign_key "parent_tasks", "users"
 end

@@ -1,6 +1,7 @@
 module Api
     module V1
         class ParentTasksController < ApplicationController
+            before_action :set_parent_task
 
             def index
                 parent_tasks = ParentTask.where(user_id: params[:user_id]).order(created_at: :asc)
@@ -31,7 +32,7 @@ module Api
 
             private
                 def set_parent_task
-                    @parent_task = ParentTask.find(params[:id])
+                    @parent_task = ParentTask.find_by(id: params[:id])
                 end
 
                 def task_params

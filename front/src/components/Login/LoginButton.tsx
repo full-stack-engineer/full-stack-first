@@ -7,21 +7,21 @@ interface LoginButtonInterface {
     type?: "button" | "submit" | "reset";
     name?: string;
     value?: string;
+    onClick?: any;
 }
 
 const LoginButton: React.FC<LoginButtonInterface> = props => {
     return (
         <div className="LoginButton">
-            <a className="LoginButton__link" href={props.href}>
-                <button
-                    className="LoginButton__button"
-                    type={props.type}
-                    name={props.name}
-                    value={props.value}
-                >
-                    {props.buttonText}
-                </button>
-            </a>
+            <button
+                className="LoginButton__button"
+                type={props.type}
+                name={props.name}
+                value={props.value}
+                onClick={props.onClick}
+            >
+                {props.buttonText}
+            </button>
         </div>
     )
 }

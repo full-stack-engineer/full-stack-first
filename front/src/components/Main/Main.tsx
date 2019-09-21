@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Profile from "../Profile/Profile";
 import Total from "../Total/Total";
 import Toggle from "../Toggle/Toggle";
+import Todo from "../Todo/Todo";
+import mockResponce from "../../mock-response.json";
 import "./Main.scss";
 
 import image from "../../assets/girl.jpg";
@@ -22,6 +24,7 @@ export default class Main extends Component {
                         todos={34}
                     />
                     <Toggle />
+                    <Todo todos={mockResponce} />
                 </div>
             </div>
         )

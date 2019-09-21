@@ -36,6 +36,15 @@ paths:
           name: user_id
           type: integer
           required: true
+        - name: uid
+          in: header
+          type: string
+        - name: access-token
+          in: header
+          type: string
+        - name: client
+          in: header
+          type: string  
       responses:
         '200':
           description: Valid input

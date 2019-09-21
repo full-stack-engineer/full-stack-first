@@ -1,0 +1,236 @@
+swagger: '2.0'
+info:
+  description: This is API for full stack first step
+  version: 1.0.0
+  title: FullStackFirstStepAPI
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: g2119001@fun.ac.jp
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: 'localhost:3000'
+basePath: /api/v1
+tags:
+  - name: ParentTasks
+    description: Operations about ParentTasks
+  - name: ChildTasks
+    description: Operations about ChildTasks
+  - name: User
+    description: Operations about user
+schemes:
+  - http
+paths:
+  /parent_tasks:
+    get:
+      tags:
+        - ParentTasks
+      summary: get all parent_tasks that user have
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: user_id
+          type: integer
+          required: true
+        - name: uid
+          in: header
+          type: string
+        - name: access-token
+          in: header
+          type: string
+        - name: client
+          in: header
+          type: string  
+      responses:
+        '200':
+          description: Valid input
+    post:
+      tags:
+        - ParentTasks
+      summary: create new parent_task
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Task'
+      responses:
+        '200':
+          description: Creating parent_task is success
+  '/parent_tasks/{id}':
+    put:
+      tags:
+        - ParentTasks
+      summary: update parent_task by specifying from id
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Task'
+      responses:
+        '200':
+          description: Updating parent_task is success
+    delete:
+      tags:
+        - ParentTasks
+      summary: delete parent_task by specifying from id
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+      responses:
+        '200':
+          description: Deleting parent_task is success
+  /auth/:
+    post:
+      tags:
+        - User
+      summary: Registrate User
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Registration_User'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+        - User
+      summary: Delete User
+      produces:
+        - application/json
+      parameters:
+        - name: uid
+          in: header
+          type: string
+        - name: access-token
+          in: header
+          type: string
+        - name: client
+          in: header
+          type: string
+      responses:
+        default:
+          description: successful operation
+  /auth/sign_in:
+    post:
+      tags:
+        - User
+      summary: Sign in
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        default:
+          description: successful operation
+  /auth/sign_out:
+    delete:
+      tags:
+        - User
+      summary: Sing out
+      produces:
+        - application/json
+      parameters:
+        - name: uid
+          in: header
+          type: string
+        - name: access-token
+          in: header
+          type: string
+        - name: client
+          in: header
+          type: string
+      responses:
+        default:
+          description: successful operation
+securityDefinitions:
+  petstore_auth:
+    type: oauth2
+    authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
+    flow: implicit
+    scopes:
+      'write:pets': modify pets in your account
+      'read:pets': read your pets
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+definitions:
+  Registration_User:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      password_confirmation:
+        type: string
+  User:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  Task:
+    type: object
+    required:
+      - content
+      - user_id
+      - progress
+    properties:
+      content:
+        type: string
+      progress:
+        type: integer
+        format: int64
+      user_id:
+        type: integer
+        format: int64
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'

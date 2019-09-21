@@ -3,6 +3,8 @@ import LoginInputBox from "./LoginInputBox";
 import LoginButton from "./LoginButton";
 import LoginSNS from "./LoginSNS";
 import "./Login.scss";
+import axios from 'axios';
+
 
 import image from "../../assets/twitter.svg";
 
@@ -17,6 +19,21 @@ export default class Login extends Component<{}, LoginInterface> {
         this.state = {
             buttonText: "ログイン"
         }
+    }
+
+    signInFunction = () => {
+        let LOGIN_ENDPOINT = "http://localhost:3000/api/v1/auth/sign_in";
+
+        axios.post(LOGIN_ENDPOINT, {
+            email: "ebiebi@example.com",
+            password: "unchidane"
+        })
+            .then((results) => {
+                console.log(results);
+            })
+            .catch(function (error) {
+                console.log('ERROR!! occurred in Backend.');
+            });
     }
 
     render() {
@@ -44,7 +61,9 @@ export default class Login extends Component<{}, LoginInterface> {
                             type="submit"
                             name={this.state.buttonText}
                             value={this.state.buttonText}
-                            buttonText={this.state.buttonText} />
+                            buttonText={this.state.buttonText}
+                            onClick={this.signInFunction}
+                        />
                         <LoginSNS
                             href="#dummy"
                             src={image}

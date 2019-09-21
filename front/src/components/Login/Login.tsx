@@ -25,13 +25,14 @@ export default class Login extends Component<{}, LoginInterface> {
         let LOGIN_ENDPOINT = "http://localhost:3000/api/v1/auth/sign_in";
 
         axios.post(LOGIN_ENDPOINT, {
-            params: {
-                email: "ebiebi@examole.com",
-                password: "unchidane"
-            }
+            email: "ebiebi@example.com",
+            password: "unchidane"
         })
             .then((results) => {
                 console.log(results);
+            })
+            .catch(function (error) {
+                console.log('ERROR!! occurred in Backend.');
             });
     }
 

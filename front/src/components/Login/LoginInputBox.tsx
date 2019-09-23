@@ -5,7 +5,7 @@ interface LoginInputBoxInterface {
     placeholder: string;
     type?: string;
     name?: string;
-    value?: string;
+    updateLoginValue: any;
 }
 
 const LoginInputBox: React.FC<LoginInputBoxInterface> = props => {
@@ -15,7 +15,7 @@ const LoginInputBox: React.FC<LoginInputBoxInterface> = props => {
             placeholder={props.placeholder}
             type={props.type}
             name={props.name}
-            value={props.value}
+            onChange={(e) => props.updateLoginValue(e.target.name, e.target.value)}
         />
     )
 }

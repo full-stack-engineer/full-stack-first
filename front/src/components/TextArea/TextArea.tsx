@@ -1,48 +1,23 @@
-import React, { Component } from 'react'
+import React, { useState } from "react";
+import "./TextArea.scss";
 
 interface TextAreaInterface {
-    textValue: string;
-    textHeight: number;
+    placeholder: string;
 }
 
-export default class TextArea extends Component<{}, TextAreaInterface> {
-    textAreaRef: React.RefObject<HTMLTextAreaElement>;
-    constructor(props: TextAreaInterface) {
-        super(props);
-        this.textAreaRef = React.createRef();
+const TextArea: React.FC<TextAreaInterface> = props => {
+    const [textHeight, setTextHeight] = useState(1.6)
 
-        this.state = {
-            textValue: "",
-            textHeight: 40
-        };
-    }
-
-    private getHieghtOfTextArea = (): void => {
-        if (this.textAreaRef.current !== null) {
-            this.setState({
-                textHeight: this.textAreaRef.current.value.split("\n").length * 10
-            })
-            console.log(this.state.textHeight);
-        }
-    }
-
-    private changeTextArea = (): void => {
-        if (this.textAreaRef.current !== null) {
-            this.setState({
-                textValue: this.textAreaRef.current.value
-            });
-            console.log(this.state.textValue);
-        }
-    }
-
-    render() {
-        return (
+    return (
+        <div className="TextArea">
             <textarea
-                style={{ height: `${this.state.textHeight}px` }}
-                onChange={() => { this.getHieghtOfTextArea(); this.changeTextArea() }}
-                value={this.state.textValue}
-                ref={this.textAreaRef}
+                className="TextArea__input"
+                onChange={(e) => { setTextHeight(e.target.value.split("\n").length * (1.6 + .35)) }}
+                style={{ height: `${textHeight}rem` }}
+                placeholder={props.placeholder}
             />
-        )
-    }
+        </div>
+    )
 }
+
+export default TextArea;

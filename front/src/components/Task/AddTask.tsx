@@ -13,7 +13,9 @@ const AddTask: React.FC = () => {
                 alt="プロフィール画像"
                 name="Three4C"
             />
-            <TextArea />
+            <TextArea
+                placeholder="タスクを追加してみよう！"
+            />
         </div>
     )
 }

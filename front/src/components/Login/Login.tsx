@@ -5,71 +5,101 @@ import LoginSNS from "./LoginSNS";
 import "./Login.scss";
 import axios from 'axios';
 
-
 import image from "../../assets/twitter.svg";
 
 interface LoginInterface {
+    emailText: string;
+    passwordText: string;
+    passwordConfirmedText: string;
     buttonText: string;
+    getLoginResult?: any;
 }
 
-export default class Login extends Component<{}, LoginInterface> {
+export default class Login extends Component<any, LoginInterface> {
     constructor(props: LoginInterface) {
         super(props);
-
+        this.updateLoginValue = this.updateLoginValue.bind(this);
+        this.signInFunction = this.signInFunction.bind(this);
         this.state = {
+            emailText: "ebiebi@example.com",
+            passwordText: "unchidane",
+            passwordConfirmedText: "",
             buttonText: "ログイン"
         }
     }
 
-    signInFunction = () => {
+    signInFunction = async () => {
         let LOGIN_ENDPOINT = "http://localhost:3000/api/v1/auth/sign_in";
 
-        axios.post(LOGIN_ENDPOINT, {
-            email: "ebiebi@example.com",
-            password: "unchidane"
+        await axios.post(LOGIN_ENDPOINT, {
+            email: this.state.emailText,
+            password: this.state.passwordText
         })
             .then((results) => {
-                console.log(results);
+                this.props.getLoginResult(results)
             })
             .catch(function (error) {
                 console.log('ERROR!! occurred in Backend.');
             });
     }
 
+    private updateLoginValue = (name: string, value: string) => {
+        switch (name) {
+            case ("emailText"):
+                this.setState({
+                    emailText: value
+                });
+                break;
+            case ("passwordText"):
+                this.setState({
+                    passwordText: value
+                });
+                break;
+            case ("passwordConfirmdText"):
+                this.setState({
+                    passwordConfirmedText: value
+                });
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
         return (
             <div className="Login">
                 <div className="Login__inner">
-                    <form className="Login__form" action="">
+                    <div className="Login__form">
                         <LoginInputBox
                             placeholder="メールアドレス"
                             type="email"
-                            name="email"
+                            name="emailText"
+                            updateLoginValue={this.updateLoginValue}
                         />
                         <LoginInputBox
                             placeholder="パスワード"
                             type="password"
-                            name="password"
+                            name="passwordText"
+                            updateLoginValue={this.updateLoginValue}
                         />
                         <LoginInputBox
                             placeholder="パスワード再入力"
                             type="password"
-                            name="password"
+                            name="passwordConfirmdText"
+                            updateLoginValue={this.updateLoginValue}
                         />
                         <LoginButton
-                            href="#dummy"
                             type="submit"
-                            name={this.state.buttonText}
+                            name="buttonText"
                             value={this.state.buttonText}
                             buttonText={this.state.buttonText}
-                            onClick={this.signInFunction}
+                            signInFunction={this.signInFunction}
                         />
                         <LoginSNS
-                            href="#dummy"
                             src={image}
                             alt="Twitterロゴ"
                         />
-                    </form>
+                    </div>
                 </div>
             </div>
         )

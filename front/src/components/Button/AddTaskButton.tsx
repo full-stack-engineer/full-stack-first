@@ -1,14 +1,19 @@
 import React from "react";
 import "./AddTaskButton.scss";
 
-const AddTaskButton: React.FC = () => {
+interface AddTaskButton {
+    plusButtonFlg: any;
+}
+
+const AddTaskButton: React.FC<AddTaskButton> = props => {
     return (
         <div className="AddTaskButton">
-            <a className="AddTaskButton__link" href="#dummy">
-                <button className="AddTaskButton__plus">
-                    <span className="AddTaskButton__icon" />
+            <button
+                className="AddTaskButton__plus"
+                onClick={props.plusButtonFlg}
+            >
+                追加する
                 </button>
-            </a>
         </div>
     )
 }

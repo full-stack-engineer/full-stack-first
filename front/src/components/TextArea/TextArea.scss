@@ -1,0 +1,23 @@
+$color: #fff;
+$mainBule: #4665FF;
+$subBule: #6B84FF;
+
+.TextArea {
+    margin: 0 24px;
+
+    &__input {
+        background: none;
+        border: none;
+        color: $color;
+        font-size: 1.6rem;
+        outline: none;
+        min-height: calc((1.6rem + .4rem) * 4);
+        line-height: calc(24 / 16);
+        width: 100%;
+
+        &::placeholder {
+            color: $subBule;
+            font-size: 1.6rem;
+        }
+    }
+}

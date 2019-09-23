@@ -2,12 +2,11 @@ import React from "react";
 import "./LoginButton.scss"
 
 interface LoginButtonInterface {
-    href: string;
     buttonText: string;
     type?: "button" | "submit" | "reset";
     name?: string;
     value?: string;
-    onClick?: any;
+    signInFunction: any;
 }
 
 const LoginButton: React.FC<LoginButtonInterface> = props => {
@@ -18,7 +17,7 @@ const LoginButton: React.FC<LoginButtonInterface> = props => {
                 type={props.type}
                 name={props.name}
                 value={props.value}
-                onClick={props.onClick}
+                onClick={props.signInFunction}
             >
                 {props.buttonText}
             </button>

@@ -12,9 +12,10 @@ interface LoginInterface {
     passwordText: string;
     passwordConfirmedText: string;
     buttonText: string;
+    getLoginResult?: any;
 }
 
-export default class Login extends Component<{}, LoginInterface> {
+export default class Login extends Component<any, LoginInterface> {
     constructor(props: LoginInterface) {
         super(props);
         this.updateLoginValue = this.updateLoginValue.bind(this);
@@ -27,15 +28,15 @@ export default class Login extends Component<{}, LoginInterface> {
         }
     }
 
-    signInFunction = () => {
+    signInFunction = async () => {
         let LOGIN_ENDPOINT = "http://localhost:3000/api/v1/auth/sign_in";
 
-        axios.post(LOGIN_ENDPOINT, {
+        await axios.post(LOGIN_ENDPOINT, {
             email: this.state.emailText,
             password: this.state.passwordText
         })
             .then((results) => {
-                console.log(results);
+                this.props.getLoginResult(results)
             })
             .catch(function (error) {
                 console.log('ERROR!! occurred in Backend.');
@@ -43,8 +44,6 @@ export default class Login extends Component<{}, LoginInterface> {
     }
 
     private updateLoginValue = (name: string, value: string) => {
-        console.log(name, value);
-
         switch (name) {
             case ("emailText"):
                 this.setState({
@@ -67,11 +66,10 @@ export default class Login extends Component<{}, LoginInterface> {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div className="Login">
                 <div className="Login__inner">
-                    <form className="Login__form" action="">
+                    <div className="Login__form">
                         <LoginInputBox
                             placeholder="メールアドレス"
                             type="email"
@@ -101,7 +99,7 @@ export default class Login extends Component<{}, LoginInterface> {
                             src={image}
                             alt="Twitterロゴ"
                         />
-                    </form>
+                    </div>
                 </div>
             </div>
         )

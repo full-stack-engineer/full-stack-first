@@ -12,7 +12,7 @@ const TextArea: React.FC<TextAreaInterface> = props => {
         <div className="TextArea">
             <textarea
                 className="TextArea__input"
-                onChange={(e) => { setTextHeight(e.target.value.split("\n").length * (1.6 + .3)) }}
+                onChange={(e) => { setTextHeight(e.target.value.split("\n").length * (1.6 + .35)) }}
                 style={{ height: `${textHeight}rem` }}
                 placeholder={props.placeholder}
             />

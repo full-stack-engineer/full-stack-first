@@ -9,6 +9,7 @@ interface LoginButtonInterface {
     signInFunction: any;
 }
 
+
 const LoginButton: React.FC<LoginButtonInterface> = props => {
     return (
         <div className="LoginButton">

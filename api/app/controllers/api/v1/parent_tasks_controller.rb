@@ -20,7 +20,7 @@ module Api
             end
 
             def destroy
-                if current_api_user.id == @parent_tasks.user_id
+                if current_api_user.id == @parent_task.user_id
                     @parent_task.destroy
                     render json: { status: 'SUCCESS', message: 'Deleted the task', data: @parent_task }
                 else
@@ -46,7 +46,7 @@ module Api
                 end
 
                 def task_params
-                    params.require(:parent_task).permit(:content, :progress)
+                    params.permit(:content, :progress)
                 end
 
         end

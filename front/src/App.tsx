@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import Login from "./components/Login/Login";
 import Main from "./components/Main/Main";
 
-export default class App extends Component {
+interface AppInterface {
+  id?: number;
+  accessToken?: string;
+  client?: string;
+  uid?: string;
+}
+
+export default class App extends Component<{}, AppInterface> {
   constructor(props: {}) {
     super(props);
     this.getLoginResult = this.getLoginResult.bind(this);
@@ -27,8 +34,10 @@ export default class App extends Component {
     console.log(this.state);
     return (
       <div>
-        <Login getLoginResult={this.getLoginResult} />
-        <Main />
+        {this.state.accessToken
+          ? <Main />
+          : <Login getLoginResult={this.getLoginResult} />
+        }
       </div>
     )
   }

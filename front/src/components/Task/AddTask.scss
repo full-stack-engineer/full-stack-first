@@ -1,5 +1,10 @@
 .AddTask {
     background: #4665FF;
-    padding: 60px 24px 0;
+    padding: 60px 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
     height: 100vh;
+    width: 100%;
 }

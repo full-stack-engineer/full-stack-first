@@ -1,19 +1,8 @@
 $color: #fff;
 $mainBule: #4665FF;
 $subBule: #6B84FF;
-
-@mixin lhCrop($line-height) {
-  &::before {
-    content: '';
-    display: block;
-    height: 0;
-    width: 0;
-    margin-top: calc((1 - #{$line-height}) * 0.5em);
-  }
-}
-
 .TextArea {
-    margin: 0 24px;
+    margin: 0 48px 40px;
 
     &__input {
         background: none;
@@ -22,17 +11,15 @@ $subBule: #6B84FF;
         font-size: 1.6rem;
         outline: none;
         padding: 4px 0;
-        min-height: calc((1.6rem + .4rem) * 4);
         letter-spacing: 1.6px;
         width: 100%;
-        @include lhCrop(calc(24 / 16));
 
         &::placeholder {
             color: $subBule;
             font-size: 1.6rem;
             padding-left: 4px;
             position: relative;
-            top: -2.5px;
+            top: -2.4px;
         }
     }
 }

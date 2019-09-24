@@ -10,11 +10,9 @@ const LoginInputBox: React.FC<LoginSNSInterface> = props => {
     return (
         <div className="LoginSNS">
             <p className="LoginSNS__text">または</p>
-            <div className="LoginSNS__link">
-                <button className="LoginSNS__button">
-                    <img src={props.src} alt={props.alt} />
-                </button>
-            </div>
+            <button className="LoginSNS__button">
+                <img src={props.src} alt={props.alt} />
+            </button>
         </div >
     )
 }

@@ -32,10 +32,6 @@ paths:
       produces:
         - application/json
       parameters:
-        - in: query
-          name: user_id
-          type: integer
-          required: true
         - name: uid
           in: header
           type: string
@@ -44,7 +40,7 @@ paths:
           type: string
         - name: client
           in: header
-          type: string  
+          type: string
       responses:
         '200':
           description: Valid input
@@ -58,6 +54,15 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: uid
+          in: header
+          type: string
+        - name: access-token
+          in: header
+          type: string
+        - name: client
+          in: header
+          type: string  
         - in: body
           name: body
           required: true
@@ -77,8 +82,18 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: uid
+          in: header
+          type: string
+        - name: access-token
+          in: header
+          type: string
+        - name: client
+          in: header
+          type: string  
         - in: path
           name: id
+          description: "id of parent_task"
           type: integer
           required: true
         - in: body
@@ -99,8 +114,18 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: uid
+          in: header
+          type: string
+        - name: access-token
+          in: header
+          type: string
+        - name: client
+          in: header
+          type: string  
         - in: path
           name: id
+          description: "id of parent_task"
           type: integer
           required: true
       responses:
@@ -210,15 +235,11 @@ definitions:
     type: object
     required:
       - content
-      - user_id
       - progress
     properties:
       content:
         type: string
       progress:
-        type: integer
-        format: int64
-      user_id:
         type: integer
         format: int64
   ApiResponse:

@@ -11,7 +11,7 @@ const TextArea: React.FC<TextAreaInterface> = props => {
         <div className="TextArea">
             <textarea
                 className="TextArea__input"
-                onChange={(e) => props.textAreaValue(e.target.value)}
+                onChange={(e) => props.textAreaValue(e.target.value.replace(/\n/g, " "))}
                 rows={8}
                 placeholder={props.placeholder}
             />

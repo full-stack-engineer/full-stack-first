@@ -15,6 +15,7 @@ const AddTask: React.FC<AddTask> = props => {
         setTextArea(value);
     }
 
+    // axiosでタスクをpostするところ
     const postTextAreaValue = () => {
         console.log("送信した内容: ", textArea);
     }

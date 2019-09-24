@@ -3,6 +3,7 @@ import "./TextArea.scss";
 
 interface TextAreaInterface {
     placeholder: string;
+    textAreaValue: any;
 }
 
 const TextArea: React.FC<TextAreaInterface> = props => {
@@ -10,7 +11,7 @@ const TextArea: React.FC<TextAreaInterface> = props => {
         <div className="TextArea">
             <textarea
                 className="TextArea__input"
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => props.textAreaValue(e.target.value)}
                 rows={8}
                 placeholder={props.placeholder}
             />

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateParentTasks < ActiveRecord::Migration[6.0]
   def change
     create_table :parent_tasks do |t|

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import LoginInputBox from "./LoginInputBox";
 import LoginButton from "./LoginButton";
 import LoginSNS from "./LoginSNS";
 import "./Login.scss";
 import axios from 'axios';
+
+import LoginContainer from "../../redux/container/loginContainer"
 
 import image from "../../assets/twitter.svg";
 
@@ -18,7 +19,6 @@ interface LoginInterface {
 export default class Login extends Component<any, LoginInterface> {
     constructor(props: LoginInterface) {
         super(props);
-        this.updateLoginValue = this.updateLoginValue.bind(this);
         this.signInFunction = this.signInFunction.bind(this);
         this.state = {
             emailText: "ebiebi@example.com",
@@ -43,50 +43,25 @@ export default class Login extends Component<any, LoginInterface> {
             });
     }
 
-    private updateLoginValue = (name: string, value: string) => {
-        switch (name) {
-            case ("emailText"):
-                this.setState({
-                    emailText: value
-                });
-                break;
-            case ("passwordText"):
-                this.setState({
-                    passwordText: value
-                });
-                break;
-            case ("passwordConfirmdText"):
-                this.setState({
-                    passwordConfirmedText: value
-                });
-                break;
-            default:
-                break;
-        }
-    }
-
     render() {
         return (
             <div className="Login">
                 <div className="Login__inner">
                     <div className="Login__form">
-                        <LoginInputBox
+                        <LoginContainer
                             placeholder="メールアドレス"
                             type="email"
                             name="emailText"
-                            updateLoginValue={this.updateLoginValue}
                         />
-                        <LoginInputBox
+                        <LoginContainer
                             placeholder="パスワード"
                             type="password"
                             name="passwordText"
-                            updateLoginValue={this.updateLoginValue}
                         />
-                        <LoginInputBox
+                        <LoginContainer
                             placeholder="パスワード再入力"
                             type="password"
                             name="passwordConfirmdText"
-                            updateLoginValue={this.updateLoginValue}
                         />
                         <LoginButton
                             type="submit"

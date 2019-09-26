@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/faker-ruby/faker.git
-  revision: 15fc1e177335e4d69d80ca912186d6d538954f78
+  revision: 4d62e8f1497eb4263f2ef0f6ebc0f073899b7df5
   branch: master
   specs:
-    faker (2.3.0)
+    faker (2.4.0)
       i18n (~> 1.6.0)
 
 GEM
@@ -109,9 +109,9 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.11.3)
+    minitest (5.12.0)
     msgpack (1.3.1)
-    nio4r (2.5.1)
+    nio4r (2.5.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     oauth (0.5.4)

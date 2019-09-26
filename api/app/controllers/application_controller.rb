@@ -3,7 +3,8 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
   before_action :skip_session
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters,
+                if: :devise_controller?
 
   protected
 
@@ -12,6 +13,8 @@ class ApplicationController < ActionController::API
   end
 
   def configure_permitted_parameters
+    return if params[:provider] == 'twitter'
+
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[email password])
     devise_parameter_sanitizer.permit(:sign_in, keys: %i[email password format])
   end

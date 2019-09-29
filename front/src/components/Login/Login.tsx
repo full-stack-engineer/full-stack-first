@@ -1,82 +1,57 @@
-import React, { Component } from "react";
+import image from "../../assets/twitter.svg";
+import React from "react";
+import LoginInputBox from "./LoginInputBox"
 import LoginButton from "./LoginButton";
 import LoginSNS from "./LoginSNS";
+import { LoginState } from "../../redux/states/loginState";
+import { LoginAction } from "../../redux/container/loginContainer";
 import "./Login.scss";
-import axios from 'axios';
 
-import LoginContainer from "../../redux/container/loginContainer"
+type LoginProps = LoginState & LoginAction
 
-import image from "../../assets/twitter.svg";
-
-interface LoginInterface {
-    emailText: string;
-    passwordText: string;
-    passwordConfirmedText: string;
-    buttonText: string;
-    getLoginResult?: any;
+interface HTMLElementEvent<T extends HTMLElement> extends Event {
+    target: T;
 }
 
-export default class Login extends Component<any, LoginInterface> {
-    constructor(props: LoginInterface) {
-        super(props);
-        this.signInFunction = this.signInFunction.bind(this);
-        this.state = {
-            emailText: "ebiebi@example.com",
-            passwordText: "unchidane",
-            passwordConfirmedText: "",
-            buttonText: "ログイン"
-        }
-    }
+const Login: React.FC<LoginProps> = (props: LoginProps) => {
+    return (
+        <div className="Login">
+            <div className="Login__inner">
+                <div className="Login__form">
+                    <LoginInputBox
+                        placeholder="メールアドレス"
+                        type="email"
+                        name="emailText"
+                        onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputEmail(e.target.value)}
+                    />
+                    <LoginInputBox
+                        placeholder="パスワード"
+                        type="password"
+                        name="passwordText"
+                        onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputPassword(e.target.value)}
+                    />
+                    <LoginInputBox
+                        placeholder="パスワード再入力"
+                        type="password"
+                        name="passwordConfirmdText"
+                        onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputPasswordConfirmd(e.target.value)}
+                    />
+                    <LoginButton
+                        type="submit"
+                        name="buttonText"
+                        value={"ログイン"}
+                        buttonText={"ログイン"}
+                        onClick={props.pushLoginButton}
 
-    signInFunction = async () => {
-        let LOGIN_ENDPOINT = "http://localhost:3000/api/v1/auth/sign_in";
-
-        await axios.post(LOGIN_ENDPOINT, {
-            email: this.state.emailText,
-            password: this.state.passwordText
-        })
-            .then((results) => {
-                this.props.getLoginResult(results)
-            })
-            .catch(function (error) {
-                console.log('ERROR!! occurred in Backend.');
-            });
-    }
-
-    render() {
-        return (
-            <div className="Login">
-                <div className="Login__inner">
-                    <div className="Login__form">
-                        <LoginContainer
-                            placeholder="メールアドレス"
-                            type="email"
-                            name="emailText"
-                        />
-                        <LoginContainer
-                            placeholder="パスワード"
-                            type="password"
-                            name="passwordText"
-                        />
-                        <LoginContainer
-                            placeholder="パスワード再入力"
-                            type="password"
-                            name="passwordConfirmdText"
-                        />
-                        <LoginButton
-                            type="submit"
-                            name="buttonText"
-                            value={this.state.buttonText}
-                            buttonText={this.state.buttonText}
-                            signInFunction={this.signInFunction}
-                        />
-                        <LoginSNS
-                            src={image}
-                            alt="Twitterロゴ"
-                        />
-                    </div>
+                    />
+                    <LoginSNS
+                        src={image}
+                        alt="Twitterロゴ"
+                    />
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default Login;

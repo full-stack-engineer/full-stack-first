@@ -1,25 +1,21 @@
 import React from "react";
-import { LoginState } from "../../redux/states/loginState";
-import { LoginAction } from "../../redux/container/loginContainer";
 import "./LoginInputBox.scss";
 
 interface LoginInputBoxInterface {
-    placeholder?: string;
-    type?: string;
-    name?: string;
-    updateLoginValue?: any;
+    placeholder: string;
+    type: string;
+    name: string;
+    onChange: any;
 }
 
-type LoginProps = LoginInputBoxInterface & LoginState & LoginAction;
-
-const LoginInputBox: React.FC<LoginProps> = (props: LoginProps) => {
+const LoginInputBox: React.FC<LoginInputBoxInterface> = props => {
     return (
         <input
             className="LoginInputBox"
             placeholder={props.placeholder}
             type={props.type}
             name={props.name}
-            onChange={(e) => props.inputEmail(e.target.type)}
+            onChange={props.onChange}
         />
     )
 }

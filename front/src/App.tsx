@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Login from "./components/Login/Login";
 import Main from "./components/Main/Main";
+import LoginContainer from "./redux/container/loginContainer";
+import Store from "./redux/store";
 
 interface AppInterface {
   id?: number;
@@ -8,6 +9,10 @@ interface AppInterface {
   client?: string;
   uid?: string;
 }
+
+Store.subscribe(() =>
+  console.log(Store.getState())
+)
 
 export default class App extends Component<{}, AppInterface> {
   constructor(props: {}) {
@@ -24,7 +29,7 @@ export default class App extends Component<{}, AppInterface> {
   getLoginResult(results: any) {
     this.setState({
       id: results.data.data.id,
-      accessToken: results.headers['access-token'],
+      accessToken: results.headers["access-token"],
       client: results.headers.client,
       uid: results.headers.uid
     })
@@ -36,7 +41,7 @@ export default class App extends Component<{}, AppInterface> {
       <div>
         {this.state.accessToken
           ? <Main />
-          : <Login getLoginResult={this.getLoginResult} />
+          : <LoginContainer />
         }
       </div>
     )

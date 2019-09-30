@@ -3,6 +3,7 @@ import React from "react";
 import LoginInputBox from "./LoginInputBox"
 import LoginButton from "./LoginButton";
 import LoginSNS from "./LoginSNS";
+import store from "../../redux/store";
 import { LoginState } from "../../redux/states/loginState";
 import { LoginAction } from "../../redux/container/loginContainer";
 import "./Login.scss";
@@ -41,7 +42,7 @@ const Login: React.FC<LoginProps> = (props: LoginProps) => {
                         name="buttonText"
                         value={"ログイン"}
                         buttonText={"ログイン"}
-                        onClick={props.pushLoginButton}
+                        onClick={function(){console.log(store.getState().login.email);props.postLoginInfo(store.getState().login.email, store.getState().login.password)}}
 
                     />
                     <LoginSNS

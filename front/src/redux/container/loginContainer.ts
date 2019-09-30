@@ -11,7 +11,7 @@ export interface LoginAction {
     inputPassword: (inputValue: string) => Action<string>;
     inputPasswordConfirmd: (inputValue: string) => Action<string>;
     pushLoginButton: () => Action<void>;
-    postLoginInfo: (email: string, password: string) => Action<any>;
+    postLoginInfo: (email: string, password: string) => Promise<void>;
 }
 
 const mapStateToProps = (appState: AppState) => {

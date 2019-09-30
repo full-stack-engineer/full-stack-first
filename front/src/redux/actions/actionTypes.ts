@@ -1,7 +1,9 @@
 import axios from "axios";
 import actionCreatorFactory, { Action } from "typescript-fsa";
+import { ThunkAction } from 'redux-thunk';
 import { Dispatch } from "redux";
-import { LoginState } from "../states/loginState";
+import { AppState } from "../store";
+
 
 const actionCreator = actionCreatorFactory();
 
@@ -13,8 +15,8 @@ export const loginActions = {
     loadAllLoginInfo: actionCreator.async<{}, {}, {}>("LOAD_ALL_LOGIN_INFO")
 };
 
-export const postLoginInfo = (email: string, password: string) => {
-    return async (dispatch: Dispatch<Action<any>>, getState: () => LoginState) => {
+export const postLoginInfo = (email: string, password: string): ThunkAction<Promise<void>, AppState, undefined, Action<any>> => {
+    return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(loginActions.loadAllLoginInfo.started({ params: {} }));
         console.log("login request posted");
         const LOGIN_ENDPOINT = "http://localhost:3000/api/v1/auth/sign_in";

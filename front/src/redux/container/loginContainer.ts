@@ -2,6 +2,7 @@ import { Action } from "typescript-fsa";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { AppState } from "../store";
+import { ThunkDispatch } from "redux-thunk";
 import { loginActions, postLoginInfo } from "../actions/actionTypes";
 import Login from "../../components/Login/Login";
 
@@ -10,7 +11,7 @@ export interface LoginAction {
     inputPassword: (inputValue: string) => Action<string>;
     inputPasswordConfirmd: (inputValue: string) => Action<string>;
     pushLoginButton: () => Action<void>;
-    // postLoginInfo: (email: string, password: string) => Action<any>
+    postLoginInfo: (email: string, password: string) => Action<any>;
 }
 
 const mapStateToProps = (appState: AppState) => {
@@ -19,13 +20,13 @@ const mapStateToProps = (appState: AppState) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<string | void>>) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<any>>) => {
     return {
         inputEmail: (inputValue: string) => dispatch(loginActions.inputEmail(inputValue)),
         inputPassword: (inputValue: string) => dispatch(loginActions.inputPassword(inputValue)),
         inputPasswordConfirmd: (inputValue: string) => dispatch(loginActions.inputPasswordConfirmd(inputValue)),
         pushLoginButton: () => dispatch(loginActions.pushLoginButton()),
-        // postLoginInfo: (email: string, password: string) => dispatch(postLoginInfo(email, password))
+        postLoginInfo: (email: string, password: string) => dispatch(postLoginInfo(email, password))
     }
 }
 

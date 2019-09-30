@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import "./Profile.scss";
 
 interface ProfileInterface {
@@ -7,7 +7,7 @@ interface ProfileInterface {
     name: string;
 }
 
-const Profile: React.FC<ProfileInterface> = props => {
+const Profile: FC<ProfileInterface> = props => {
     return (
         <div className="Profile">
             <img className="Profile__image" src={props.src} alt={props.alt} />

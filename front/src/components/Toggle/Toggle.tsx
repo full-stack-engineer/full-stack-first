@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import "./Toggle.scss";
 
 interface ToggleInterface {
     toggleButtonFlg: any;
 }
 
-const Toggle: React.FC<ToggleInterface> = props => {
+const Toggle: FC<ToggleInterface> = props => {
     const [toggle, setToggle] = useState(true);
     return (
         <div className="Toggle">

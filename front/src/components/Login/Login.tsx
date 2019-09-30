@@ -1,5 +1,5 @@
 import image from "../../assets/twitter.svg";
-import React from "react";
+import React, { FC } from "react";
 import LoginInputBox from "./LoginInputBox"
 import LoginButton from "./LoginButton";
 import LoginSNS from "./LoginSNS";
@@ -8,13 +8,14 @@ import { LoginState } from "../../redux/states/loginState";
 import { LoginAction } from "../../redux/container/loginContainer";
 import "./Login.scss";
 
-type LoginProps = LoginState & LoginAction
+type LoginProps = LoginState & LoginAction;
 
 interface HTMLElementEvent<T extends HTMLElement> extends Event {
     target: T;
 }
 
-const Login: React.FC<LoginProps> = (props: LoginProps) => {
+
+const Login: FC<LoginProps> = (props: LoginProps) => {
     return (
         <div className="Login">
             <div className="Login__inner">
@@ -42,8 +43,8 @@ const Login: React.FC<LoginProps> = (props: LoginProps) => {
                         name="buttonText"
                         value={"ログイン"}
                         buttonText={"ログイン"}
-                        onClick={function(){console.log(store.getState().login.email);props.postLoginInfo(store.getState().login.email, store.getState().login.password)}}
-
+                        // 関数で発火させないと無限ループ
+                        onClick={() => { props.postLoginInfo(store.getState().login.email, store.getState().login.password) }}
                     />
                     <LoginSNS
                         src={image}

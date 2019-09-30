@@ -1,49 +1,34 @@
-import React, { Component } from "react";
+import React, { FC, useState, useEffect } from "react";
 import Main from "./components/Main/Main";
 import LoginContainer from "./redux/container/loginContainer";
-import Store from "./redux/store";
+import { TodoState } from "./redux/states/todoState";
+import store from "./redux/store";
+import { TodoAction } from "./redux/container/todoContainer";
 
-interface AppInterface {
-  id?: number;
-  accessToken?: string;
-  client?: string;
-  uid?: string;
+export interface AppInterface {
+  loginStatus?: boolean
 }
 
-Store.subscribe(() =>
-  console.log(Store.getState())
-)
+type AppProps = AppInterface & TodoState & TodoAction;
 
-export default class App extends Component<{}, AppInterface> {
-  constructor(props: {}) {
-    super(props);
-    this.getLoginResult = this.getLoginResult.bind(this);
-    this.state = {
-      id: 0,
-      accessToken: "",
-      client: "",
-      uid: "",
-    }
-  }
-
-  getLoginResult(results: any) {
-    this.setState({
-      id: results.data.data.id,
-      accessToken: results.headers["access-token"],
-      client: results.headers.client,
-      uid: results.headers.uid
+const App: FC<AppProps> = (props: AppProps) => {
+  const [loginStatus, setLoginStatus] = useState(false);
+  useEffect(() => {
+    store.subscribe(() => {
+      if (store.getState().login.loginStatus === true) {
+        setLoginStatus(true);
+        // props.getTodo();
+      }
     })
-  }
-
-  render() {
-    console.log(this.state);
-    return (
-      <div>
-        {this.state.accessToken
-          ? <Main />
-          : <LoginContainer />
-        }
-      </div>
-    )
-  }
+  })
+  return (
+    <div>
+      {loginStatus
+        ? <Main />
+        : <LoginContainer />
+      }
+    </div>
+  )
 }
+
+export default App;

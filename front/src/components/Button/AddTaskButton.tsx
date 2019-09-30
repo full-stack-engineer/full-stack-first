@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import "./AddTaskButton.scss";
 
 interface AddTaskButton {
@@ -6,7 +6,7 @@ interface AddTaskButton {
     postTextAreaValue: any;
 }
 
-const AddTaskButton: React.FC<AddTaskButton> = props => {
+const AddTaskButton: FC<AddTaskButton> = props => {
     return (
         <div className="AddTaskButton">
             <button

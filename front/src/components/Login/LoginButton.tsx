@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import "./LoginButton.scss"
 
 interface LoginButtonInterface {
@@ -9,7 +9,7 @@ interface LoginButtonInterface {
     onClick: any;
 }
 
-const LoginButton: React.FC<LoginButtonInterface> = props => {
+const LoginButton: FC<LoginButtonInterface> = props => {
     return (
         <div className="LoginButton">
             <button

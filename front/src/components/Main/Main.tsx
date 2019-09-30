@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import Profile from "../Profile/Profile";
 import Total from "../Total/Total";
 import Toggle from "../Toggle/Toggle";
@@ -10,7 +10,7 @@ import DoneListButton from "../Button/DoneListButton";
 import mockResponce from "../../mock-response.json";
 import "./Main.scss";
 
-const Main: React.FC = () => {
+const Main: FC = () => {
     const [plusButton, setPlusButton] = useState(false);
     const plusButtonFlg = () => {
         setPlusButton(!plusButton);

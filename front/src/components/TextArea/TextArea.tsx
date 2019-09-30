@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import "./TextArea.scss";
 
 interface TextAreaInterface {
@@ -6,7 +6,7 @@ interface TextAreaInterface {
     textAreaValue: any;
 }
 
-const TextArea: React.FC<TextAreaInterface> = props => {
+const TextArea: FC<TextAreaInterface> = props => {
     return (
         <div className="TextArea">
             <textarea

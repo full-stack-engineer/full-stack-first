@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import "./Total.scss";
 
 interface Total {
@@ -6,7 +6,7 @@ interface Total {
     todos: number;
 }
 
-const Total: React.FC<Total> = props => {
+const Total: FC<Total> = props => {
     return (
         <div className="Total">
             <div className="Total__inner">

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import "./CloseButton.scss";
 
 interface CloseButton {
     plusButtonFlg: any;
 }
 
-const CloseButton: React.FC<CloseButton> = props => {
+const CloseButton: FC<CloseButton> = props => {
     return (
         <button
             className="CloseButton"

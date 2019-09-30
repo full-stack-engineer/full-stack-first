@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import "./Todo.scss";
 
 interface TodoInterface {
@@ -21,7 +21,7 @@ export interface TodoResponseData {
 }
 
 
-const Todo: React.FC<TodoInterface> = props => {
+const Todo: FC<TodoInterface> = props => {
     return (
         <div className="Todo">
             <ul className="Todo__list">

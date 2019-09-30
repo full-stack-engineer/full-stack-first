@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import "./DoListButton.scss";
 
-const DoListButton: React.FC = props => {
+const DoListButton: FC = props => {
     return (
         <button
             className="DoListButton"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import Profile from "../Profile/Profile";
 import TextArea from "../TextArea/TextArea";
 import AddTaskButton from "../Button/AddTaskButton";
@@ -9,7 +9,7 @@ interface AddTask {
     plusButtonFlg: any
 }
 
-const AddTask: React.FC<AddTask> = props => {
+const AddTask: FC<AddTask> = props => {
     const [textArea, setTextArea] = useState("");
     const textAreaValue = (value: string) => {
         setTextArea(value);

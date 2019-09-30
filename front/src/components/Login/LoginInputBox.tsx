@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import "./LoginInputBox.scss";
 
 interface LoginInputBoxInterface {
@@ -8,7 +8,7 @@ interface LoginInputBoxInterface {
     onChange: any;
 }
 
-const LoginInputBox: React.FC<LoginInputBoxInterface> = props => {
+const LoginInputBox: FC<LoginInputBoxInterface> = props => {
     return (
         <input
             className="LoginInputBox"

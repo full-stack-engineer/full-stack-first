@@ -1,5 +1,6 @@
 import axios from "axios";
 import actionCreatorFactory, { Action } from "typescript-fsa";
+import store from "../store";
 import { ThunkAction } from 'redux-thunk';
 import { Dispatch } from "redux";
 import { AppState } from "../store";
@@ -15,22 +16,44 @@ export const loginActions = {
     loadAllLoginInfo: actionCreator.async<{}, {}, {}>("LOAD_ALL_LOGIN_INFO")
 };
 
-export const postLoginInfo = (email: string, password: string): ThunkAction<Promise<void>, AppState, undefined, Action<any>> => {
+export const postLoginInfo = (email: string, password: string): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(loginActions.loadAllLoginInfo.started({ params: {} }));
-        console.log("login request posted");
         const LOGIN_ENDPOINT = "http://localhost:3000/api/v1/auth/sign_in";
         await axios.post(LOGIN_ENDPOINT, {
             email: email,
             password: password
         })
             .then(results => {
-                console.log(results);
-                dispatch(loginActions.loadAllLoginInfo.done({ params: {}, result: results }));
+                dispatch(loginActions.loadAllLoginInfo.done({ params: {}, result: results.headers }));
             })
             .catch(error => {
-                console.log(error);
                 dispatch(loginActions.loadAllLoginInfo.failed({ params: {}, error: error }));
+            });
+    }
+}
+
+export const todoActions = {
+    loadAllTodo: actionCreator.async<{}, {}, {}>("LOAD_ALL_TODO")
+}
+
+export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
+    return async (dispatch: Dispatch<Action<any>>) => {
+        dispatch(todoActions.loadAllTodo.started({ params: {} }));
+        const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
+        await axios.get(TODO_ENDPOINT,
+            {
+                headers: {
+                    'uid': store.getState().login.authentication.uid,
+                    'access-token': store.getState().login.authentication.accessToken,
+                    'client': store.getState().login.authentication.client
+                }
+            })
+            .then(results => {
+                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results }));
+            })
+            .catch(error => {
+                dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }));
             });
     }
 }

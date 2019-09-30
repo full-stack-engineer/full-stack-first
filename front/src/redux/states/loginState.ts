@@ -1,18 +1,17 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
-import { loginActions, postLoginInfo } from "../actions/actionTypes";
+import { loginActions } from "../actions/actionTypes";
 
 export interface LoginState {
     email: string;
     password: string;
     passwordConfirmd: string;
     loading: boolean;
-    authentication: object;
-}
-
-export interface authData {
-    uid: string;
-    client: string;
-    accessToken: string;
+    loginStatus: boolean;
+    authentication: {
+        uid?: string;
+        client?: string;
+        accessToken?: string;
+    }
 }
 
 const initialState: LoginState = {
@@ -20,7 +19,12 @@ const initialState: LoginState = {
     password: "",
     passwordConfirmd: "",
     loading: false,
-    authentication: {}
+    loginStatus: false,
+    authentication: {
+        uid: "",
+        client: "",
+        accessToken: ""
+    }
 };
 
 export const loginReducer = reducerWithInitialState(initialState)
@@ -51,13 +55,17 @@ export const loginReducer = reducerWithInitialState(initialState)
         return {
             ...state,
             loading: true,
-            authentication: []
+            loginStatus: false,
+            error: null,
+            authentication: {}
         }
     })
     .case(loginActions.loadAllLoginInfo.done, (state, payload) => {
         return {
             ...state,
             loading: false,
+            error: null,
+            loginStatus: true,
             authentication: payload.result
         }
     })
@@ -65,6 +73,8 @@ export const loginReducer = reducerWithInitialState(initialState)
         return {
             ...state,
             loading: false,
-            authentication: []
+            loginStatus: false,
+            error: payload.error,
+            authentication: {}
         }
     })

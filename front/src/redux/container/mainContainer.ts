@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { AppState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
 import { getTodo } from "../actions/actionTypes";
-import App from "../../App";
+import Main from "../../components/Main/Main";
 
 export interface TodoAction {
     getTodo: () => Promise<void>;
@@ -21,4 +21,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

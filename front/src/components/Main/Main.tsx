@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import Profile from "../Profile/Profile";
 import Total from "../Total/Total";
 import Toggle from "../Toggle/Toggle";
@@ -8,9 +8,13 @@ import AddTask from "../Task/AddTask";
 import DoListButton from "../Button/DoListButton";
 import DoneListButton from "../Button/DoneListButton";
 import mockResponce from "../../mock-response.json";
+import { TodoState } from "../../redux/states/todoState";
+import { TodoAction } from "../../redux/container/mainContainer";
 import "./Main.scss";
 
-const Main: FC = () => {
+type MainProps = TodoState & TodoAction;
+
+const Main: FC<MainProps> = (props: MainProps) => {
     const [plusButton, setPlusButton] = useState(false);
     const plusButtonFlg = () => {
         setPlusButton(!plusButton);
@@ -21,9 +25,14 @@ const Main: FC = () => {
         setToggleButton(flg);
     }
 
+    const mainRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        props.getTodo();
+    }, []);
     return (
         <React.Fragment>
-            <div className="Main">
+            <div className="Main" ref={mainRef}>
                 <div className="Main__bg" />
                 <div className="Main__inner">
                     <div className="Main__topArea">
@@ -42,7 +51,7 @@ const Main: FC = () => {
                         todos={mockResponce.data.length}
                     />
                     <Toggle toggleButtonFlg={toggleButtonFlg} />
-                    <Todo todos={mockResponce} />
+                    <Todo todos={props.data} />
                     <PlusButton plusButtonFlg={plusButtonFlg} />
                 </div>
             </div>

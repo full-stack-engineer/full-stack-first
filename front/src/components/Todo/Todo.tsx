@@ -2,13 +2,7 @@ import React, { FC } from "react";
 import "./Todo.scss";
 
 interface TodoInterface {
-    todos: TodoResponse;
-}
-
-export interface TodoResponse {
-    status: string;
-    message: string;
-    data: Array<TodoResponseData>
+    todos: TodoResponseData[];
 }
 
 export interface TodoResponseData {
@@ -25,7 +19,7 @@ const Todo: FC<TodoInterface> = props => {
     return (
         <div className="Todo">
             <ul className="Todo__list">
-                {props.todos.data.map((item, i) => (
+                {props.todos.map((item, i) => (
                     <li className="Todo__item" key={i}>
                         <div className="Todo__box">
                             <div className="Todo__boxInner">

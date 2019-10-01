@@ -1,16 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
 import "./TextArea.scss";
 
 interface TextAreaInterface {
     placeholder: string;
+    textAreaValue: any;
 }
 
-const TextArea: React.FC<TextAreaInterface> = props => {
+const TextArea: FC<TextAreaInterface> = props => {
     return (
         <div className="TextArea">
             <textarea
                 className="TextArea__input"
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => props.textAreaValue(e.target.value.replace(/\n/g, " "))}
                 rows={8}
                 placeholder={props.placeholder}
             />

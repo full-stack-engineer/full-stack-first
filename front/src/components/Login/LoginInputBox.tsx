@@ -1,21 +1,21 @@
-import React from "react";
+import React, { FC } from "react";
 import "./LoginInputBox.scss";
 
 interface LoginInputBoxInterface {
     placeholder: string;
-    type?: string;
-    name?: string;
-    updateLoginValue: any;
+    type: string;
+    name: string;
+    onChange: any;
 }
 
-const LoginInputBox: React.FC<LoginInputBoxInterface> = props => {
+const LoginInputBox: FC<LoginInputBoxInterface> = props => {
     return (
         <input
             className="LoginInputBox"
             placeholder={props.placeholder}
             type={props.type}
             name={props.name}
-            onChange={(e) => props.updateLoginValue(e.target.name, e.target.value)}
+            onChange={props.onChange}
         />
     )
 }

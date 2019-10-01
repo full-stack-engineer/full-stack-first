@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import "./Toggle.scss";
 
-const Toggle: React.FC = () => {
+interface ToggleInterface {
+    toggleButtonFlg: any;
+}
+
+const Toggle: FC<ToggleInterface> = props => {
     const [toggle, setToggle] = useState(true);
     return (
         <div className="Toggle">
@@ -9,7 +13,7 @@ const Toggle: React.FC = () => {
                 id="Toggle"
                 className="Toggle__input"
                 type="checkbox"
-                onClick={() => setToggle(!toggle)}
+                onClick={() => { setToggle(!toggle); props.toggleButtonFlg(!toggle); }}
             />
             <label htmlFor="Toggle" className="Toggle__label">
                 {toggle ? (

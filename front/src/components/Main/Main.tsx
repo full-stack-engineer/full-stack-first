@@ -1,36 +1,57 @@
-import React, { useState } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import Profile from "../Profile/Profile";
 import Total from "../Total/Total";
 import Toggle from "../Toggle/Toggle";
 import Todo from "../Todo/Todo";
 import PlusButton from "../Button/PlusButton";
 import AddTask from "../Task/AddTask";
+import DoListButton from "../Button/DoListButton";
+import DoneListButton from "../Button/DoneListButton";
 import mockResponce from "../../mock-response.json";
+import { TodoState } from "../../redux/states/todoState";
+import { TodoAction } from "../../redux/container/mainContainer";
 import "./Main.scss";
 
-import image from "../../assets/girl.jpg";
+type MainProps = TodoState & TodoAction;
 
-const Main: React.FC = () => {
+const Main: FC<MainProps> = (props: MainProps) => {
     const [plusButton, setPlusButton] = useState(false);
     const plusButtonFlg = () => {
         setPlusButton(!plusButton);
     }
+
+    const [toggleButton, setToggleButton] = useState(true);
+    const toggleButtonFlg = (flg: boolean) => {
+        setToggleButton(flg);
+    }
+
+    const mainRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        props.getTodo();
+    }, []);
     return (
         <React.Fragment>
-            <div className="Main">
+            <div className="Main" ref={mainRef}>
                 <div className="Main__bg" />
                 <div className="Main__inner">
-                    <Profile
-                        src={image}
-                        alt="プロフィール画像"
-                        name="Three4C"
-                    />
+                    <div className="Main__topArea">
+                        <Profile
+                            src="https://66.media.tumblr.com/624be961c064f228f52ceb3d17c00998/tumblr_p9iby2ty8P1vc1y9yo1_1280.jpg"
+                            alt="プロフィール画像"
+                            name="よだっちょ"
+                        />
+                        {toggleButton ?
+                            <DoListButton /> :
+                            <DoneListButton />
+                        }
+                    </div>
                     <Total
-                        title="本日"
-                        todos={34}
+                        title={toggleButton ? "本日" : "これまで"}
+                        todos={mockResponce.data.length}
                     />
-                    <Toggle />
-                    <Todo todos={mockResponce} />
+                    <Toggle toggleButtonFlg={toggleButtonFlg} />
+                    <Todo todos={props.data} />
                     <PlusButton plusButtonFlg={plusButtonFlg} />
                 </div>
             </div>

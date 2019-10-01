@@ -1,0 +1,17 @@
+$color: #fff;
+
+.DoListButton {
+    background: transparent;
+    outline: none;
+    height: 44px;
+    width: 44px;
+
+    &__icon {
+        background: $color;
+        border-radius: 2.5px;
+        display: block;
+        margin: 0 auto;
+        height: 5px;
+        width: 32px;
+    }
+}

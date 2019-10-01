@@ -19,4 +19,11 @@ $subBule: #6B84FF;
         height: 100%;
         width: 100%;
     }
+
+    &__topArea {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 24px 40px;
+    }
 }

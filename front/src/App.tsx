@@ -1,44 +1,27 @@
-import React, { Component } from "react";
-import Login from "./components/Login/Login";
-import Main from "./components/Main/Main";
+import React, { FC, useState } from "react";
+import LoginContainer from "./redux/container/loginContainer";
+import MainContainer from "./redux/container/mainContainer";
+import store from "./redux/store";
 
-interface AppInterface {
-  id?: number;
-  accessToken?: string;
-  client?: string;
-  uid?: string;
+export interface AppInterface {
+  loginStatus?: boolean
 }
 
-export default class App extends Component<{}, AppInterface> {
-  constructor(props: {}) {
-    super(props);
-    this.getLoginResult = this.getLoginResult.bind(this);
-    this.state = {
-      id: 0,
-      accessToken: "",
-      client: "",
-      uid: "",
+const App: FC<AppInterface> = () => {
+  const [loginStatus, setLoginStatus] = useState(false);
+  store.subscribe(() => {
+    if (store.getState().login.loginStatus === true) {
+      setLoginStatus(true);
     }
-  }
-
-  getLoginResult(results: any) {
-    this.setState({
-      id: results.data.data.id,
-      accessToken: results.headers['access-token'],
-      client: results.headers.client,
-      uid: results.headers.uid
-    })
-  }
-
-  render() {
-    console.log(this.state);
-    return (
-      <div>
-        {this.state.accessToken
-          ? <Main />
-          : <Login getLoginResult={this.getLoginResult} />
-        }
-      </div>
-    )
-  }
+  })
+  return (
+    <div>
+      {loginStatus
+        ? <MainContainer />
+        : <LoginContainer />
+      }
+    </div>
+  )
 }
+
+export default App;

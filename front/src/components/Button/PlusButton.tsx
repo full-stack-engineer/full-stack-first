@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import "./PlusButton.scss";
 
 interface PlusButton {
     plusButtonFlg: any
 }
 
-const PlusButton: React.FC<PlusButton> = props => {
+const PlusButton: FC<PlusButton> = props => {
     return (
         <div className="PlusButton">
             <button

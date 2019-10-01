@@ -41,16 +41,17 @@ export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Actio
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
         const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
+        console.log(store.getState().login.authentication['access-token']);
         await axios.get(TODO_ENDPOINT,
             {
                 headers: {
                     'uid': store.getState().login.authentication.uid,
-                    'access-token': store.getState().login.authentication.accessToken,
+                    'access-token': store.getState().login.authentication['access-token'],
                     'client': store.getState().login.authentication.client
                 }
             })
             .then(results => {
-                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results }));
+                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results.data.data }));
             })
             .catch(error => {
                 dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }));

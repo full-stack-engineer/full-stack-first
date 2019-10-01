@@ -10,7 +10,7 @@ export interface LoginState {
     authentication: {
         uid?: string;
         client?: string;
-        accessToken?: string;
+        ['access-token']?: string;
     }
 }
 
@@ -23,7 +23,7 @@ const initialState: LoginState = {
     authentication: {
         uid: "",
         client: "",
-        accessToken: ""
+        ['access-token']: ""
     }
 };
 

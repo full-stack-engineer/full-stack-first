@@ -3,10 +3,12 @@ import { todoActions } from "../actions/actionTypes";
 
 export interface TodoState {
     loading: boolean;
+    todos: {};
 }
 
 const initialState: TodoState = {
     loading: false,
+    todos: {},
 };
 
 export const todoReducer = reducerWithInitialState(initialState)
@@ -21,7 +23,7 @@ export const todoReducer = reducerWithInitialState(initialState)
         return {
             ...state,
             loading: false,
-            tinpo: payload.result,
+            todos: payload.result,
             error: null
         }
     })

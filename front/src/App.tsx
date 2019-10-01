@@ -11,13 +11,18 @@ export interface AppInterface {
 
 type AppProps = AppInterface & TodoState & TodoAction;
 
+let count = 0;
+
 const App: FC<AppProps> = (props: AppProps) => {
   const [loginStatus, setLoginStatus] = useState(false);
   useEffect(() => {
     store.subscribe(() => {
       if (store.getState().login.loginStatus === true) {
         setLoginStatus(true);
-        // props.getTodo();
+        if (count !== 1) {
+          count++;
+          props.getTodo();
+        }
       }
     })
   })

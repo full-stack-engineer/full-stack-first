@@ -33,17 +33,14 @@ module Api
 
     config.action_dispatch.default_headers = {
       'Access-Control-Allow-Credentials' => 'true',
-      'Access-Control-Allow-Origin' => 'http://localhost:3000',
+      'Access-Control-Allow-Origin' => 'http://localhost:8000',
       'Access-Control-Request-MFethod' => '*'
     }
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
-        resource '*',
-                 headers: :any,
-                 expose: %w[access-token expiry token-type uid client],
-                 methods: %i[get post options delete put]
+        origins /\Ahttp:\/\/localhost:\d+\z/
+        resource '*', headers: :any, methods: :any
       end
     end
 

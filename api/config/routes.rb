@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  match '*path' => 'options_request#preflight', via: :options
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   namespace :api, defaults: { format: :json } do
     scope :v1 do

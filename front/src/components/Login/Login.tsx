@@ -46,9 +46,10 @@ export default class Login extends Component<any, LoginInterface> {
 
   signInByTwitter = async () => {
     let axiosApi = axios.create({
-      headers: { "Access-Control-Allow-Origin": "*" }
+      xsrfHeaderName: "X-CSRF-Token",
+      withCredentials: true
     });
-    let LOGIN_ENDPOINT = "http://localhost:3000/omniauth/twitter";
+    let LOGIN_ENDPOINT = "http://localhost:3000/api/v1/auth/twitter";
 
     await axiosApi
       .get(LOGIN_ENDPOINT, {

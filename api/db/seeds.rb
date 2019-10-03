@@ -12,19 +12,19 @@ require 'faker'
 User.create!(
   [
     {
-      name: 'カルパス',
       email: 'kalupas@example.com',
-      password: 'hogehoge'
+      password: 'hogehoge',
+      password_confirmation: 'hogehoge'
     },
     {
-      name: 'えびじゅん',
       email: 'ebiebi@example.com',
-      password: 'unchidane'
+      password: 'unchidane',
+      password_confirmation: 'unchidane'
     },
     {
-      name: 'miyo',
       email: 'miyo@example.com',
-      password: 'dancerprogrammer'
+      password: 'dancerprogrammer',
+      password_confirmation: 'dancerprogrammer'
     }
   ]
 )

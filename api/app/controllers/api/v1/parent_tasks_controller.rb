@@ -4,7 +4,7 @@ module Api
   module V1
     class ParentTasksController < ApplicationController
       before_action :set_parent_task
-      before_action :authenticate_api_user!
+      before_action :authenticate!
 
       def index
         parent_tasks = ParentTask.where(user_id: current_api_user.id).order(created_at: :asc)

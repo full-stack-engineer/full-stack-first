@@ -1,30 +1,13 @@
-# frozen_string_literal: true
-
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_many :parent_tasks, dependent: :destroy
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable
-  include DeviseTokenAuth::Concerns::User
+  authenticates_with_sorcery!
 
-  def self.find_for_oauth(auth)
-    user = User.where(uid: auth.uid, provider: auth.provider).first
+  attribute :password, :string
+  attribute :password_confirmation, :string
 
-    user ||= User.create(
-      provider: auth.provider,
-      uid: auth.uid,
-      username: auth.info.nickname,
-      email: User.dummy_email(auth),
-      password: Devise.friendly_token[0, 20]
-    )
+  validates :password, presence: true, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
+  validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
+  validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
 
-    user
-  end
-
-  private
-
-  # ダミーのアドレスを用意
-  def self.dummy_email(auth)
-    "#{auth.uid}-#{auth.provider}@example.com"
-  end
+  validates :email, uniqueness: true
 end

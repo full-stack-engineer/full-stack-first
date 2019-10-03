@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :parent_tasks, dependent: :destroy
+  has_many :authentications, :dependent => :destroy
+  accepts_nested_attributes_for :authentications
   authenticates_with_sorcery!
 
   attribute :password, :string

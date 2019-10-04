@@ -17,24 +17,24 @@ module Api
         if parent_task.save
           render json: { status: 'SUCCESS', data: parent_task }
         else
-          render json: { status: 'ERROR', data: parent_task.errors }
+          render json: { status: 'ERROR', data: parent_task.errors }, status: 400
         end
       end
 
       def destroy
-        return render json: { status: 'ERROR', message: 'You do not have permission' } unless current_user.id == @parent_task.user_id
+        return render json: { status: 'ERROR', message: 'You do not have permission' }, status: 403 unless current_user.id == @parent_task.user_id
 
         @parent_task.destroy
         render json: { status: 'SUCCESS', message: 'Deleted the task', data: @parent_task }
       end
 
       def update
-        return render json: { status: 'ERROR', message: 'You do not have permission' } unless current_user.id == @parent_task.user_id
+        return render json: { status: 'ERROR', message: 'You do not have permission' }, status: 403 unless current_user.id == @parent_task.user_id
 
         if @parent_task.update(task_params)
           render json: { status: 'SUCCESS', message: 'Updated the task', data: @parent_task }
         else
-          render json: { status: 'ERROR', message: 'Not updated', data: @parent_task.errors }
+          render json: { status: 'ERROR', message: 'Not updated', data: @parent_task.errors }, status: 400
         end
       end
 

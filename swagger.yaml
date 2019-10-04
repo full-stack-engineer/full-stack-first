@@ -14,8 +14,6 @@ basePath: /api/v1
 tags:
   - name: ParentTasks
     description: Operations about ParentTasks
-  - name: ChildTasks
-    description: Operations about ChildTasks
   - name: User
     description: Operations about user
 schemes:
@@ -32,18 +30,26 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: uid
+        - name: Authorization
           in: header
-          type: string
-        - name: access-token
-          in: header
-          type: string
-        - name: client
-          in: header
+          description: "Bearer {access_token}"
           type: string
       responses:
         '200':
           description: Valid input
+          schema:
+            $ref: '#/definitions/ParentTaskGetResponse'
+        '401':
+          description: Unauthorized
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "error"
+              message:
+                type: "string"
+                example: "token_must_be_passed"
     post:
       tags:
         - ParentTasks
@@ -54,15 +60,10 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: uid
+        - name: Authorization
           in: header
+          description: "Bearer {access_token}"
           type: string
-        - name: access-token
-          in: header
-          type: string
-        - name: client
-          in: header
-          type: string  
         - in: body
           name: body
           required: true
@@ -71,6 +72,20 @@ paths:
       responses:
         '200':
           description: Creating parent_task is success
+          schema:
+            $ref: '#/definitions/ParentTaskPostResponse'
+        '401':
+          description: Unauthorized
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "error"
+              message:
+                type: "string"
+                example: "token_must_be_passed"
+
   '/parent_tasks/{id}':
     put:
       tags:
@@ -82,15 +97,10 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: uid
+        - name: Authorization
           in: header
-          type: string
-        - name: access-token
-          in: header
-          type: string
-        - name: client
-          in: header
-          type: string  
+          description: "Bearer {access_token}"
+          type: string 
         - in: path
           name: id
           description: "id of parent_task"
@@ -104,6 +114,30 @@ paths:
       responses:
         '200':
           description: Updating parent_task is success
+          schema:
+            $ref: '#/definitions/ParentTaskPutResponse'
+        '401':
+          description: Unauthorized
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "error"
+              message:
+                type: "string"
+                example: "token_must_be_passed"
+        '403':
+          description: You do not have permission
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "ERROR"
+              message:
+                type: "string"
+                example: "You do not have permission"
     delete:
       tags:
         - ParentTasks
@@ -114,15 +148,10 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: uid
+        - name: Authorization
           in: header
+          description: "Bearer {access_token}"
           type: string
-        - name: access-token
-          in: header
-          type: string
-        - name: client
-          in: header
-          type: string  
         - in: path
           name: id
           description: "id of parent_task"
@@ -131,7 +160,31 @@ paths:
       responses:
         '200':
           description: Deleting parent_task is success
-  /auth/:
+          schema:
+            $ref: '#/definitions/ParentTaskDeleteResponse'
+        '401':
+          description: Unauthorized
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "error"
+              message:
+                type: "string"
+                example: "token_must_be_passed"
+        '403':
+          description: You do not have permission
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "ERROR"
+              message:
+                type: "string"
+                example: "You do not have permission"
+  /register/:
     post:
       tags:
         - User
@@ -145,28 +198,13 @@ paths:
           schema:
             $ref: '#/definitions/Registration_User'
       responses:
-        default:
+        '200':
           description: successful operation
-    delete:
-      tags:
-        - User
-      summary: Delete User
-      produces:
-        - application/json
-      parameters:
-        - name: uid
-          in: header
-          type: string
-        - name: access-token
-          in: header
-          type: string
-        - name: client
-          in: header
-          type: string
-      responses:
-        default:
-          description: successful operation
-  /auth/sign_in:
+          schema:
+            $ref: '#/definitions/RegisterResponse'
+        '400':
+          description: "Bad Request"
+  /login/:
     post:
       tags:
         - User
@@ -180,50 +218,35 @@ paths:
           schema:
             $ref: '#/definitions/User'
       responses:
-        default:
-          description: successful operation
-  /auth/sign_out:
-    delete:
+        '200':
+          description: login success
+          schema:
+            $ref: '#/definitions/LoginResponse'
+  /oauth/twitter:
+    get:
       tags:
         - User
-      summary: Sing out
+      summary: twitter authentification
+      description: "If you access \"api/v1/oauth/twitter\", will be open twitter authentification screen. If you authorize by twitter, redirect to \"localhost:8000\". Then access_token and refresh_token are in the URL. So you can get them from the URL"
       produces:
         - application/json
-      parameters:
-        - name: uid
-          in: header
-          type: string
-        - name: access-token
-          in: header
-          type: string
-        - name: client
-          in: header
-          type: string
       responses:
         default:
           description: successful operation
-securityDefinitions:
-  petstore_auth:
-    type: oauth2
-    authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
-    flow: implicit
-    scopes:
-      'write:pets': modify pets in your account
-      'read:pets': read your pets
-  api_key:
-    type: apiKey
-    name: api_key
-    in: header
+      
 definitions:
   Registration_User:
     type: object
     properties:
-      email:
-        type: string
-      password:
-        type: string
-      password_confirmation:
-        type: string
+      user:
+        type: object
+        properties:
+          email:
+            type: string
+          password:
+            type: string
+          password_confirmation:
+            type: string
   User:
     type: object
     properties:
@@ -242,16 +265,193 @@ definitions:
       progress:
         type: integer
         format: int64
-  ApiResponse:
+  RegisterResponse:
     type: object
     properties:
-      code:
-        type: integer
-        format: int32
-      type:
-        type: string
+      status:
+        type: "string"
+        example: "success"
+      data:
+        type: "object"
+        properties:
+          access_token:
+            type: "string"
+            example: "yJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOCIsImV4cCI6IjE1NzAxNjI4NDgifQ.346wbegLKS2xPO6rLGc9KNTflyFc5MBkuhT4dNFfaRE"
+          refresh_token:
+            type: "string"
+            example: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOCIsImV4cCI6IjE1NzI3OTA3OTQifQ.Jo1fakLRNQUTmRhvD8Ecf3H1PsKad4teTCl7pMrcZS8"
+          user:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: 8
+              email:
+                type: "string"
+                example: "hoge@example.com"
+              crypted_password:
+                type: "string"
+                example: "$2a$10$4swk4Jb7FqdjY9SNQcXcNOy1ue2HzZhrEJdYTBboWziKx0fWR5RCq"
+              salt:
+                type: "string"
+                example: "aPrzmodcU2zQhkbzt3GJ"
+              refresh_token:
+                type: "string"
+                example: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOCIsImV4cCI6IjE1NzI3OTA3OTQifQ.Jo1fakLRNQUTmRhvD8Ecf3H1PsKad4teTCl7pMrcZS8"
+              created_at:
+                type: "string"
+                example: "2019-10-04T03:50:48.554Z"
+              updated_at:
+                type: "string"
+                example: "2019-10-04T03:50:48.570Z"
+              password:
+                example: null
+              password_confirmation:
+                example: null
+  LoginResponse:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        example: "success"
+      data:
+        type: "object"
+        properties:
+          access_token:
+            type: "string"
+            example: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOSIsImV4cCI6IjE1NzAxNjM1NzMifQ._r-Xdc318OCq7G3-tnJQTPCoPxgybDgcghWykIczVqQ"
+          refresh_token:
+            type: "string"
+            example: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOSIsImV4cCI6IjE1NzI3OTE1MTkifQ.JCeF3p2mfcrF6MrenBrCrC2px4drljUpFrJVi2E5i98"
+  ParentTaskGetResponse:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        example: "SUCCESS"
       message:
-        type: string
+        type: "string"
+        example: "Loaded parent_tasks"
+      data:
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+            format: "int64"
+            example: 1
+          content:
+            type: "string"
+            example: "これはタスクだよ"
+          user_id:
+            type: "integer"
+            format: "int64"
+            example: 1
+          progress:
+            type: "integer"
+            format: "int64"
+            example: 52
+          created_at:
+            type: "string"
+            example: "2019-10-03T06:53:57.536Z"
+          updated_at:
+            type: "string"
+            example: "2019-10-03T06:53:57.536Z"
+  ParentTaskPostResponse:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        example: "SUCCESS"
+      data:
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+            format: "int64"
+            example: 1
+          content:
+            type: "string"
+            example: "これはタスクだよ"
+          user_id:
+            type: "integer"
+            format: "int64"
+            example: 1
+          progress:
+            type: "integer"
+            format: "int64"
+            example: 52
+          created_at:
+            type: "string"
+            example: "2019-10-03T06:53:57.536Z"
+          updated_at:
+            type: "string"
+            example: "2019-10-03T06:53:57.536Z"
+  ParentTaskPutResponse:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        example: "SUCCESS"
+      message:
+        type: "string"
+        example: "Updated the task"
+      data:
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+            format: "int64"
+            example: 1
+          content:
+            type: "string"
+            example: "これはタスクだよ"
+          user_id:
+            type: "integer"
+            format: "int64"
+            example: 1
+          progress:
+            type: "integer"
+            format: "int64"
+            example: 52
+          created_at:
+            type: "string"
+            example: "2019-10-03T06:53:57.536Z"
+          updated_at:
+            type: "string"
+            example: "2019-10-03T06:53:57.536Z"
+  ParentTaskDeleteResponse:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        example: "SUCCESS"
+      message:
+        type: "string"
+        example: "Deleted the task"
+      data:
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+            format: "int64"
+            example: 1
+          content:
+            type: "string"
+            example: "これはタスクだよ"
+          user_id:
+            type: "integer"
+            format: "int64"
+            example: 1
+          progress:
+            type: "integer"
+            format: "int64"
+            example: 52
+          created_at:
+            type: "string"
+            example: "2019-10-03T06:53:57.536Z"
+          updated_at:
+            type: "string"
+            example: "2019-10-03T06:53:57.536Z"
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'

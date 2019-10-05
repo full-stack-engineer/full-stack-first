@@ -28,9 +28,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
     useEffect(() => {
         if (localStorage.getItem("login") === null) {
             localStorage.setItem("login", "true");
-            localStorage.setItem("uid", String(store.getState().login.authentication.uid));
-            localStorage.setItem("accessToken", String(store.getState().login.authentication["access-token"]));
-            localStorage.setItem("client", String(store.getState().login.authentication.client));
+            localStorage.setItem("accessToken", String(store.getState().login.results.data.token.access_token));
         }
         props.getTodo();
     }, []);

@@ -6,6 +6,7 @@ import { loginActions, postLoginInfo } from "../actions/actionTypes";
 import Login from "../../components/Login/Login";
 
 export interface LoginAction {
+    inputName: (inputValue: string) => Action<string>;
     inputEmail: (inputValue: string) => Action<string>;
     inputPassword: (inputValue: string) => Action<string>;
     inputPasswordConfirmd: (inputValue: string) => Action<string>;
@@ -21,6 +22,7 @@ const mapStateToProps = (appState: AppState) => {
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<any>>) => {
     return {
+        inputName: (inputValue: string) => dispatch(loginActions.inputName(inputValue)),
         inputEmail: (inputValue: string) => dispatch(loginActions.inputEmail(inputValue)),
         inputPassword: (inputValue: string) => dispatch(loginActions.inputPassword(inputValue)),
         inputPasswordConfirmd: (inputValue: string) => dispatch(loginActions.inputPasswordConfirmd(inputValue)),

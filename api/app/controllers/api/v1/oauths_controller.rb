@@ -43,7 +43,7 @@ module Api
             tokens = Jwt::TokenProvider.refresh_tokens @user
             redirect_to "#{File.join('http://localhost:8000', '#', '?')}#{tokens.to_query}", :notice => "Logged in from #{provider.titleize}!"
           rescue
-            redirect_to root_path, :alert => "Failed to login from #{provider.titleize}!"
+            redirect_to 'http://localhost:8000', :alert => "Failed to login from #{provider.titleize}!"
           end
         end
       end

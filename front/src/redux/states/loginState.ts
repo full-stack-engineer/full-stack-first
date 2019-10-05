@@ -2,32 +2,52 @@ import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { loginActions } from "../actions/actionTypes";
 
 export interface LoginState {
+    name: string;
     email: string;
     password: string;
     passwordConfirmd: string;
     loading: boolean;
     loginStatus: boolean;
-    authentication: {
-        uid?: string;
-        client?: string;
-        ['access-token']?: string;
+    results: {
+        data: {
+            token: {
+                access_token: string;
+                refresh_token: string;
+            };
+            user: {
+                name: string;
+            };
+        }
     }
 }
 
 const initialState: LoginState = {
+    name: "",
     email: "",
     password: "",
     passwordConfirmd: "",
     loading: false,
     loginStatus: false,
-    authentication: {
-        uid: "",
-        client: "",
-        ['access-token']: ""
+    results: {
+        data: {
+            token: {
+                access_token: "",
+                refresh_token: ""
+            },
+            user: {
+                name: ""
+            }
+        }
     }
 };
 
 export const loginReducer = reducerWithInitialState(initialState)
+    .case(loginActions.inputName, (state, name) => {
+        return {
+            ...state,
+            name,
+        }
+    })
     .case(loginActions.inputEmail, (state, email) => {
         return {
             ...state,
@@ -57,16 +77,15 @@ export const loginReducer = reducerWithInitialState(initialState)
             loading: true,
             loginStatus: false,
             error: null,
-            authentication: {}
         }
     })
-    .case(loginActions.loadAllLoginInfo.done, (state, payload) => {
+    .case(loginActions.loadAllLoginInfo.done, (state, payload: any) => {
         return {
             ...state,
             loading: false,
             error: null,
             loginStatus: true,
-            authentication: payload.result
+            results: payload.result
         }
     })
     .case(loginActions.loadAllLoginInfo.failed, (state, payload) => {
@@ -75,6 +94,5 @@ export const loginReducer = reducerWithInitialState(initialState)
             loading: false,
             loginStatus: false,
             error: payload.error,
-            authentication: {}
         }
     })

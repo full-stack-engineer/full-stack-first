@@ -19,6 +19,12 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
             <div className="Login__inner">
                 <div className="Login__form">
                     <LoginInputBox
+                        placeholder="名前"
+                        type="text"
+                        name="text"
+                        onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputName(e.target.value)}
+                    />
+                    <LoginInputBox
                         placeholder="メールアドレス"
                         type="email"
                         name="emailText"

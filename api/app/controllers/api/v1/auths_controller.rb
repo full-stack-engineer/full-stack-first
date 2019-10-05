@@ -5,7 +5,7 @@ module Api
           if (user = User.authenticate(params[:email], params[:password]))
             tokens = Jwt::TokenProvider.refresh_tokens user
       
-            render json: { status: :success, data: tokens }
+            render json: { status: :success, token: tokens, user: user }
           else
             unauthorized
           end

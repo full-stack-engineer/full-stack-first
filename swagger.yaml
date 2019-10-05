@@ -241,6 +241,8 @@ definitions:
       user:
         type: object
         properties:
+          name:
+            type: string
           email:
             type: string
           password:
@@ -286,6 +288,9 @@ definitions:
               id:
                 type: "integer"
                 example: 8
+              name:
+                type: "string"
+                example: "hoge"
               email:
                 type: "string"
                 example: "hoge@example.com"
@@ -314,7 +319,7 @@ definitions:
       status:
         type: "string"
         example: "success"
-      data:
+      token:
         type: "object"
         properties:
           access_token:
@@ -323,6 +328,37 @@ definitions:
           refresh_token:
             type: "string"
             example: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOSIsImV4cCI6IjE1NzI3OTE1MTkifQ.JCeF3p2mfcrF6MrenBrCrC2px4drljUpFrJVi2E5i98"
+      user:
+        type: "object"
+        properties:
+          crypted_password:
+            type: "string"
+            example: "$2a$10$0GPBLF.cwirCzLwWY714tuMLYyEdC6O4N/34lUlk4pJJunTcFN8na"
+          salt:
+            type: "string"
+            example: "cEmx5z5F6w8EvywxsaBw"
+          id:
+            type: "integer"
+            example: 4
+          refresh_token:
+            type: "string"
+            eaxmple: "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNCIsImV4cCI6IjE1NzI4ODEzNjQifQ.P32GXVLZiUdnvn0sFF5A7ELZD_EGCJvbMgRcaBBhSgc"
+          name:
+            type: "string"
+            example: "hoge"
+          email:
+            type: "string"
+            example: "hoge@example.com"
+          created_at:
+            type: "string"
+            example: "2019-10-05T04:42:01.397Z"
+          updated_at:
+            type: "string"
+            example: "2019-10-05T05:00:18.156Z"
+          password:
+            example: null
+          password_confirmation:
+            example: null
   ParentTaskGetResponse:
     type: "object"
     properties:

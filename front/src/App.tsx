@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import LoginContainer from "./redux/container/loginContainer";
 import MainContainer from "./redux/container/mainContainer";
 import store from "./redux/store";
@@ -13,7 +13,14 @@ const App: FC<AppInterface> = () => {
     if (store.getState().login.loginStatus === true) {
       setLoginStatus(true);
     }
-  })
+  });
+
+  useEffect(() => {
+    if (localStorage.getItem("login") === "true") {
+      setLoginStatus(true);
+    }
+  }, [])
+
   return (
     <div>
       {loginStatus

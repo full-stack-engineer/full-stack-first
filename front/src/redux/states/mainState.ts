@@ -12,7 +12,7 @@ const initialState: TodoState = {
 };
 
 export const todoReducer = reducerWithInitialState(initialState)
-    .case(todoActions.loadAllTodo.started, (state, payload) => {
+    .case(todoActions.loadAllTodo.started, (state) => {
         return {
             ...state,
             loading: true,

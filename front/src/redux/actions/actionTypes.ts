@@ -1,10 +1,8 @@
 import axios from "axios";
 import actionCreatorFactory, { Action } from "typescript-fsa";
-import store from "../store";
-import { ThunkAction } from 'redux-thunk';
+import { ThunkAction } from "redux-thunk";
 import { Dispatch } from "redux";
 import { AppState } from "../store";
-
 
 const actionCreator = actionCreatorFactory();
 
@@ -41,13 +39,12 @@ export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Actio
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
         const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
-        console.log(store.getState().login.authentication['access-token']);
         await axios.get(TODO_ENDPOINT,
             {
                 headers: {
-                    'uid': store.getState().login.authentication.uid,
-                    'access-token': store.getState().login.authentication['access-token'],
-                    'client': store.getState().login.authentication.client
+                    "uid": localStorage.getItem("uid"),
+                    "access-token": localStorage.getItem("accessToken"),
+                    "client": localStorage.getItem("client")
                 }
             })
             .then(results => {

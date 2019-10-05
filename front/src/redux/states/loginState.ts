@@ -51,7 +51,7 @@ export const loginReducer = reducerWithInitialState(initialState)
             ...state,
         }
     })
-    .case(loginActions.loadAllLoginInfo.started, (state, payload) => {
+    .case(loginActions.loadAllLoginInfo.started, (state) => {
         return {
             ...state,
             loading: true,

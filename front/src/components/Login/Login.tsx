@@ -3,7 +3,6 @@ import React, { FC } from "react";
 import LoginInputBox from "./LoginInputBox"
 import LoginButton from "./LoginButton";
 import LoginSNS from "./LoginSNS";
-import store from "../../redux/store";
 import { LoginState } from "../../redux/states/loginState";
 import { LoginAction } from "../../redux/container/loginContainer";
 import "./Login.scss";
@@ -13,7 +12,6 @@ type LoginProps = LoginState & LoginAction;
 interface HTMLElementEvent<T extends HTMLElement> extends Event {
     target: T;
 }
-
 
 const Login: FC<LoginProps> = (props: LoginProps) => {
     return (
@@ -44,7 +42,10 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                         value={"ログイン"}
                         buttonText={"ログイン"}
                         // 関数で発火させないと無限ループ
-                        onClick={() => { props.postLoginInfo(store.getState().login.email, store.getState().login.password) }}
+                        onClick={() => {
+                            props.postLoginInfo(props.email, props.password);
+                            props.pushLoginButton();
+                        }}
                     />
                     <LoginSNS
                         src={image}

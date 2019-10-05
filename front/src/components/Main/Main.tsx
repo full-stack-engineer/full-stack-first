@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef } from "react";
+import React, { FC, useState, useEffect } from "react";
 import Profile from "../Profile/Profile";
 import Total from "../Total/Total";
 import Toggle from "../Toggle/Toggle";
@@ -7,9 +7,9 @@ import PlusButton from "../Button/PlusButton";
 import AddTask from "../Task/AddTask";
 import DoListButton from "../Button/DoListButton";
 import DoneListButton from "../Button/DoneListButton";
-import mockResponce from "../../mock-response.json";
-import { TodoState } from "../../redux/states/todoState";
+import { TodoState } from "../../redux/states/mainState";
 import { TodoAction } from "../../redux/container/mainContainer";
+import store from "../../redux/store";
 import "./Main.scss";
 
 type MainProps = TodoState & TodoAction;
@@ -25,14 +25,18 @@ const Main: FC<MainProps> = (props: MainProps) => {
         setToggleButton(flg);
     }
 
-    const mainRef = useRef<HTMLDivElement>(null);
-
     useEffect(() => {
+        if (localStorage.getItem("login") === null) {
+            localStorage.setItem("login", "true");
+            localStorage.setItem("uid", String(store.getState().login.authentication.uid));
+            localStorage.setItem("accessToken", String(store.getState().login.authentication["access-token"]));
+            localStorage.setItem("client", String(store.getState().login.authentication.client));
+        }
         props.getTodo();
     }, []);
     return (
         <React.Fragment>
-            <div className="Main" ref={mainRef}>
+            <div className="Main">
                 <div className="Main__bg" />
                 <div className="Main__inner">
                     <div className="Main__topArea">
@@ -48,7 +52,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
                     </div>
                     <Total
                         title={toggleButton ? "本日" : "これまで"}
-                        todos={mockResponce.data.length}
+                        todos={props.data.length}
                     />
                     <Toggle toggleButtonFlg={toggleButtonFlg} />
                     <Todo todos={props.data} />

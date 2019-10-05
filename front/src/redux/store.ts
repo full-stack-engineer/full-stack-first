@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { loginReducer, LoginState } from "./states/loginState";
-import { todoReducer, TodoState } from "./states/todoState";
+import { todoReducer, TodoState } from "./states/mainState";
 import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
 

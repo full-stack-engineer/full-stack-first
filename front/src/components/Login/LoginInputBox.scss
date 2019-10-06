@@ -10,11 +10,12 @@ $subBule: #6B84FF;
     font-size: 1.4rem;
     outline: none;
     padding-left: 32px;
+    margin-bottom: 24px;
     width: 100%;
     height: 64px;
 
-    &:not(:last-of-type) {
-        margin-bottom: 24px;
+    &:last-of-type {
+        margin-bottom: 96px;
     }
 
     &::placeholder {

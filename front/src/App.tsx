@@ -16,7 +16,7 @@ const App: FC<AppInterface> = () => {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("login") === "true") {
+    if (localStorage.accessToken !== undefined) {
       setLoginStatus(true);
     }
   }, [])

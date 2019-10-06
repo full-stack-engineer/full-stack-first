@@ -5,6 +5,7 @@ $subBule: #6B84FF;
 .LoginButton {
     text-align: center;
     width: 100%;
+    margin-bottom: 32px;
 
     &__button {
         background: $mainBule;
@@ -17,11 +18,9 @@ $subBule: #6B84FF;
         width: 240px;
         height: 64px;
         display: inline-block;
-        margin-top: 96px;
     }
-
+    
     &__link {
         display: inline-block;
-        margin-top: 96px;
     }
 }

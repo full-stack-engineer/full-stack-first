@@ -6,9 +6,7 @@ const DoListButton: FC = props => {
         <button
             className="DoListButton"
             onClick={() => console.log("DoListButton")}
-        >
-            <span className="DoListButton__icon" />
-        </button>
+        />
     )
 }
 

@@ -1,36 +1,27 @@
-$color: #fff;
-
 .CloseButton {
     background: transparent;
     outline: none;
+    position: relative;
     height: 44px;
     width: 44px;
 
-    &__icon {
-        display: block;
-        position: relative;
-        height: 100%;
-        width: 100%;
-
-        &::before,
-        &::after {
-            background: $color;
-            border-radius: 2.5px;
-            content: '';
-            display: inline-block;
-            position: absolute;
-            top: calc(50% - 2.5px);
-            left: calc(50% - 16px);
-            height: 5px;
-            width: 32px;
-        }
-
-        &::before {
-            transform: rotate(-45deg);
-        }
-
-        &::after {
-            transform: rotate(45deg);
-        }
+    &::before,
+    &::after {
+        background: #fff;
+        border-radius: 2.5px;
+        content: "";
+        position: absolute;
+        top: calc(50% - 2.5px);
+        left: calc(50% - 16px);
+        height: 5px;
+        width: 32px;
     }
+
+    &::before {
+        transform: rotate(-45deg);
+    }
+
+    &::after {
+        transform: rotate(45deg);
+        }
 }

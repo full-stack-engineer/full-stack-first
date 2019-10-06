@@ -1,11 +1,9 @@
-$color: #fff;
-
 .ReturnButton {
     background: transparent;
     outline: none;
     position: absolute;
     top: 60px;
-    right: 24px;
+    left: 24px;
     height: 44px;
     width: 44px;
 
@@ -17,23 +15,24 @@ $color: #fff;
 
         &::before,
         &::after {
-            background: $color;
+            background: #fff;
             border-radius: 2.5px;
             content: '';
-            display: inline-block;
             position: absolute;
-            top: calc(50% - 2.5px);
-            left: calc(50% - 16px);
             height: 5px;
-            width: 32px;
         }
 
         &::before {
-            transform: rotate(-45deg);
+            top: calc(50% + 4px);
+            left: calc(50% - 20px);
+            width: 40px;
         }
 
         &::after {
-            transform: rotate(45deg);
+            transform: rotate(-45deg);
+            top: calc(50% - 3px);
+            left: calc(50% - 23px);
+            width: 24px;
         }
     }
 }

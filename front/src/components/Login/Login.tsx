@@ -78,7 +78,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                         />
                     </div>
                     : <div className="Login__select">
-                        <p className="Login__text">「いま」やらないと<br />いけないことを<br />整理しよう</p>
+                        <p className="Login__concept">「いま」やらないと<br />いけないことを<br />整理しよう</p>
                         <img
                             className="Login__icon"
                             src={icon}
@@ -97,6 +97,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                             buttonText="ログイン"
                             onClick={() => setIsLogIn(true)}
                         />
+                        <p className="Login__text">または</p>
                         <LoginSNS
                             src={image}
                             alt="Twitterロゴ"

@@ -1,19 +1,10 @@
-$color: #fff;
-$mainBule: #4665FF;
-$subBule: #6B84FF;
-
 .AddTaskButton {
-    text-align: center;
-    width: 100%;
-
-    &__plus {
-        background: $mainBule;
-        border: 3px solid $subBule;
+        background: #4665FF;
+        border: 3px solid #6B84FF;
         border-radius: 8px;
-        color: $color;
+        color: #fff;
         font-size: 1.6rem;
         outline: none;
         height: 56px;
         width: 176px;
-    }
 }

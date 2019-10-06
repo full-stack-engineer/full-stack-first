@@ -8,17 +8,15 @@ interface AddTaskButton {
 
 const AddTaskButton: FC<AddTaskButton> = props => {
     return (
-        <div className="AddTaskButton">
-            <button
-                className="AddTaskButton__plus"
-                onClick={() => {
-                    props.plusButtonFlg()
-                    props.postTextAreaValue()
-                }}
-            >
-                追加する
-                </button>
-        </div>
+        <button
+            className="AddTaskButton"
+            onClick={() => {
+                props.plusButtonFlg()
+                props.postTextAreaValue()
+            }}
+        >
+            追加する
+        </button>
     )
 }
 

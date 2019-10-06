@@ -22,7 +22,7 @@ const AddTask: FC<AddTask> = props => {
 
     return (
         <div className="AddTask">
-            <div className="AddTask__topArea">
+            <div className="AddTask__topAreaMargin">
                 <Profile
                     src="https://66.media.tumblr.com/624be961c064f228f52ceb3d17c00998/tumblr_p9iby2ty8P1vc1y9yo1_1280.jpg"
                     alt="プロフィール画像"
@@ -30,14 +30,18 @@ const AddTask: FC<AddTask> = props => {
                 />
                 <CloseButton plusButtonFlg={props.plusButtonFlg} />
             </div>
-            <TextArea
-                placeholder="タスクを追加してみよう！"
-                textAreaValue={textAreaValue}
-            />
-            <AddTaskButton
-                plusButtonFlg={props.plusButtonFlg}
-                postTextAreaValue={postTextAreaValue}
-            />
+            <div className="AddTask__textareaMargin">
+                <TextArea
+                    placeholder="タスクを追加してみよう！"
+                    textAreaValue={textAreaValue}
+                />
+            </div>
+            <div className="AddTask__AddTaskButtonCenter">
+                <AddTaskButton
+                    plusButtonFlg={props.plusButtonFlg}
+                    postTextAreaValue={postTextAreaValue}
+                />
+            </div>
         </div>
     )
 }

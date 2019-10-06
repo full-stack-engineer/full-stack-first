@@ -10,9 +10,7 @@ const CloseButton: FC<CloseButton> = props => {
         <button
             className="CloseButton"
             onClick={props.plusButtonFlg}
-        >
-            <span className="CloseButton__icon" />
-        </button>
+        />
     )
 }
 

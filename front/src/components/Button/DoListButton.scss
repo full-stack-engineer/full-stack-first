@@ -1,14 +1,13 @@
-$color: #fff;
-
 .DoListButton {
     background: transparent;
     outline: none;
     height: 44px;
     width: 44px;
 
-    &__icon {
-        background: $color;
+    &::before {
+        background: #fff;
         border-radius: 2.5px;
+        content: "";
         display: block;
         margin: 0 auto;
         height: 5px;

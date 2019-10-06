@@ -1,8 +1,5 @@
-$color: #fff;
-$mainBule: #4665FF;
-
 .Login {
-    background: $mainBule;
+    background: #4665FF;
     padding: 0 24px;
     height: 100vh;
 
@@ -24,11 +21,17 @@ $mainBule: #4665FF;
         width: 80px;
     }
 
-    &__text {
-        color: $color;
+    &__concept {
+        color: #fff;
         font-size: 2.4rem;
         line-height: 1.6;
         margin-bottom: 32px;
+    }
+
+    &__text {
+        color: #fff;
+        font-size: 1.4rem;
+        margin: 48px 0;
     }
 
     &__form {

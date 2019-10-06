@@ -12,7 +12,7 @@ $subBule: #6B84FF;
     }
 
     &__inner {
-        padding: 60px 0 56px;
+        padding: 60px 24px 56px;
         position: absolute;
         top: 0;
         left: 0;
@@ -24,6 +24,6 @@ $subBule: #6B84FF;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin: 0 24px 40px;
+        margin-bottom: 40px;
     }
 }

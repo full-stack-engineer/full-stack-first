@@ -3,7 +3,7 @@ import "./LoginInputBox.scss";
 
 interface LoginInputBoxInterface {
     placeholder: string;
-    type: string;
+    type: "text" | "email" | "password";
     name: string;
     onChange: any;
 }

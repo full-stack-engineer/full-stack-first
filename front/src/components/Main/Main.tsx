@@ -9,7 +9,6 @@ import DoListButton from "../Button/DoListButton";
 import DoneListButton from "../Button/DoneListButton";
 import { TodoState } from "../../redux/states/mainState";
 import { TodoAction } from "../../redux/container/mainContainer";
-import store from "../../redux/store";
 import "./Main.scss";
 
 type MainProps = TodoState & TodoAction;
@@ -26,12 +25,6 @@ const Main: FC<MainProps> = (props: MainProps) => {
     }
 
     useEffect(() => {
-        if (localStorage.getItem("login") === null) {
-            localStorage.setItem("login", "true");
-            localStorage.setItem("uid", String(store.getState().login.authentication.uid));
-            localStorage.setItem("accessToken", String(store.getState().login.authentication["access-token"]));
-            localStorage.setItem("client", String(store.getState().login.authentication.client));
-        }
         props.getTodo();
     }, []);
     return (

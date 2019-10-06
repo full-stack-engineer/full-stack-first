@@ -5,8 +5,8 @@ import { Dispatch } from "redux";
 import { AppState } from "../store";
 
 const actionCreator = actionCreatorFactory();
-
 export const loginActions = {
+    inputName: actionCreator<string>("INPUT_NAME"),
     inputEmail: actionCreator<string>("INPUT_EMAIL"),
     inputPassword: actionCreator<string>("INPUT_PASSWORD"),
     inputPasswordConfirmd: actionCreator<string>("INPUT_PASSWORD_CONFIRMD"),
@@ -14,16 +14,51 @@ export const loginActions = {
     loadAllLoginInfo: actionCreator.async<{}, {}, {}>("LOAD_ALL_LOGIN_INFO")
 };
 
+export const postSignUp = (name: string, email: string, password: string, passwordConfirmed: string): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
+    return async (dispatch: Dispatch<Action<any>>) => {
+        dispatch(loginActions.loadAllLoginInfo.started({ params: {} }));
+        const REGISTER_ENDPOINT = "http://localhost:3000/api/v1/register";
+        await axios.post(REGISTER_ENDPOINT, {
+            user: {
+                name: name,
+                email: email,
+                password: password,
+                password_confirmation: passwordConfirmed
+            }
+        })
+            .then(results => {
+                console.log(results)
+                dispatch(loginActions.loadAllLoginInfo.done({ params: {}, result: results }));
+                if (localStorage.accessToken === undefined) {
+                    localStorage.accessToken = results.data.data.access_token;
+                }
+                if (localStorage.refreshToken === undefined) {
+                    localStorage.refreshToken = results.data.data.refresh_token;
+                }
+            })
+            .catch(error => {
+                console.log(error)
+                dispatch(loginActions.loadAllLoginInfo.failed({ params: {}, error: error }));
+            });
+    }
+}
+
 export const postLoginInfo = (email: string, password: string): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(loginActions.loadAllLoginInfo.started({ params: {} }));
-        const LOGIN_ENDPOINT = "http://localhost:3000/api/v1/auth/sign_in";
+        const LOGIN_ENDPOINT = "http://localhost:3000/api/v1/login";
         await axios.post(LOGIN_ENDPOINT, {
             email: email,
             password: password
         })
             .then(results => {
-                dispatch(loginActions.loadAllLoginInfo.done({ params: {}, result: results.headers }));
+                dispatch(loginActions.loadAllLoginInfo.done({ params: {}, result: results }));
+                if (localStorage.accessToken === undefined) {
+                    localStorage.accessToken = results.data.token.access_token;
+                }
+                if (localStorage.refreshToken === undefined) {
+                    localStorage.refreshToken = results.data.token.refresh_token;
+                }
             })
             .catch(error => {
                 dispatch(loginActions.loadAllLoginInfo.failed({ params: {}, error: error }));
@@ -42,9 +77,7 @@ export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Actio
         await axios.get(TODO_ENDPOINT,
             {
                 headers: {
-                    "uid": localStorage.getItem("uid"),
-                    "access-token": localStorage.getItem("accessToken"),
-                    "client": localStorage.getItem("client")
+                    "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
                 }
             })
             .then(results => {

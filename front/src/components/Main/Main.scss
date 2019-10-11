@@ -1,13 +1,9 @@
-$color: #fff;
-$mainBule: #4665FF;
-$subBule: #6B84FF;
-
 .Main {
     position: relative;
     height: 100vh;
 
     &__bg {
-        background: $mainBule;
+        background: #4665ff;
         height: 230px;
     }
 
@@ -25,5 +21,18 @@ $subBule: #6B84FF;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 40px;
+    }
+
+    &__totalMargin {
+        margin-bottom: 78px;
+    }
+
+    &__todoMargin {
+        margin-bottom: 40px;
+    }
+
+    &__plusButtonCenter {
+        text-align: center;
+        width: 100%;
     }
 }

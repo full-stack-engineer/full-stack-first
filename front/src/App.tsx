@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
+import Welcome from "./components/Welcome/Welcome";
 import LoginContainer from "./redux/container/loginContainer";
 import MainContainer from "./redux/container/mainContainer";
 import store from "./redux/store";
@@ -23,6 +24,7 @@ const App: FC<AppInterface> = () => {
 
   return (
     <div>
+      <Welcome />
       {loginStatus
         ? <MainContainer />
         : <LoginContainer />

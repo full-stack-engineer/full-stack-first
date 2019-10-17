@@ -26,7 +26,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
 
     useEffect(() => {
         props.getTodo();
-    }, []);
+    }, [localStorage.accessToken]);
     return (
         <React.Fragment>
             <div className="Main">
@@ -43,16 +43,24 @@ const Main: FC<MainProps> = (props: MainProps) => {
                             <DoneListButton />
                         }
                     </div>
-                    <Total
-                        title={toggleButton ? "本日" : "これまで"}
-                        todos={props.data.length}
-                    />
+                    <div className="Main__totalMargin">
+                        <Total
+                            title={toggleButton ? "本日" : "これまで"}
+                            todos={props.data.length}
+                        />
+                    </div>
                     <Toggle toggleButtonFlg={toggleButtonFlg} />
-                    <Todo todos={props.data} />
-                    <PlusButton plusButtonFlg={plusButtonFlg} />
+                    <div className="Main__todoMargin">
+                        <Todo todos={props.data} />
+                    </div>
+                    <div className="Main__plusButtonCenter">
+                        <PlusButton plusButtonFlg={plusButtonFlg} />
+                    </div>
                 </div>
             </div>
-            {plusButton && <AddTask plusButtonFlg={plusButtonFlg} />}
+            {plusButton &&
+                <AddTask plusButtonFlg={plusButtonFlg} />
+            }
         </React.Fragment>
     )
 }

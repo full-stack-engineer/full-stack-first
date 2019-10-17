@@ -1,18 +1,14 @@
-$color: #fff;
-$mainBule: #4665FF;
-$subBule: #6B84FF;
-
 .Main {
     position: relative;
     height: 100vh;
 
     &__bg {
-        background: $mainBule;
+        background: #4665ff;
         height: 230px;
     }
 
     &__inner {
-        padding: 60px 0 56px;
+        padding: 60px 24px 56px;
         position: absolute;
         top: 0;
         left: 0;
@@ -24,6 +20,19 @@ $subBule: #6B84FF;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin: 0 24px 40px;
+        margin-bottom: 40px;
+    }
+
+    &__totalMargin {
+        margin-bottom: 78px;
+    }
+
+    &__todoMargin {
+        margin-bottom: 40px;
+    }
+
+    &__plusButtonCenter {
+        text-align: center;
+        width: 100%;
     }
 }

@@ -1,25 +1,18 @@
-$color: #fff;
-$mainBule: #4665FF;
-$subBule: #6B84FF;
 .TextArea {
-    margin: 0 48px 40px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    outline: none;
+    padding: 4px 0;
+    letter-spacing: 1.6px;
+    width: 100%;
 
-    &__input {
-        background: none;
-        border: none;
-        color: $color;
+    &::placeholder {
+        color: #6B84ff;
         font-size: 1.6rem;
-        outline: none;
-        padding: 4px 0;
-        letter-spacing: 1.6px;
-        width: 100%;
-
-        &::placeholder {
-            color: $subBule;
-            font-size: 1.6rem;
-            padding-left: 4px;
-            position: relative;
-            top: -2.4px;
-        }
+        padding-left: 4px;
+        position: relative;
+        top: -2.4px;
     }
 }

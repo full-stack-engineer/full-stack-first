@@ -1,13 +1,7 @@
-
-$color: #fff;
-$mainBule: #4665FF;
-$subBule: #6B84FF;
-
 .Total {
-    background: $color;
+    background: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 8px rgba($color: #000000, $alpha: 0.24);
-    margin: 0 24px 84px;
+    box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
     height: 124px;
 
     &__inner {
@@ -19,7 +13,7 @@ $subBule: #6B84FF;
     }
 
     &__title {
-        color: $mainBule;
+        color: #4665ff;
         font-size: 1.6rem;
         position: absolute;
         top: 24px;

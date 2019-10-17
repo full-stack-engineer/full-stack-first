@@ -11,17 +11,15 @@ interface LoginButtonInterface {
 
 const LoginButton: FC<LoginButtonInterface> = props => {
     return (
-        <div className="LoginButton">
-            <button
-                className="LoginButton__button"
-                type={props.type}
-                name={props.name}
-                value={props.value}
-                onClick={props.onClick}
-            >
-                {props.buttonText}
-            </button>
-        </div>
+        <button
+            className="LoginButton"
+            type={props.type}
+            name={props.name}
+            value={props.value}
+            onClick={props.onClick}
+        >
+            {props.buttonText}
+        </button>
     )
 }
 

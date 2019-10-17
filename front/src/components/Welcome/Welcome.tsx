@@ -3,9 +3,13 @@ import image from "../../assets/twitter.svg";
 import React, { FC } from "react";
 import LoginButton from "../Login/LoginButton";
 import LoginSNS from "../Login/LoginSNS";
+import { SelectState } from "../../redux/states/selectState";
+import { SelectAction } from "../../redux/container/selectContainer";
 import "./Welcome.scss";
 
-const Welcome: FC = props => {
+type SelectProps = SelectState & SelectAction;
+
+const Welcome: FC<SelectProps> = (props: SelectProps) => {
     return (
         <div className="Welcome">
             <div className="Welcome__inner">
@@ -20,7 +24,7 @@ const Welcome: FC = props => {
                         name="buttonText"
                         value="アカウントを作成"
                         buttonText="アカウント作成"
-                        onClick={() => console.log("hogehoge")}
+                        onClick={() => props.selectCreateAccountButton()}
                     />
                 </div>
                 <LoginButton
@@ -28,7 +32,7 @@ const Welcome: FC = props => {
                     name="buttonText"
                     value="ログイン"
                     buttonText="ログイン"
-                    onClick={() => console.log("piyopiyo")}
+                    onClick={() => props.selectLoginButton()}
                 />
                 <p className="Welcome__text">または</p>
                 <LoginSNS

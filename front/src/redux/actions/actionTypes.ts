@@ -88,3 +88,9 @@ export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Actio
             });
     }
 }
+
+export const selectActions = {
+    selectCreateAccountButton: actionCreator<void>("SELECT_CREATE_ACCOUNT_BUTTON"),
+    selectLoginButton: actionCreator<void>("SELECT_LOGIN_BUTTON"),
+    backToTopButton: actionCreator<void>("BACK_TO_TOP_BUTTON")
+}

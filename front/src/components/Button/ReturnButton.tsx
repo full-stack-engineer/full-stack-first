@@ -2,14 +2,14 @@ import React, { FC } from "react";
 import "./ReturnButton.scss";
 
 interface ReturnButton {
-    returnButtonFlg: any;
+    onClick: any;
 }
 
 const ReturnButton: FC<ReturnButton> = props => {
     return (
         <button
             className="ReturnButton"
-            onClick={props.returnButtonFlg}
+            onClick={props.onClick}
         >
             <span className="ReturnButton__icon" />
         </button>

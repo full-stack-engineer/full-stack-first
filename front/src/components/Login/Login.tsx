@@ -1,9 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import LoginInputBox from "./LoginInputBox"
 import LoginButton from "./LoginButton";
 import ReturnButton from "../Button/ReturnButton";
 import { LoginState } from "../../redux/states/loginState";
 import { LoginAction } from "../../redux/container/loginContainer";
+import store from "../../redux/store";
+import { selectActions } from "../../redux/actions/actionTypes"
 import "./Login.scss";
 
 type LoginProps = LoginState & LoginAction;
@@ -13,22 +15,31 @@ interface HTMLElementEvent<T extends HTMLElement> extends Event {
 }
 
 const Login: FC<LoginProps> = (props: LoginProps) => {
-    const isSignUp = false;
+    const [createAccount, setCreateAccount] = useState(false);
+
+    useEffect(() => {
+        if (store.getState().select.createAccount === true) {
+            setCreateAccount(true);
+        }
+    }, [])
+
     return (
         <div className="Login">
             <div className="Login__inner">
                 <div className="Login__form">
                     <ReturnButton
-                        returnButtonFlg={() => console.log("fugafuga")}
+                        onClick={() => store.dispatch(selectActions.backToTopButton())}
                     />
-                    <div className="Login__loginInputBoxMargin">
-                        <LoginInputBox
-                            placeholder="名前"
-                            type="text"
-                            name="text"
-                            onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputName(e.target.value)}
-                        />
-                    </div>
+                    {createAccount &&
+                        <div className="Login__loginInputBoxMargin">
+                            <LoginInputBox
+                                placeholder="名前"
+                                type="text"
+                                name="text"
+                                onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputName(e.target.value)}
+                            />
+                        </div>
+                    }
                     <div className="Login__loginInputBoxMargin">
                         <LoginInputBox
                             placeholder="メールアドレス"
@@ -45,21 +56,23 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                             onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputPassword(e.target.value)}
                         />
                     </div>
-                    <LoginInputBox
-                        placeholder="パスワード再入力"
-                        type="password"
-                        name="passwordConfirmdText"
-                        onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputPasswordConfirmed(e.target.value)}
-                    />
+                    {createAccount &&
+                        <LoginInputBox
+                            placeholder="パスワード再入力"
+                            type="password"
+                            name="passwordConfirmdText"
+                            onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputPasswordConfirmed(e.target.value)}
+                        />
+                    }
                     <div className="Login__loginButtonMargin">
                         <LoginButton
                             type="submit"
                             name="buttonText"
-                            value={isSignUp ? "アカウント作成" : "ログイン"}
-                            buttonText={isSignUp ? "アカウント作成" : "ログイン"}
+                            value={createAccount ? "アカウント作成" : "ログイン"}
+                            buttonText={createAccount ? "アカウント作成" : "ログイン"}
                             // 関数で発火させないと無限ループ
                             onClick={() => {
-                                if (isSignUp) {
+                                if (createAccount) {
                                     props.postSignUp(String(props.name), props.email, props.password, String(props.passwordConfirmd));
                                 } else {
                                     props.postLoginInfo(props.email, props.password);

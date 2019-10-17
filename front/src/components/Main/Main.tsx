@@ -26,7 +26,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
 
     useEffect(() => {
         props.getTodo();
-    }, []);
+    }, [localStorage.accessToken]);
     return (
         <React.Fragment>
             <div className="Main">

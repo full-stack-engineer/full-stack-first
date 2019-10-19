@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { AppState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
 import { loginActions, postLoginInfo, postSignUp } from "../actions/actionTypes";
-import Login from "../../components/Login/Login";
+import Login from "../../module/Login/Login";
 
 export interface LoginAction {
     inputName: (inputValue: string) => Action<string>;

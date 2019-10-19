@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
-import LoginInputBox from "./LoginInputBox"
-import LoginButton from "./LoginButton";
-import ReturnButton from "../Button/ReturnButton";
+import LoginInputBox from "../../components/Login/LoginInputBox"
+import LoginButton from "../../components/Login/LoginButton";
+import ReturnButton from "../../components/Button/ReturnButton";
 import { LoginState } from "../../redux/states/loginState";
 import { LoginAction } from "../../redux/container/loginContainer";
 import store from "../../redux/store";

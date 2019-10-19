@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { AppState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
 import { getTodo } from "../actions/actionTypes";
-import Main from "../../components/Main/Main";
+import Main from "../../module/Main/Main";
 
 export interface TodoAction {
     getTodo: () => Promise<void>;

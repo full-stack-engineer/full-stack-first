@@ -1,8 +1,8 @@
 import icon from "../../assets/icon.svg"
 import image from "../../assets/twitter.svg";
 import React, { FC } from "react";
-import LoginButton from "../Login/LoginButton";
-import LoginSNS from "../Login/LoginSNS";
+import LoginButton from "../../components/Login/LoginButton";
+import LoginSNS from "../../components/Login/LoginSNS";
 import { SelectState } from "../../redux/states/selectState";
 import { SelectAction } from "../../redux/container/selectContainer";
 import "./Welcome.scss";

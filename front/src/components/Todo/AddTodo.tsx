@@ -1,15 +1,15 @@
 import React, { FC, useState } from "react";
 import Profile from "../Profile/Profile";
 import TextArea from "../TextArea/TextArea";
-import AddTaskButton from "../Button/AddTaskButton";
+import AddTodoButton from "../Button/AddTodoButton";
 import CloseButton from "../Button/CloseButton";
-import "./AddTask.scss";
+import "./AddTodo.scss";
 
-interface AddTask {
+interface AddTodo {
     plusButtonFlg: any
 }
 
-const AddTask: FC<AddTask> = props => {
+const AddTodo: FC<AddTodo> = props => {
     const [textArea, setTextArea] = useState("");
     const textAreaValue = (value: string) => {
         setTextArea(value);
@@ -21,8 +21,8 @@ const AddTask: FC<AddTask> = props => {
     }
 
     return (
-        <div className="AddTask">
-            <div className="AddTask__topAreaMargin">
+        <div className="AddTodo">
+            <div className="AddTodo__topAreaMargin">
                 <Profile
                     src="https://66.media.tumblr.com/624be961c064f228f52ceb3d17c00998/tumblr_p9iby2ty8P1vc1y9yo1_1280.jpg"
                     alt="プロフィール画像"
@@ -30,14 +30,14 @@ const AddTask: FC<AddTask> = props => {
                 />
                 <CloseButton plusButtonFlg={props.plusButtonFlg} />
             </div>
-            <div className="AddTask__textareaMargin">
+            <div className="AddTodo__textareaMargin">
                 <TextArea
                     placeholder="タスクを追加してみよう！"
                     textAreaValue={textAreaValue}
                 />
             </div>
-            <div className="AddTask__AddTaskButtonCenter">
-                <AddTaskButton
+            <div className="AddTodo__AddTodoButtonCenter">
+                <AddTodoButton
                     plusButtonFlg={props.plusButtonFlg}
                     postTextAreaValue={postTextAreaValue}
                 />
@@ -46,4 +46,4 @@ const AddTask: FC<AddTask> = props => {
     )
 }
 
-export default AddTask;
+export default AddTodo;

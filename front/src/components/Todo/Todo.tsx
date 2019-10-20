@@ -6,12 +6,12 @@ interface TodoInterface {
 }
 
 export interface TodoResponseData {
-    id?: number;
-    content?: string;
-    user_id?: number;
-    progress?: number;
-    created_at?: string;
-    updated_at?: string;
+    id: number;
+    content: string;
+    user_id: number;
+    progress: number;
+    created_at: string;
+    updated_at: string;
 }
 
 

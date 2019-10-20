@@ -1,4 +1,4 @@
-.AddTask {
+.AddTodo {
     background: #4665ff;
     padding: 60px 24px 0;
     position: absolute;
@@ -19,7 +19,7 @@
         margin: 0 24px 40px;
     }
 
-    &__AddTaskButtonCenter {
+    &__AddTodoButtonCenter {
         text-align: center;
     }
 }

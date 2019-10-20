@@ -1,15 +1,15 @@
 import React, { FC } from "react";
-import "./AddTaskButton.scss";
+import "./AddTodoButton.scss";
 
-interface AddTaskButton {
+interface AddTodoButton {
     plusButtonFlg: any;
     postTextAreaValue: any;
 }
 
-const AddTaskButton: FC<AddTaskButton> = props => {
+const AddTodoButton: FC<AddTodoButton> = props => {
     return (
         <button
-            className="AddTaskButton"
+            className="AddTodoButton"
             onClick={() => {
                 props.plusButtonFlg()
                 props.postTextAreaValue()
@@ -20,4 +20,4 @@ const AddTaskButton: FC<AddTaskButton> = props => {
     )
 }
 
-export default AddTaskButton;
+export default AddTodoButton;

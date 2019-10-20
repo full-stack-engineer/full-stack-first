@@ -1,12 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
+import AddTodo from "../../components/Todo/AddTodo";
+import DoListButton from "../../components/Button/DoListButton";
+import DoneListButton from "../../components/Button/DoneListButton";
+import List from "../List/List";
+import PlusButton from "../../components/Button/PlusButton";
 import Profile from "../../components/Profile/Profile";
 import Total from "../../components/Total/Total";
 import Toggle from "../../components/Toggle/Toggle";
 import Todo from "../../components/Todo/Todo";
-import PlusButton from "../../components/Button/PlusButton";
-import AddTask from "../../components/Task/AddTask";
-import DoListButton from "../../components/Button/DoListButton";
-import DoneListButton from "../../components/Button/DoneListButton";
 import { TodoState } from "../../redux/states/mainState";
 import { TodoAction } from "../../redux/container/mainContainer";
 import "./Main.scss";
@@ -20,13 +21,14 @@ const Main: FC<MainProps> = (props: MainProps) => {
     }
 
     const [toggleButton, setToggleButton] = useState(true);
-    const toggleButtonFlg = (flg: boolean) => {
-        setToggleButton(flg);
+    const toggleButtonFlg = () => {
+        setToggleButton(!toggleButton);
     }
 
     useEffect(() => {
         props.getTodo();
     }, [localStorage.accessToken]);
+
     return (
         <React.Fragment>
             <div className="Main">
@@ -38,9 +40,9 @@ const Main: FC<MainProps> = (props: MainProps) => {
                             alt="プロフィール画像"
                             name="よだっちょ"
                         />
-                        {toggleButton ?
-                            <DoListButton /> :
-                            <DoneListButton />
+                        {toggleButton
+                            ? <DoListButton />
+                            : <DoneListButton />
                         }
                     </div>
                     <div className="Main__totalMargin">
@@ -49,7 +51,9 @@ const Main: FC<MainProps> = (props: MainProps) => {
                             todos={props.data.length}
                         />
                     </div>
-                    <Toggle toggleButtonFlg={toggleButtonFlg} />
+                    <div className="Main__toggleMargin">
+                        <Toggle toggleButtonFlg={toggleButtonFlg} />
+                    </div>
                     <div className="Main__todoMargin">
                         <Todo todos={props.data} />
                     </div>
@@ -58,9 +62,8 @@ const Main: FC<MainProps> = (props: MainProps) => {
                     </div>
                 </div>
             </div>
-            {plusButton &&
-                <AddTask plusButtonFlg={plusButtonFlg} />
-            }
+            {plusButton && <AddTodo plusButtonFlg={plusButtonFlg} />}
+            <List todos={props.data} />
         </React.Fragment>
     )
 }

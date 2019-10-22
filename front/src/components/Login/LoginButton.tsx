@@ -6,7 +6,7 @@ interface LoginButtonInterface {
     type: "button" | "submit" | "reset";
     name: string;
     value: string;
-    onClick: any;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const LoginButton: FC<LoginButtonInterface> = props => {

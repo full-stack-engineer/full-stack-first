@@ -1,29 +1,34 @@
 import React, { FC, useState, useEffect } from "react";
-import AddTodo from "../../components/Todo/AddTodo";
-import DoListButton from "../../components/Button/DoListButton";
-import DoneListButton from "../../components/Button/DoneListButton";
+import AddTodo from "../AddTodo/AddTodo";
+import ListButton from "../../components/Button/ListButton";
 import List from "../List/List";
 import PlusButton from "../../components/Button/PlusButton";
 import Profile from "../../components/Profile/Profile";
 import Total from "../../components/Total/Total";
 import Toggle from "../../components/Toggle/Toggle";
 import Todo from "../../components/Todo/Todo";
-import { TodoState } from "../../redux/states/mainState";
-import { TodoAction } from "../../redux/container/mainContainer";
+import { MainState } from "../../redux/states/mainState";
+import { MainAction } from "../../redux/container/mainContainer";
+import store from "../../redux/store";
 import "./Main.scss";
 
-type MainProps = TodoState & TodoAction;
+type MainProps = MainState & MainAction;
 
 const Main: FC<MainProps> = (props: MainProps) => {
     const [plusButton, setPlusButton] = useState(false);
-    const plusButtonFlg = () => {
-        setPlusButton(!plusButton);
-    }
-
     const [toggleButton, setToggleButton] = useState(true);
-    const toggleButtonFlg = () => {
-        setToggleButton(!toggleButton);
-    }
+    const [listButton, setListButton] = useState(false);
+    store.subscribe(() => {
+        store.getState().main.puls
+            ? setPlusButton(true)
+            : setPlusButton(false)
+        store.getState().main.toggle
+            ? setToggleButton(true)
+            : setToggleButton(false)
+        store.getState().main.doList || store.getState().main.doneList
+            ? setListButton(true)
+            : setListButton(false)
+    })
 
     useEffect(() => {
         props.getTodo();
@@ -40,10 +45,17 @@ const Main: FC<MainProps> = (props: MainProps) => {
                             alt="プロフィール画像"
                             name="よだっちょ"
                         />
-                        {toggleButton
-                            ? <DoListButton />
-                            : <DoneListButton />
-                        }
+                        <ListButton
+                            addClassName={
+                                toggleButton
+                                    ? ""
+                                    : "ListButton--done"
+                            }
+                            onClick={toggleButton
+                                ? props.pushDoListButton
+                                : props.pushDoneListButton
+                            }
+                        />
                     </div>
                     <div className="Main__totalMargin">
                         <Total
@@ -52,18 +64,18 @@ const Main: FC<MainProps> = (props: MainProps) => {
                         />
                     </div>
                     <div className="Main__toggleMargin">
-                        <Toggle toggleButtonFlg={toggleButtonFlg} />
+                        <Toggle onChange={props.slideToggleButton} />
                     </div>
                     <div className="Main__todoMargin">
                         <Todo todos={props.data} />
                     </div>
                     <div className="Main__plusButtonCenter">
-                        <PlusButton plusButtonFlg={plusButtonFlg} />
+                        <PlusButton onClick={props.pushPlusButton} />
                     </div>
                 </div>
             </div>
-            {plusButton && <AddTodo plusButtonFlg={plusButtonFlg} />}
-            <List todos={props.data} />
+            {plusButton && <AddTodo />}
+            {listButton && <List todos={props.data} />}
         </React.Fragment>
     )
 }

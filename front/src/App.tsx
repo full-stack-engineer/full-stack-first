@@ -20,7 +20,7 @@ const App: FC = () => {
     if (store.getState().login.loginStatus) {
       setLoginStatus(true);
     }
-    store.getState().login.loading || store.getState().todo.loading
+    store.getState().login.loading || store.getState().main.loading
       ? setLoading(true)
       : setLoadingTime(1000);
     store.getState().select.createAccount || store.getState().select.login

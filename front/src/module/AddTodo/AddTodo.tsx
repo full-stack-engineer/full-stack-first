@@ -1,15 +1,13 @@
 import React, { FC, useState } from "react";
-import Profile from "../Profile/Profile";
-import TextArea from "../TextArea/TextArea";
-import AddTodoButton from "../Button/AddTodoButton";
-import CloseButton from "../Button/CloseButton";
+import Profile from "../../components/Profile/Profile";
+import TextArea from "../../components/TextArea/TextArea";
+import AddTodoButton from "../../components/Button/AddTodoButton";
+import CloseButton from "../../components/Button/CloseButton";
+import store from "../../redux/store";
+import { mainButtonActions } from "../../redux/actions/actionTypes";
 import "./AddTodo.scss";
 
-interface AddTodo {
-    plusButtonFlg: any
-}
-
-const AddTodo: FC<AddTodo> = props => {
+const AddTodo: FC = props => {
     const [textArea, setTextArea] = useState("");
     const textAreaValue = (value: string) => {
         setTextArea(value);
@@ -28,7 +26,7 @@ const AddTodo: FC<AddTodo> = props => {
                     alt="プロフィール画像"
                     name="よだっちょ"
                 />
-                <CloseButton plusButtonFlg={props.plusButtonFlg} />
+                <CloseButton onClick={() => { store.dispatch(mainButtonActions.pushCloseButton()) }} />
             </div>
             <div className="AddTodo__textareaMargin">
                 <TextArea
@@ -38,7 +36,7 @@ const AddTodo: FC<AddTodo> = props => {
             </div>
             <div className="AddTodo__AddTodoButtonCenter">
                 <AddTodoButton
-                    plusButtonFlg={props.plusButtonFlg}
+                    onClick={() => { store.dispatch(mainButtonActions.pushCloseButton()) }}
                     postTextAreaValue={postTextAreaValue}
                 />
             </div>

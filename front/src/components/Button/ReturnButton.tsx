@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import "./ReturnButton.scss";
 
 interface ReturnButton {
-    onClick: any;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const ReturnButton: FC<ReturnButton> = props => {

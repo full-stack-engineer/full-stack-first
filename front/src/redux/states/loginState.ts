@@ -66,12 +66,12 @@ export const loginReducer = reducerWithInitialState(initialState)
             passwordConfirmd
         }
     })
-    .case(loginActions.pushLoginButton, (state) => {
+    .case(loginActions.pushLoginButton, state => {
         return {
             ...state,
         }
     })
-    .case(loginActions.loadAllLoginInfo.started, (state) => {
+    .case(loginActions.loadAllLoginInfo.started, state => {
         return {
             ...state,
             loading: true,

@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 import CloseButton from "../../components/Button/CloseButton";
+import store from "../../redux/store";
+import { mainButtonActions } from "../../redux/actions/actionTypes";
 import "./List.scss";
 
 interface ListInterface {
@@ -15,24 +17,17 @@ export interface ListResponseData {
     updated_at: string;
 }
 
-const map = (
-    value: number,
-    fromMin: number,
-    fromMax: number,
-    toMin: number,
-    toMax: number
-): number => {
-    let result = 0;
+const map = (value: number, fromMin: number, fromMax: number, toMin: number, toMax: number): number => {
 
-    result =
-        value <= fromMin
-            ? toMin
-            : value >= fromMax
-                ? toMax
-                : (() => {
-                    let ratio: number = (toMax - toMin) / (fromMax - fromMin);
-                    return (value - fromMin) * ratio + toMin;
-                })();
+    let result = 0;
+    result = value <= fromMin
+        ? toMin
+        : value >= fromMax
+            ? toMax
+            : (() => {
+                let ratio: number = (toMax - toMin) / (fromMax - fromMin);
+                return (value - fromMin) * ratio + toMin;
+            })();
 
     return result;
 };
@@ -41,7 +36,7 @@ const List: FC<ListInterface> = props => {
     return (
         <div className="List">
             <div className="List__topArea">
-                <CloseButton plusButtonFlg={() => console.log("hogehoge")} />
+                <CloseButton onClick={() => { store.dispatch(mainButtonActions.pushCloseButton()) }} />
             </div>
             <ul className="List__list">
                 {

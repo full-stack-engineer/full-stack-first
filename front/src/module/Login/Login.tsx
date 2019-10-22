@@ -75,7 +75,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                                 if (createAccount) {
                                     props.postSignUp(String(props.name), props.email, props.password, String(props.passwordConfirmd));
                                 } else {
-                                    props.postLoginInfo(props.email, props.password);
+                                    props.postLogIn(props.email, props.password);
                                 }
                                 props.pushLoginButton();
                             }}

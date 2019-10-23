@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import CloseButton from "../../components/Button/CloseButton";
 import store from "../../redux/store";
 import { mainButtonActions } from "../../redux/actions/actionTypes";
@@ -33,38 +33,85 @@ const map = (value: number, fromMin: number, fromMax: number, toMin: number, toM
 };
 
 const List: FC<ListInterface> = props => {
+    const [doList, setDoList] = useState(false);
+    useEffect(() => {
+        store.getState().main.doList
+            ? setDoList(true)
+            : setDoList(false)
+    }, [])
     return (
         <div className="List">
             <div className="List__topArea">
                 <CloseButton onClick={() => { store.dispatch(mainButtonActions.pushCloseButton()) }} />
             </div>
             <ul className="List__list">
-                {
-                    props.todos.map((item, i) => (
-                        <li className="List__item" key={i}>
-                            <div className="List__circle">
-                                <span
-                                    className="List__circleProgress List__circleProgress--right"
-                                    style={
-                                        item.progress <= 50
-                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360)}deg)` }
-                                            : { background: "#4665ff" }
-                                    }
-                                />
-                                <span
-                                    className="List__circleProgress List__circleProgress--left"
-                                    style={
-                                        item.progress > 50
-                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360) - 180}deg)` }
-                                            : {}
-                                    }
-                                />
-                                <span className="List__circleInner" />
-                            </div>
-                            <p className="List__text">{item.content}</p>
-                        </li>
-                    ))
-                }
+                {(() => {
+                    if (doList) {
+                        return (
+                            props.todos.map((item, i) => {
+                                if (item.progress !== 100) {
+                                    return (
+                                        <li className="List__item" key={i}>
+                                            <div className="List__circle">
+                                                <span
+                                                    className="List__circleProgress List__circleProgress--right"
+                                                    style={
+                                                        item.progress <= 50
+                                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360)}deg)` }
+                                                            : { background: "#4665ff" }
+                                                    }
+                                                />
+                                                <span
+                                                    className="List__circleProgress List__circleProgress--left"
+                                                    style={
+                                                        item.progress > 50
+                                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360) - 180}deg)` }
+                                                            : {}
+                                                    }
+                                                />
+                                                <span className="List__circleInner" />
+                                            </div>
+                                            <p className="List__text">{item.content}</p>
+                                        </li>
+                                    )
+                                }
+                                return null;
+                            })
+                        )
+                    } else {
+                        return (
+                            props.todos.map((item, i) => {
+                                if (item.progress === 100) {
+                                    return (
+                                        <li className="List__item" key={i}>
+                                            <div className="List__circle">
+                                                <span
+                                                    className="List__circleProgress List__circleProgress--right"
+                                                    style={
+                                                        item.progress <= 50
+                                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360)}deg)` }
+                                                            : { background: "#4665ff" }
+                                                    }
+                                                />
+                                                <span
+                                                    className="List__circleProgress List__circleProgress--left"
+                                                    style={
+                                                        item.progress > 50
+                                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360) - 180}deg)` }
+                                                            : {}
+                                                    }
+                                                />
+                                                <span className="List__circleInner" />
+                                            </div>
+                                            <p className="List__text">{item.content}</p>
+                                        </li>
+                                    )
+                                }
+                                return null;
+                            })
+                        )
+                    }
+                })()}
             </ul>
         </div>
     )

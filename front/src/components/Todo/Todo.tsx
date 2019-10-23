@@ -17,17 +17,17 @@ export interface TodoResponseData {
 
 
 const Todo: FC<TodoInterface> = props => {
-    const [doneList, setDoneList] = useState(false);
+    const [doList, setDoList] = useState(false);
     store.subscribe(() => {
         store.getState().main.toggle
-            ? setDoneList(true)
-            : setDoneList(false)
+            ? setDoList(true)
+            : setDoList(false)
     });
     return (
         <div className="Todo">
             <ul className="Todo__list">
                 {(() => {
-                    if (doneList) {
+                    if (doList) {
                         if (props.todos.length === 0) {
                             return (
                                 <li className="Todo__item">
@@ -58,6 +58,7 @@ const Todo: FC<TodoInterface> = props => {
                                             </li>
                                         )
                                     }
+                                    return null;
                                 })
                             )
                         }
@@ -81,6 +82,7 @@ const Todo: FC<TodoInterface> = props => {
                                         </li>
                                     )
                                 }
+                                return null;
                             })
                         )
                     }

@@ -32,10 +32,13 @@ User.create!(
   ]
 )
 
-40.times do |_n|
+100.times do |num|
   content = Faker::Games::Pokemon.name
   user_id = rand(1..3)
-  progress = 0
+  progress = rand(0..89)
+  if (num%3==0)
+    progress = 100
+  end
   ParentTask.create!(content: content,
                      user_id: user_id,
                      progress: progress)

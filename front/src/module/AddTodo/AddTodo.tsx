@@ -5,9 +5,13 @@ import AddTodoButton from "../../components/Button/AddTodoButton";
 import CloseButton from "../../components/Button/CloseButton";
 import store from "../../redux/store";
 import { mainButtonActions } from "../../redux/actions/actionTypes";
+import { MainState } from "../../redux/states/mainState";
+import { AddTodoAction } from "../../redux/container/addTodoContainer";
 import "./AddTodo.scss";
 
-const AddTodo: FC = props => {
+type AddTodoProps = MainState & AddTodoAction;
+
+const AddTodo: FC<AddTodoProps> = (props: AddTodoProps) => {
     const [textArea, setTextArea] = useState("");
     const textAreaValue = (value: string) => {
         setTextArea(value);
@@ -31,12 +35,15 @@ const AddTodo: FC = props => {
             <div className="AddTodo__textareaMargin">
                 <TextArea
                     placeholder="タスクを追加してみよう！"
-                    textAreaValue={textAreaValue}
+                    onChange={e => props.inputTextarea(e.target.value.replace(/\n/g, " "))}
                 />
             </div>
             <div className="AddTodo__AddTodoButtonCenter">
                 <AddTodoButton
-                    onClick={() => { store.dispatch(mainButtonActions.pushCloseButton()) }}
+                    onClick={() => {
+                        props.postTodo(props.textarea, 0);
+                        store.dispatch(mainButtonActions.pushCloseButton());
+                    }}
                     postTextAreaValue={postTextAreaValue}
                 />
             </div>

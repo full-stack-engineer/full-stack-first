@@ -15,7 +15,7 @@ module Jwt
   
         def create_pair_tokens(payload)
           {
-            access_token: issue_token(payload.merge(exp: Time.current.to_i + 30.minutes)),
+            access_token: issue_token(payload.merge(exp: Time.current.to_i + 1.days)),
             refresh_token: issue_token(payload.merge(exp: Time.current.to_i + 1.months))
           }
         end

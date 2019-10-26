@@ -40,33 +40,9 @@ const Todo: FC<TodoInterface> = props => {
                             )
                         } else {
                             return (
-                                props.todos.map((item, i) => {
-                                    if (item.progress !== 100) {
-                                        return (
-                                            <li className="Todo__item" key={i}>
-                                                <div className="Todo__box">
-                                                    <div className="Todo__boxInner">
-                                                        <div className="Todo__bgBar">
-                                                            <span
-                                                                className="Todo__bar"
-                                                                style={{ width: `${item.progress}%` }}
-                                                            />
-                                                        </div>
-                                                        <p className="Todo__text">{item.content}</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        )
-                                    }
-                                    return null;
-                                })
-                            )
-                        }
-                    } else {
-                        return (
-                            props.todos.map((item, i) => {
-                                if (item.progress === 100) {
-                                    return (
+                                props.todos
+                                    .filter(item => item.progress !== 100)
+                                    .map((item, i) => (
                                         <li className="Todo__item" key={i}>
                                             <div className="Todo__box">
                                                 <div className="Todo__boxInner">
@@ -80,10 +56,28 @@ const Todo: FC<TodoInterface> = props => {
                                                 </div>
                                             </div>
                                         </li>
-                                    )
-                                }
-                                return null;
-                            })
+                                    ))
+                            )
+                        }
+                    } else {
+                        return (
+                            props.todos
+                                .filter(item => item.progress === 100)
+                                .map((item, i) => (
+                                    <li className="Todo__item" key={i}>
+                                        <div className="Todo__box">
+                                            <div className="Todo__boxInner">
+                                                <div className="Todo__bgBar">
+                                                    <span
+                                                        className="Todo__bar"
+                                                        style={{ width: `${item.progress}%` }}
+                                                    />
+                                                </div>
+                                                <p className="Todo__text">{item.content}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))
                         )
                     }
                 })()}

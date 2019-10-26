@@ -48,67 +48,61 @@ const List: FC<ListInterface> = props => {
                 {(() => {
                     if (doList) {
                         return (
-                            props.todos.map((item, i) => {
-                                if (item.progress !== 100) {
-                                    return (
-                                        <li className="List__item" key={i}>
-                                            <div className="List__circle">
-                                                <span
-                                                    className="List__circleProgress List__circleProgress--right"
-                                                    style={
-                                                        item.progress <= 50
-                                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360)}deg)` }
-                                                            : { background: "#4665ff" }
-                                                    }
-                                                />
-                                                <span
-                                                    className="List__circleProgress List__circleProgress--left"
-                                                    style={
-                                                        item.progress > 50
-                                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360) - 180}deg)` }
-                                                            : {}
-                                                    }
-                                                />
-                                                <span className="List__circleInner" />
-                                            </div>
-                                            <p className="List__text">{item.content}</p>
-                                        </li>
-                                    )
-                                }
-                                return null;
-                            })
+                            props.todos
+                                .filter(item => item.progress !== 100)
+                                .map((item, i) => (
+                                    <li className="List__item" key={i}>
+                                        <div className="List__circle">
+                                            <span
+                                                className="List__circleProgress List__circleProgress--right"
+                                                style={
+                                                    item.progress <= 50
+                                                        ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360)}deg)` }
+                                                        : { background: "#4665ff" }
+                                                }
+                                            />
+                                            <span
+                                                className="List__circleProgress List__circleProgress--left"
+                                                style={
+                                                    item.progress > 50
+                                                        ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360) - 180}deg)` }
+                                                        : {}
+                                                }
+                                            />
+                                            <span className="List__circleInner" />
+                                        </div>
+                                        <p className="List__text">{item.content}</p>
+                                    </li>
+                                ))
                         )
                     } else {
                         return (
-                            props.todos.map((item, i) => {
-                                if (item.progress === 100) {
-                                    return (
-                                        <li className="List__item" key={i}>
-                                            <div className="List__circle">
-                                                <span
-                                                    className="List__circleProgress List__circleProgress--right"
-                                                    style={
-                                                        item.progress <= 50
-                                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360)}deg)` }
-                                                            : { background: "#4665ff" }
-                                                    }
-                                                />
-                                                <span
-                                                    className="List__circleProgress List__circleProgress--left"
-                                                    style={
-                                                        item.progress > 50
-                                                            ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360) - 180}deg)` }
-                                                            : {}
-                                                    }
-                                                />
-                                                <span className="List__circleInner" />
-                                            </div>
-                                            <p className="List__text">{item.content}</p>
-                                        </li>
-                                    )
-                                }
-                                return null;
-                            })
+                            props.todos
+                                .filter(item => item.progress === 100)
+                                .map((item, i) => (
+                                    <li className="List__item" key={i}>
+                                        <div className="List__circle">
+                                            <span
+                                                className="List__circleProgress List__circleProgress--right"
+                                                style={
+                                                    item.progress <= 50
+                                                        ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360)}deg)` }
+                                                        : { background: "#4665ff" }
+                                                }
+                                            />
+                                            <span
+                                                className="List__circleProgress List__circleProgress--left"
+                                                style={
+                                                    item.progress > 50
+                                                        ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360) - 180}deg)` }
+                                                        : {}
+                                                }
+                                            />
+                                            <span className="List__circleInner" />
+                                        </div>
+                                        <p className="List__text">{item.content}</p>
+                                    </li>
+                                ))
                         )
                     }
                 })()}

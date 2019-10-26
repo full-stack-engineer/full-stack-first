@@ -1,5 +1,4 @@
 import React, { FC, useState, useEffect } from "react";
-import AddTodo from "../AddTodo/AddTodo";
 import ListButton from "../../components/Button/ListButton";
 import List from "../List/List";
 import PlusButton from "../../components/Button/PlusButton";
@@ -9,6 +8,7 @@ import Toggle from "../../components/Toggle/Toggle";
 import Todo from "../../components/Todo/Todo";
 import { MainState } from "../../redux/states/mainState";
 import { MainAction } from "../../redux/container/mainContainer";
+import AddTodoContainer from "../../redux/container/addTodoContainer";
 import store from "../../redux/store";
 import "./Main.scss";
 
@@ -31,8 +31,10 @@ const Main: FC<MainProps> = (props: MainProps) => {
     })
 
     useEffect(() => {
-        props.getTodo();
-    }, [localStorage.accessToken]);
+        setTimeout(() => {
+            props.getTodo();
+        }, 1000)
+    }, []);
 
     return (
         <React.Fragment>
@@ -59,7 +61,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
                     </div>
                     <div className="Main__totalMargin">
                         <Total
-                            title={toggleButton ? "本日" : "これまで"}
+                            title={toggleButton ? "Do" : "Done"}
                             todos={props.data.length}
                         />
                     </div>
@@ -74,7 +76,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
                     </div>
                 </div>
             </div>
-            {plusButton && <AddTodo />}
+            {plusButton && <AddTodoContainer />}
             {listButton && <List todos={props.data} />}
         </React.Fragment>
     )

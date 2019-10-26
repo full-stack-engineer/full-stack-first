@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { loginReducer, LoginState } from "./states/loginState";
-import { todoReducer, MainState } from "./states/mainState";
+import { mainReducer, MainState } from "./states/mainState";
 import { selectReducer, SelectState } from "./states/selectState";
 import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
@@ -19,7 +19,7 @@ const logger = createLogger({
 const store = createStore(
     combineReducers<AppState>({
         login: loginReducer,
-        main: todoReducer,
+        main: mainReducer,
         select: selectReducer
     }),
     {},

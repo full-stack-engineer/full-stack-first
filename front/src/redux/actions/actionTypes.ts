@@ -88,7 +88,8 @@ export const mainButtonActions = {
 
 // Todo取得に使用するアクション
 export const todoActions = {
-    loadAllTodo: actionCreator.async<{}, {}, {}>("LOAD_ALL_TODO")
+    inputTextarea: actionCreator<string>("INPUT_TEXTAREA"),
+    loadAllTodo: actionCreator.async<{}, {}, {}>("LOAD_ALL_TODO"),
 }
 
 // Todo取得に使用するRedux Thunkアクション
@@ -96,17 +97,35 @@ export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Actio
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
         const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
-        await axios.get(TODO_ENDPOINT,
-            {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-                }
-            })
+        await axios.get(TODO_ENDPOINT, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
             .then(results => {
                 dispatch(todoActions.loadAllTodo.done({ params: {}, result: results.data.data }));
             })
             .catch(error => {
                 dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }));
             });
+    }
+}
+
+// Todoを追加する
+export const postTodo = (content: string, progress: number): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
+    return async (dispatch: Dispatch<Action<any>>) => {
+        dispatch(todoActions.loadAllTodo.started({ params: {} }));
+        const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
+        await axios.post(TODO_ENDPOINT, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
+            .then(results => {
+                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results }));
+            })
+            .catch(error => {
+                dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }))
+            })
     }
 }

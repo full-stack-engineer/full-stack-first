@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<
         slideToggleButton: () => dispatch(mainButtonActions.slideToggleButton()),
         pushPlusButton: () => dispatch(mainButtonActions.pushPlusButton()),
         pushCloseButton: () => dispatch(mainButtonActions.pushCloseButton()),
-        getTodo: () => dispatch(getTodo())
+        getTodo: () => dispatch(getTodo()),
     }
 }
 

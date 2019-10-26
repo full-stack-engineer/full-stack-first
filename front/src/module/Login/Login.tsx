@@ -10,10 +10,6 @@ import "./Login.scss";
 
 type LoginProps = LoginState & LoginAction;
 
-interface HTMLElementEvent<T extends HTMLElement> extends Event {
-    target: T;
-}
-
 const Login: FC<LoginProps> = (props: LoginProps) => {
     const [createAccount, setCreateAccount] = useState(false);
 
@@ -36,7 +32,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                                 placeholder="名前"
                                 type="text"
                                 name="text"
-                                onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputName(e.target.value)}
+                                onChange={e => props.inputName(e.target.value)}
                             />
                         </div>
                     }
@@ -45,7 +41,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                             placeholder="メールアドレス"
                             type="email"
                             name="emailText"
-                            onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputEmail(e.target.value)}
+                            onChange={e => props.inputEmail(e.target.value)}
                         />
                     </div>
                     <div className="Login__loginInputBoxMargin">
@@ -53,7 +49,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                             placeholder="パスワード"
                             type="password"
                             name="passwordText"
-                            onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputPassword(e.target.value)}
+                            onChange={e => props.inputPassword(e.target.value)}
                         />
                     </div>
                     {createAccount &&
@@ -61,7 +57,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                             placeholder="パスワード再入力"
                             type="password"
                             name="passwordConfirmdText"
-                            onChange={(e: HTMLElementEvent<HTMLInputElement>) => props.inputPasswordConfirmed(e.target.value)}
+                            onChange={e => props.inputPasswordConfirmed(e.target.value)}
                         />
                     }
                     <div className="Login__loginButtonMargin">

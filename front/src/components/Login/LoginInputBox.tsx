@@ -5,7 +5,7 @@ interface LoginInputBoxInterface {
     placeholder: string;
     type: "text" | "email" | "password";
     name: string;
-    onChange: any;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const LoginInputBox: FC<LoginInputBoxInterface> = props => {

@@ -3,14 +3,14 @@ import "./TextArea.scss";
 
 interface TextAreaInterface {
     placeholder: string;
-    textAreaValue: any;
+    onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const TextArea: FC<TextAreaInterface> = props => {
     return (
         <textarea
             className="TextArea"
-            onChange={(e) => props.textAreaValue(e.target.value.replace(/\n/g, " "))}
+            onChange={props.onChange}
             rows={8}
             placeholder={props.placeholder}
         />

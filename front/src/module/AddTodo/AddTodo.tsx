@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import Profile from "../../components/Profile/Profile";
 import TextArea from "../../components/TextArea/TextArea";
 import AddTodoButton from "../../components/Button/AddTodoButton";
@@ -12,16 +12,6 @@ import "./AddTodo.scss";
 type AddTodoProps = MainState & AddTodoAction;
 
 const AddTodo: FC<AddTodoProps> = (props: AddTodoProps) => {
-    const [textArea, setTextArea] = useState("");
-    const textAreaValue = (value: string) => {
-        setTextArea(value);
-    }
-
-    // axiosでタスクをpostするところ
-    const postTextAreaValue = () => {
-        console.log("送信した内容: ", textArea);
-    }
-
     return (
         <div className="AddTodo">
             <div className="AddTodo__topAreaMargin">
@@ -44,7 +34,6 @@ const AddTodo: FC<AddTodoProps> = (props: AddTodoProps) => {
                         props.postTodo(props.textarea, 0);
                         store.dispatch(mainButtonActions.pushCloseButton());
                     }}
-                    postTextAreaValue={postTextAreaValue}
                 />
             </div>
         </div>

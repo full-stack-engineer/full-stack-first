@@ -39,47 +39,39 @@ const Todo: FC<TodoInterface> = props => {
     return (
         <div className="Todo">
             <ul className="Todo__list">
-                {doList
-                    ? props.todos.length === 0
-                        ? <li className="Todo__item">
-                            <div className="Todo__box">
-                                <div className="Todo__boxInner">
-                                    <p className="Todo__text">「+」ボタンから<br />タスクを追加してみよう！</p>
+                {props.todos
+                    .filter(item => (
+                        doList
+                            ? item.progress !== 100
+                            : item.progress === 100
+                    ))
+                    .map((item, i) => (
+                        <li className="Todo__item" key={i}>
+                            {props.todos.length === 0
+                                ? <div className="Todo__box">
+                                    <div className="Todo__boxInner">
+                                        <p className="Todo__text">「+」ボタンから<br />タスクを追加してみよう！</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        : props.todos
-                            .filter(item => item.progress !== 100)
-                            .map((item, i) => (
-                                <li className="Todo__item" key={i}>
-                                    <div className="Todo__box">
-                                        <div className="Todo__boxInner">
-                                            <div className="Todo__bgBar">
+                                : <div className="Todo__box">
+                                    <div className="Todo__boxInner">
+                                        {doList
+                                            ? <div className="Todo__bgBar">
                                                 <span
                                                     className="Todo__bar"
                                                     style={{ width: `${item.progress}%` }}
                                                 />
                                             </div>
-                                            <p className="Todo__text">{item.content}</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            ))
-                    : props.todos
-                        .filter(item => item.progress === 100)
-                        .map((item, i) => (
-                            <li className="Todo__item" key={i}>
-                                <div className="Todo__box">
-                                    <div className="Todo__boxInner">
-                                        <div className="Todo__success">
-                                            <span className="Todo__successDay">{dateShaping(item.updated_at, "day")}</span>
-                                            <span className="Todo__successTime">{dateShaping(item.updated_at, "time")}</span>
-                                        </div>
+                                            : <div className="Todo__success">
+                                                <span className="Todo__successDay">{dateShaping(item.updated_at, "day")}</span>
+                                                <span className="Todo__successTime">{dateShaping(item.updated_at, "time")}</span>
+                                            </div>
+                                        }
                                         <p className="Todo__text">{item.content}</p>
                                     </div>
-                                </div>
-                            </li>
-                        ))
+                                </div>}
+                        </li>
+                    ))
                 }
             </ul>
         </div>

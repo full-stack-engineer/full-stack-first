@@ -32,6 +32,20 @@ const map = (value: number, fromMin: number, fromMax: number, toMin: number, toM
     return result;
 };
 
+const dateShaping = (value: string, select: string): string => {
+    const processingDate = value.split("T");
+    let date = "";
+    switch (true) {
+        case select === "day":
+            date = processingDate[0].replace(/-/g, ".").substr(5, 5);
+            break;
+        case select === "time":
+            date = processingDate[1].substr(0, 5);
+            break;
+    }
+    return date;
+}
+
 const List: FC<ListInterface> = props => {
     const [doList, setDoList] = useState(false);
     useEffect(() => {
@@ -45,12 +59,16 @@ const List: FC<ListInterface> = props => {
                 <CloseButton onClick={() => { store.dispatch(mainButtonActions.pushCloseButton()) }} />
             </div>
             <ul className="List__list">
-                {doList
-                    ? props.todos
-                        .filter(item => item.progress !== 100)
-                        .map((item, i) => (
-                            <li className="List__item" key={i}>
-                                <div className="List__circle">
+                {props.todos
+                    .filter(item => (
+                        doList
+                            ? item.progress !== 100
+                            : item.progress === 100
+                    ))
+                    .map((item, i) => (
+                        <li className="List__item" key={i}>
+                            {doList
+                                ? <div className="List__circle">
                                     <span
                                         className="List__circleProgress List__circleProgress--right"
                                         style={
@@ -69,35 +87,14 @@ const List: FC<ListInterface> = props => {
                                     />
                                     <span className="List__circleInner" />
                                 </div>
-                                <p className="List__text">{item.content}</p>
-                            </li>
-                        ))
-                    : props.todos
-                        .filter(item => item.progress === 100)
-                        .map((item, i) => (
-                            <li className="List__item" key={i}>
-                                <div className="List__circle">
-                                    <span
-                                        className="List__circleProgress List__circleProgress--right"
-                                        style={
-                                            item.progress <= 50
-                                                ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360)}deg)` }
-                                                : { background: "#4665ff" }
-                                        }
-                                    />
-                                    <span
-                                        className="List__circleProgress List__circleProgress--left"
-                                        style={
-                                            item.progress > 50
-                                                ? { transform: `rotate(${map(item.progress, 0, 100, 0, 360) - 180}deg)` }
-                                                : {}
-                                        }
-                                    />
-                                    <span className="List__circleInner" />
+                                : <div className="List__success">
+                                    <span className="List__successDay">{dateShaping(item.updated_at, "day")}</span>
+                                    <span className="List__successTime">{dateShaping(item.updated_at, "time")}</span>
                                 </div>
-                                <p className="List__text">{item.content}</p>
-                            </li>
-                        ))
+                            }
+                            <p className="List__text">{item.content}</p>
+                        </li>
+                    ))
                 }
             </ul>
         </div>

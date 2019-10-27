@@ -2,18 +2,14 @@ import React, { FC } from "react";
 import "./AddTodoButton.scss";
 
 interface AddTodoButton {
-    onClick?: any
-    postTextAreaValue: any;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const AddTodoButton: FC<AddTodoButton> = props => {
     return (
         <button
             className="AddTodoButton"
-            onClick={() => {
-                props.onClick()
-                props.postTextAreaValue()
-            }}
+            onClick={props.onClick}
         >
             追加する
         </button>

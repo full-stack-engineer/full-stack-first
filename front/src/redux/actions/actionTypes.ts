@@ -116,13 +116,16 @@ export const postTodo = (content: string, progress: number): ThunkAction<Promise
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
         const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
-        await axios.post(TODO_ENDPOINT, {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-            }
-        })
+        const data = {
+            'content': content,
+            'progress': progress
+        }
+        const headers = {
+            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
+        }
+        await axios.post(TODO_ENDPOINT, data, { headers: headers })
             .then(results => {
-                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results }));
+                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results.data.data }));
             })
             .catch(error => {
                 dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }))

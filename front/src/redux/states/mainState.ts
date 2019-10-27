@@ -41,7 +41,7 @@ export const mainReducer = reducerWithInitialState(initialState)
         return {
             ...state,
             loading: false,
-            data: payload.result,
+            data: state.data.concat(payload.result),
             error: null
         }
     })

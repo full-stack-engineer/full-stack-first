@@ -1,4 +1,6 @@
 import React, { FC, useState } from "react";
+import { MainState } from "../../redux/states/mainState";
+import { TodoAction } from "../../redux/container/todoContainer";
 import store from "../../redux/store";
 import "./Todo.scss";
 
@@ -29,7 +31,25 @@ const dateShaping = (value: string, select: string): string => {
     return date;
 }
 
-const Todo: FC<TodoInterface> = props => {
+// eventだけでなく、event.currentTargetで渡してあげないと参照する値が変化する
+let timerId: NodeJS.Timeout;
+let progressCounter = 0;
+const downSetInterval = (event: any, itemProgress: number) => {
+    timerId = setInterval(() => {
+        if (itemProgress <= 100) {
+            event.getElementsByTagName("span")[0].style.cssText = `width:${itemProgress++}%`;
+            progressCounter = itemProgress;
+        }
+    }, 50)
+}
+
+const upClearInterval = (timerId: NodeJS.Timeout) => {
+    clearInterval(timerId);
+}
+
+type TodoProps = TodoInterface & MainState & TodoAction;
+
+const Todo: FC<TodoProps> = (props: TodoProps) => {
     const [doList, setDoList] = useState(false);
     store.subscribe(() => {
         store.getState().main.toggle
@@ -53,7 +73,19 @@ const Todo: FC<TodoInterface> = props => {
                                         <p className="Todo__text">「+」ボタンから<br />タスクを追加してみよう！</p>
                                     </div>
                                 </div>
-                                : <div className="Todo__box">
+                                : <div
+                                    className="Todo__box"
+                                    onMouseDown={e => downSetInterval(e.currentTarget, item.progress)}
+                                    onMouseUp={() => {
+                                        props.putTodo(item.id, item.content, progressCounter);
+                                        upClearInterval(timerId);
+                                    }}
+                                    onTouchStart={e => downSetInterval(e.currentTarget, item.progress)}
+                                    onTouchEnd={() => {
+                                        props.putTodo(item.id, item.content, progressCounter);
+                                        upClearInterval(timerId);
+                                    }}
+                                >
                                     <div className="Todo__boxInner">
                                         {doList
                                             ? <div className="Todo__bgBar">

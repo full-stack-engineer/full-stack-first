@@ -117,13 +117,35 @@ export const postTodo = (content: string, progress: number): ThunkAction<Promise
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
         const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
         const data = {
-            'content': content,
-            'progress': progress
+            "content": content,
+            "progress": progress
         }
         const headers = {
-            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
+            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
         }
         await axios.post(TODO_ENDPOINT, data, { headers: headers })
+            .then(results => {
+                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results.data.data }));
+            })
+            .catch(error => {
+                dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }))
+            })
+    }
+}
+
+// TodoのProgressをUpdate
+export const putTodo = (id: number, content: string, progress: number): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
+    return async (dispatch: Dispatch<Action<any>>) => {
+        dispatch(todoActions.loadAllTodo.started({ params: {} }));
+        const TODO_ENDPOINT = `http://localhost:3000/api/v1/parent_tasks/${id}`;
+        const data = {
+            "content": content,
+            "progress": progress
+        }
+        const headers = {
+            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+        }
+        await axios.put(TODO_ENDPOINT, data, { headers: headers })
             .then(results => {
                 dispatch(todoActions.loadAllTodo.done({ params: {}, result: results.data.data }));
             })

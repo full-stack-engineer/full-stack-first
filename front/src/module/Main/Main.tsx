@@ -9,6 +9,7 @@ import Todo from "../../components/Todo/Todo";
 import { MainState } from "../../redux/states/mainState";
 import { MainAction } from "../../redux/container/mainContainer";
 import AddTodoContainer from "../../redux/container/addTodoContainer";
+import TodoContainer from "../../redux/container/todoContainer";
 import store from "../../redux/store";
 import "./Main.scss";
 
@@ -69,7 +70,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
                         <Toggle onChange={props.slideToggleButton} />
                     </div>
                     <div className="Main__todoMargin">
-                        <Todo todos={props.data} />
+                        <TodoContainer todos={props.data} />
                     </div>
                     <div className="Main__plusButtonCenter">
                         <PlusButton onClick={props.pushPlusButton} />

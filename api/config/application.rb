@@ -25,7 +25,7 @@ module Api
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-
+    Rails.autoloaders.main.ignore("#{Rails.root}/app/overrides")
     # config.session_store ：cookie_store、key： ' _interslice_session '
     config.session_store  :cookie_store
     config.middleware.use ActionDispatch::Cookies

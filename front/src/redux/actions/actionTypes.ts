@@ -17,7 +17,7 @@ export const selectActions = {
 export const postSignUp = (name: string, email: string, password: string, passwordConfirmed: string): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(loginActions.loadAllLoginInfo.started({ params: {} }));
-        const REGISTER_ENDPOINT = "http://localhost:3000/api/v1/register";
+        const REGISTER_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/register";
         await axios.post(REGISTER_ENDPOINT, {
             user: {
                 name: name,
@@ -57,7 +57,7 @@ export const loginActions = {
 export const postLogIn = (email: string, password: string): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(loginActions.loadAllLoginInfo.started({ params: {} }));
-        const LOGIN_ENDPOINT = "http://localhost:3000/api/v1/login";
+        const LOGIN_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/login";
         await axios.post(LOGIN_ENDPOINT, {
             email: email,
             password: password
@@ -96,7 +96,7 @@ export const todoActions = {
 export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
-        const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
+        const TODO_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/parent_tasks";
         await axios.get(TODO_ENDPOINT, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
@@ -115,7 +115,7 @@ export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Actio
 export const postTodo = (content: string, progress: number): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
-        const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
+        const TODO_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/parent_tasks";
         const data = {
             "content": content,
             "progress": progress
@@ -137,7 +137,7 @@ export const postTodo = (content: string, progress: number): ThunkAction<Promise
 export const putTodo = (id: number, content: string, progress: number): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
-        const TODO_ENDPOINT = `http://localhost:3000/api/v1/parent_tasks/${id}`;
+        const TODO_ENDPOINT = `https://dogress-api.herokuapp.com/api/v1/parent_tasks/${id}`;
         const data = {
             "content": content,
             "progress": progress

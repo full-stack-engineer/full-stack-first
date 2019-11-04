@@ -17,6 +17,7 @@ export interface TodoResponseData {
     updated_at: string;
 }
 
+// 日付, 時間の表示加工
 const dateShaping = (value: string, select: string): string => {
     const processingDate = value.split("T");
     let date = "";
@@ -59,6 +60,13 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
     return (
         <div className="Todo">
             <ul className="Todo__list">
+                {props.todos.length === 0 &&
+                    <div className="Todo__box">
+                        <div className="Todo__boxInner">
+                            <p className="Todo__text">「+」ボタンから<br />タスクを追加してみよう！</p>
+                        </div>
+                    </div>
+                }
                 {props.todos
                     .filter(item => (
                         doList
@@ -67,41 +75,35 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
                     ))
                     .map((item, i) => (
                         <li className="Todo__item" key={i}>
-                            {props.todos.length === 0
-                                ? <div className="Todo__box">
-                                    <div className="Todo__boxInner">
-                                        <p className="Todo__text">「+」ボタンから<br />タスクを追加してみよう！</p>
-                                    </div>
+                            <div
+                                className="Todo__box"
+                                onMouseDown={e => downSetInterval(e.currentTarget, item.progress)}
+                                onMouseUp={() => {
+                                    props.putTodo(item.id, item.content, progressCounter);
+                                    upClearInterval(timerId);
+                                }}
+                                onTouchStart={e => downSetInterval(e.currentTarget, item.progress)}
+                                onTouchEnd={() => {
+                                    props.putTodo(item.id, item.content, progressCounter);
+                                    upClearInterval(timerId);
+                                }}
+                            >
+                                <div className="Todo__boxInner">
+                                    {doList
+                                        ? <div className="Todo__bgBar">
+                                            <span
+                                                className="Todo__bar"
+                                                style={{ width: `${item.progress}%` }}
+                                            />
+                                        </div>
+                                        : <div className="Todo__success">
+                                            <span className="Todo__successDay">{dateShaping(item.updated_at, "day")}</span>
+                                            <span className="Todo__successTime">{dateShaping(item.updated_at, "time")}</span>
+                                        </div>
+                                    }
+                                    <p className="Todo__text">{item.content}</p>
                                 </div>
-                                : <div
-                                    className="Todo__box"
-                                    onMouseDown={e => downSetInterval(e.currentTarget, item.progress)}
-                                    onMouseUp={() => {
-                                        props.putTodo(item.id, item.content, progressCounter);
-                                        upClearInterval(timerId);
-                                    }}
-                                    onTouchStart={e => downSetInterval(e.currentTarget, item.progress)}
-                                    onTouchEnd={() => {
-                                        props.putTodo(item.id, item.content, progressCounter);
-                                        upClearInterval(timerId);
-                                    }}
-                                >
-                                    <div className="Todo__boxInner">
-                                        {doList
-                                            ? <div className="Todo__bgBar">
-                                                <span
-                                                    className="Todo__bar"
-                                                    style={{ width: `${item.progress}%` }}
-                                                />
-                                            </div>
-                                            : <div className="Todo__success">
-                                                <span className="Todo__successDay">{dateShaping(item.updated_at, "day")}</span>
-                                                <span className="Todo__successTime">{dateShaping(item.updated_at, "time")}</span>
-                                            </div>
-                                        }
-                                        <p className="Todo__text">{item.content}</p>
-                                    </div>
-                                </div>}
+                            </div>
                         </li>
                     ))
                 }

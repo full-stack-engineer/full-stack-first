@@ -38,7 +38,7 @@ const downSetInterval = (event: any, itemProgress: number) => {
     timerId = setInterval(() => {
         if (itemProgress <= 100) {
             event.getElementsByTagName("span")[0].style.cssText = `width:${itemProgress++}%`;
-            progressCounter = itemProgress;
+            progressCounter = itemProgress - 1;
         }
     }, 50)
 }

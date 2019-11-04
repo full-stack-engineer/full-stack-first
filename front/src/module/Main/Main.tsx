@@ -5,7 +5,6 @@ import PlusButton from "../../components/Button/PlusButton";
 import Profile from "../../components/Profile/Profile";
 import Total from "../../components/Total/Total";
 import Toggle from "../../components/Toggle/Toggle";
-import Todo from "../../components/Todo/Todo";
 import { MainState } from "../../redux/states/mainState";
 import { MainAction } from "../../redux/container/mainContainer";
 import AddTodoContainer from "../../redux/container/addTodoContainer";

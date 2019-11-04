@@ -25,7 +25,7 @@ module Api
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-
+    Rails.autoloaders.main.ignore("#{Rails.root}/app/overrides")
     # config.session_store ：cookie_store、key： ' _interslice_session '
     config.session_store  :cookie_store
     config.middleware.use ActionDispatch::Cookies
@@ -50,5 +50,7 @@ module Api
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
   end
 end

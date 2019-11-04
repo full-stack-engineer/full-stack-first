@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { AppState } from "../store";
 import { Dispatch } from "redux";
 import { selectActions } from "../actions/actionTypes";
-import Welcome from "../../components/Welcome/Welcome";
+import Welcome from "../../module/Welcome/Welcome";
 
 export interface SelectAction {
     selectCreateAccountButton: () => Action<void>;

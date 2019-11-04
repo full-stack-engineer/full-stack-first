@@ -1,29 +1,47 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
-import { todoActions } from "../actions/actionTypes";
+import { todoActions, mainButtonActions } from "../actions/actionTypes";
 
-export interface TodoState {
+export interface MainState {
+    textarea: string;
     loading: boolean;
+    error: any;
     data: any;
+    doList: boolean;
+    doneList: boolean;
+    toggle: boolean;
+    puls: boolean;
 }
 
-const initialState: TodoState = {
+const initialState: MainState = {
+    textarea: "",
     loading: false,
+    error: null,
     data: [],
+    doList: false,
+    doneList: false,
+    toggle: true,
+    puls: false,
 };
 
-export const todoReducer = reducerWithInitialState(initialState)
-    .case(todoActions.loadAllTodo.started, (state) => {
+export const mainReducer = reducerWithInitialState(initialState)
+    .case(todoActions.inputTextarea, (state, textarea) => {
+        return {
+            ...state,
+            textarea
+        }
+    })
+    .case(todoActions.loadAllTodo.started, state => {
         return {
             ...state,
             loading: true,
-            error: null,
+            error: null
         }
     })
     .case(todoActions.loadAllTodo.done, (state, payload) => {
         return {
             ...state,
             loading: false,
-            data: payload.result,
+            data: state.data.concat(payload.result),
             error: null
         }
     })
@@ -32,5 +50,37 @@ export const todoReducer = reducerWithInitialState(initialState)
             ...state,
             loading: false,
             error: payload.error
+        }
+    })
+    .case(mainButtonActions.pushDoListButton, state => {
+        return {
+            ...state,
+            doList: true
+        }
+    })
+    .case(mainButtonActions.pushDoneListButton, state => {
+        return {
+            ...state,
+            doneList: true
+        }
+    })
+    .case(mainButtonActions.slideToggleButton, state => {
+        return {
+            ...state,
+            toggle: !state.toggle
+        }
+    })
+    .case(mainButtonActions.pushPlusButton, state => {
+        return {
+            ...state,
+            puls: true
+        }
+    })
+    .case(mainButtonActions.pushCloseButton, state => {
+        return {
+            ...state,
+            doList: false,
+            doneList: false,
+            puls: false
         }
     })

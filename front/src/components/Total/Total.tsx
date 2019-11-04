@@ -10,10 +10,10 @@ const Total: FC<Total> = props => {
     return (
         <div className="Total">
             <div className="Total__inner">
-                <h1 className="Total__title">{`${props.title}のDone`}</h1>
+                <h1 className="Total__title">{props.title}</h1>
                 <div className="Total__todo">
                     <p className="Total__number">{props.todos}</p>
-                    <p className="Total__text">Tasks</p>
+                    <p className="Total__text">Todos</p>
                 </div>
             </div>
         </div>

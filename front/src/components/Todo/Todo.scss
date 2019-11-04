@@ -1,5 +1,8 @@
 .Todo {
     margin: 0 -24px;
+    min-height: 200px;
+    user-select: none;
+    -webkit-touch-callout: none;
 
     &__list {
         display: flex;
@@ -44,6 +47,26 @@
         top: 0;
         left: 0;
         height: 10px;   
+    }
+
+    &__success {
+        border-bottom: 3px solid #eee;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 3px;
+
+        &Day {
+            color: #4665ff;
+            font-size: 1.5rem;
+        }
+
+        &Time {
+            color: #ccc;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
     }
 
     &__text {

@@ -45,13 +45,13 @@ export const loginReducer = reducerWithInitialState(initialState)
     .case(loginActions.inputName, (state, name) => {
         return {
             ...state,
-            name,
+            name
         }
     })
     .case(loginActions.inputEmail, (state, email) => {
         return {
             ...state,
-            email,
+            email
         }
     })
     .case(loginActions.inputPassword, (state, password) => {
@@ -66,17 +66,17 @@ export const loginReducer = reducerWithInitialState(initialState)
             passwordConfirmd
         }
     })
-    .case(loginActions.pushLoginButton, (state) => {
+    .case(loginActions.pushLoginButton, state => {
         return {
-            ...state,
+            ...state
         }
     })
-    .case(loginActions.loadAllLoginInfo.started, (state) => {
+    .case(loginActions.loadAllLoginInfo.started, state => {
         return {
             ...state,
             loading: true,
             loginStatus: false,
-            error: null,
+            error: null
         }
     })
     .case(loginActions.loadAllLoginInfo.done, (state, payload: any) => {
@@ -93,6 +93,6 @@ export const loginReducer = reducerWithInitialState(initialState)
             ...state,
             loading: false,
             loginStatus: false,
-            error: payload.error,
+            error: payload.error
         }
     })

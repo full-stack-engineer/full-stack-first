@@ -2,22 +2,32 @@ import { Action } from "typescript-fsa";
 import { connect } from "react-redux";
 import { AppState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
-import { getTodo } from "../actions/actionTypes";
-import Main from "../../components/Main/Main";
+import { mainButtonActions, getTodo } from "../actions/actionTypes";
+import Main from "../../module/Main/Main";
 
-export interface TodoAction {
+export interface MainAction {
+    pushDoListButton: () => Action<void>;
+    pushDoneListButton: () => Action<void>;
+    slideToggleButton: () => Action<void>;
+    pushPlusButton: () => Action<void>;
+    pushCloseButton: () => Action<void>;
     getTodo: () => Promise<void>;
 }
 
 const mapStateToProps = (appState: AppState) => {
     return {
-        ...appState.todo
+        ...appState.main
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<any>>) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<void>>) => {
     return {
-        getTodo: () => dispatch(getTodo())
+        pushDoListButton: () => dispatch(mainButtonActions.pushDoListButton()),
+        pushDoneListButton: () => dispatch(mainButtonActions.pushDoneListButton()),
+        slideToggleButton: () => dispatch(mainButtonActions.slideToggleButton()),
+        pushPlusButton: () => dispatch(mainButtonActions.pushPlusButton()),
+        pushCloseButton: () => dispatch(mainButtonActions.pushCloseButton()),
+        getTodo: () => dispatch(getTodo()),
     }
 }
 

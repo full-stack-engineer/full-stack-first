@@ -1,45 +1,50 @@
 import React, { FC, useState, useEffect } from "react";
+import Loading from "./module/Loading/Loading";
 import LoginContainer from "./redux/container/loginContainer";
 import MainContainer from "./redux/container/mainContainer";
 import SelectContainer from "./redux/container/selectContainer";
 import store from "./redux/store";
 
-export interface AppInterface {
-  loginStatus?: boolean
-}
-
-const App: FC<AppInterface> = () => {
+const App: FC = () => {
+  const [loading, setLoading] = useState(true);
   const [loginStatus, setLoginStatus] = useState(false);
   const [select, setSelect] = useState(false);
 
+  const setLoadingTime = (timeout: number): void => {
+    setTimeout(() => {
+      setLoading(false);
+    }, timeout);
+  }
+
   store.subscribe(() => {
-    if (store.getState().login.loginStatus === true) {
+    if (store.getState().login.loginStatus) {
       setLoginStatus(true);
     }
-    if (store.getState().select.createAccount === true || store.getState().select.login === true) {
-      setSelect(true);
-    } else {
-      setSelect(false)
-    }
+    store.getState().login.loading || store.getState().main.loading
+      ? setLoading(true)
+      : setLoadingTime(1000);
+    store.getState().select.createAccount || store.getState().select.login
+      ? setSelect(true)
+      : setSelect(false);
   });
 
   useEffect(() => {
     if (localStorage.accessToken !== undefined) {
       setLoginStatus(true);
+    } else {
+      setLoadingTime(1000);
     }
   }, [])
 
   return (
-    <div>
-      {loginStatus ?
-        <MainContainer /> :
+    <React.Fragment>
+      {loading && <Loading />}
+      {loginStatus ? <MainContainer /> :
         <React.Fragment>
-          {select ?
-            <LoginContainer /> :
-            <SelectContainer />}
+          {select ? <LoginContainer /> : <SelectContainer />}
         </React.Fragment>
       }
-    </div>
+    </React.Fragment>
   )
 }
 

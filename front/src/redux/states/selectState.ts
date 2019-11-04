@@ -12,19 +12,19 @@ const initialState: SelectState = {
 }
 
 export const selectReducer = reducerWithInitialState(initialState)
-    .case(selectActions.selectCreateAccountButton, (state) => {
+    .case(selectActions.selectCreateAccountButton, state => {
         return {
             ...state,
             createAccount: true
         }
     })
-    .case(selectActions.selectLoginButton, (state) => {
+    .case(selectActions.selectLoginButton, state => {
         return {
             ...state,
             login: true
         }
     })
-    .case(selectActions.backToTopButton, (state) => {
+    .case(selectActions.backToTopButton, state => {
         return {
             ...state,
             createAccount: false,

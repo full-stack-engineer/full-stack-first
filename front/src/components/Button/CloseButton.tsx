@@ -2,14 +2,14 @@ import React, { FC } from "react";
 import "./CloseButton.scss";
 
 interface CloseButton {
-    plusButtonFlg: any;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const CloseButton: FC<CloseButton> = props => {
     return (
         <button
             className="CloseButton"
-            onClick={props.plusButtonFlg}
+            onClick={props.onClick}
         />
     )
 }

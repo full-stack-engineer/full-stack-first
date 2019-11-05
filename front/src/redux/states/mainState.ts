@@ -52,6 +52,21 @@ export const mainReducer = reducerWithInitialState(initialState)
             error: payload.error
         }
     })
+    .case(todoActions.putTodo.started, state => {
+        return {
+            ...state
+        }
+    })
+    .case(todoActions.putTodo.done, state => {
+        return {
+            ...state
+        }
+    })
+    .case(todoActions.putTodo.failed, state => {
+        return {
+            ...state
+        }
+    })
     .case(mainButtonActions.pushDoListButton, state => {
         return {
             ...state,

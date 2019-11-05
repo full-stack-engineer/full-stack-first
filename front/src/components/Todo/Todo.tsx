@@ -35,13 +35,34 @@ const dateShaping = (value: string, select: string): string => {
 // eventだけでなく、event.currentTargetで渡してあげないと参照する値が変化する
 let timerId: NodeJS.Timeout;
 let progressCounter = 0;
-const downSetInterval = (event: any, itemProgress: number) => {
-    timerId = setInterval(() => {
-        if (itemProgress <= 100) {
-            event.getElementsByTagName("span")[0].style.cssText = `width:${itemProgress++}%`;
-            progressCounter = itemProgress - 1;
-        }
-    }, 50)
+let count = 0;
+let setId = 0;
+const downSetInterval = (event: any, itemProgress: number, itemId: number) => {
+    const processing = (time: number) => {
+        timerId = setInterval(() => {
+            if (itemProgress + count <= 100) {
+                event.getElementsByTagName("span")[0].style.cssText = `width:${itemProgress + count++}%`;
+                progressCounter = itemProgress + count - 1;
+            }
+        }, time);
+    }
+    switch (true) {
+        case count === 0:
+            processing(34);
+            setId = itemId;
+            break;
+        case count !== 0:
+            if (setId === itemId) {
+                processing(34);
+            } else {
+                count = 0;
+                setId = itemId;
+                processing(34);
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 const upClearInterval = (timerId: NodeJS.Timeout) => {
@@ -75,14 +96,15 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
                     ))
                     .map((item, i) => (
                         <li className="Todo__item" key={i}>
+                            {console.log("a")}
                             <div
                                 className="Todo__box"
-                                onMouseDown={e => downSetInterval(e.currentTarget, item.progress)}
+                                onMouseDown={e => downSetInterval(e.currentTarget, item.progress, item.id)}
                                 onMouseUp={() => {
                                     props.putTodo(item.id, item.content, progressCounter);
                                     upClearInterval(timerId);
                                 }}
-                                onTouchStart={e => downSetInterval(e.currentTarget, item.progress)}
+                                onTouchStart={e => downSetInterval(e.currentTarget, item.progress, item.id)}
                                 onTouchEnd={() => {
                                     props.putTodo(item.id, item.content, progressCounter);
                                     upClearInterval(timerId);

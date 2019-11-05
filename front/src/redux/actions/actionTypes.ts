@@ -90,6 +90,7 @@ export const mainButtonActions = {
 export const todoActions = {
     inputTextarea: actionCreator<string>("INPUT_TEXTAREA"),
     loadAllTodo: actionCreator.async<{}, {}, {}>("LOAD_ALL_TODO"),
+    putTodo: actionCreator.async<{}, {}, {}>("PUT_UPDATE_TODO")
 }
 
 // Todo取得に使用するRedux Thunkアクション
@@ -136,7 +137,7 @@ export const postTodo = (content: string, progress: number): ThunkAction<Promise
 // TodoのProgressをUpdate
 export const putTodo = (id: number, content: string, progress: number): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
-        dispatch(todoActions.loadAllTodo.started({ params: {} }));
+        dispatch(todoActions.putTodo.started({ params: {} }));
         const TODO_ENDPOINT = `https://dogress-api.herokuapp.com/api/v1/parent_tasks/${id}`;
         const data = {
             "content": content,
@@ -147,10 +148,10 @@ export const putTodo = (id: number, content: string, progress: number): ThunkAct
         }
         await axios.put(TODO_ENDPOINT, data, { headers: headers })
             .then(results => {
-                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results.data.data }));
+                dispatch(todoActions.putTodo.done({ params: {}, result: results.data.data }));
             })
             .catch(error => {
-                dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }))
+                dispatch(todoActions.putTodo.failed({ params: {}, error: error }))
             })
     }
 }

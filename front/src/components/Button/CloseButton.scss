@@ -1,14 +1,16 @@
 .CloseButton {
     background: transparent;
     outline: none;
-    position: relative;
+    position: fixed;
     height: 44px;
     width: 44px;
+    z-index: 4;
 
     &::before,
     &::after {
         background: #fff;
         border-radius: 2.5px;
+        box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
         content: "";
         position: absolute;
         top: calc(50% - 2.5px);

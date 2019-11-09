@@ -33,9 +33,12 @@ const App: FC<AppProps> = (props: AppProps) => {
   return (
     <React.Fragment>
       {loading && <Loading />}
-      {props.loginStatus ? <MainContainer /> :
-        <React.Fragment>
-          {props.createAccount || props.login ? <LoginContainer /> : <SelectContainer />}
+      {props.loginStatus
+        ? <MainContainer />
+        : <React.Fragment>
+          {props.createAccount || props.login
+            ? <LoginContainer />
+            : <SelectContainer />}
         </React.Fragment>
       }
     </React.Fragment>

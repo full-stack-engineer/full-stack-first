@@ -28,17 +28,9 @@ export const postSignUp = (name: string, email: string, password: string, passwo
             }
         })
             .then(results => {
-                console.log(results)
                 dispatch(userActions.loadAllUserInfo.done({ params: {}, result: results }));
-                if (localStorage.accessToken === undefined) {
-                    localStorage.accessToken = results.data.data.access_token;
-                }
-                if (localStorage.refreshToken === undefined) {
-                    localStorage.refreshToken = results.data.data.refresh_token;
-                }
             })
             .catch(error => {
-                console.log(error)
                 dispatch(userActions.loadAllUserInfo.failed({ params: {}, error: error }));
             });
     }

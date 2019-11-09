@@ -40,8 +40,8 @@ export const mainReducer = reducerWithInitialState(initialState)
     .case(todoActions.loadAllTodo.done, (state, payload) => {
         return {
             ...state,
-            loading: false,
             data: state.data.concat(payload.result),
+            loading: false,
             error: {}
         }
     })

@@ -9,31 +9,17 @@ import { MainState } from "../../redux/states/mainState";
 import { MainAction } from "../../redux/container/mainContainer";
 import AddTodoContainer from "../../redux/container/addTodoContainer";
 import TodoContainer from "../../redux/container/todoContainer";
+import { getTodoCount } from "../../lib/lib";
 import store from "../../redux/store";
 import "./Main.scss";
 
 type MainProps = MainState & MainAction;
 
 const Main: FC<MainProps> = (props: MainProps) => {
-    const [plusButton, setPlusButton] = useState(false);
-    const [toggleButton, setToggleButton] = useState(true);
-    const [listButton, setListButton] = useState(false);
-    store.subscribe(() => {
-        store.getState().main.puls
-            ? setPlusButton(true)
-            : setPlusButton(false)
-        store.getState().main.toggle
-            ? setToggleButton(true)
-            : setToggleButton(false)
-        store.getState().main.doList || store.getState().main.doneList
-            ? setListButton(true)
-            : setListButton(false)
-    })
-
+    const [doProgress, setDoProgress] = useState(0);
+    const [doneProgress, setDoneProgress] = useState(0);
     useEffect(() => {
-        setTimeout(() => {
-            props.getTodo();
-        }, 1000)
+        getTodoCount(props.getTodo, setDoProgress, setDoneProgress)
     }, []);
 
     return (
@@ -45,15 +31,15 @@ const Main: FC<MainProps> = (props: MainProps) => {
                         <Profile
                             src="https://66.media.tumblr.com/624be961c064f228f52ceb3d17c00998/tumblr_p9iby2ty8P1vc1y9yo1_1280.jpg"
                             alt="プロフィール画像"
-                            name="よだっちょ"
+                            name={store.getState().user.results.data.user.name}
                         />
                         <ListButton
                             addClassName={
-                                toggleButton
+                                props.toggle
                                     ? ""
                                     : "ListButton--done"
                             }
-                            onClick={toggleButton
+                            onClick={props.toggle
                                 ? props.pushDoListButton
                                 : props.pushDoneListButton
                             }
@@ -61,8 +47,8 @@ const Main: FC<MainProps> = (props: MainProps) => {
                     </div>
                     <div className="Main__totalMargin">
                         <Total
-                            title={toggleButton ? "Do" : "Done"}
-                            todos={props.data.length}
+                            title={props.toggle ? "Do" : "Done"}
+                            todos={props.toggle ? doProgress : doneProgress}
                         />
                     </div>
                     <div className="Main__toggleMargin">
@@ -76,8 +62,8 @@ const Main: FC<MainProps> = (props: MainProps) => {
                     </div>
                 </div>
             </div>
-            {plusButton && <AddTodoContainer />}
-            {listButton && <List todos={props.data} />}
+            {props.puls && <AddTodoContainer />}
+            {(props.doList || props.doneList) && <List todos={props.data} />}
         </React.Fragment>
     )
 }

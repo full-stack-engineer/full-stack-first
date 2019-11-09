@@ -13,7 +13,7 @@ export interface SelectAction {
 
 const mapStateToProps = (appState: AppState) => {
     return {
-        ...appState.select
+        ...appState.user
     }
 }
 

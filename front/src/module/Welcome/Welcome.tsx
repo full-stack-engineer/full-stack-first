@@ -3,11 +3,11 @@ import image from "../../assets/twitter.svg";
 import React, { FC } from "react";
 import LoginButton from "../../components/Login/LoginButton";
 import LoginSNS from "../../components/Login/LoginSNS";
-import { SelectState } from "../../redux/states/selectState";
+import { UserState } from "../../redux/states/userState";
 import { SelectAction } from "../../redux/container/selectContainer";
 import "./Welcome.scss";
 
-type SelectProps = SelectState & SelectAction;
+type SelectProps = UserState & SelectAction;
 
 const Welcome: FC<SelectProps> = (props: SelectProps) => {
     return (

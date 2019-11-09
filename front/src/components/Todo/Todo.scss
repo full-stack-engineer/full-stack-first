@@ -8,13 +8,14 @@
         display: flex;
         overflow: auto;
         scroll-snap-type: x mandatory;
+        flex-direction : row-reverse;
     }
 
     &__item {
         display: flex;
         justify-content: center;
         scroll-snap-align: start;
-        width: 100vw;
+        width: 100%;
     }
 
     &__box {

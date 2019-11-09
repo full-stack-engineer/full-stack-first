@@ -3,6 +3,7 @@ import actionCreatorFactory, { Action } from "typescript-fsa";
 import { ThunkAction } from "redux-thunk";
 import { Dispatch } from "redux";
 import { AppState } from "../store";
+import store from "../store";
 
 const actionCreator = actionCreatorFactory();
 
@@ -16,8 +17,8 @@ export const selectActions = {
 // アカウント作成に使用するRedux Thunkアクション
 export const postSignUp = (name: string, email: string, password: string, passwordConfirmed: string): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
-        dispatch(loginActions.loadAllLoginInfo.started({ params: {} }));
-        const REGISTER_ENDPOINT = "http://localhost:3000/api/v1/register";
+        dispatch(userActions.loadAllUserInfo.started({ params: {} }));
+        const REGISTER_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/register";
         await axios.post(REGISTER_ENDPOINT, {
             user: {
                 name: name,
@@ -28,7 +29,7 @@ export const postSignUp = (name: string, email: string, password: string, passwo
         })
             .then(results => {
                 console.log(results)
-                dispatch(loginActions.loadAllLoginInfo.done({ params: {}, result: results }));
+                dispatch(userActions.loadAllUserInfo.done({ params: {}, result: results }));
                 if (localStorage.accessToken === undefined) {
                     localStorage.accessToken = results.data.data.access_token;
                 }
@@ -38,41 +39,35 @@ export const postSignUp = (name: string, email: string, password: string, passwo
             })
             .catch(error => {
                 console.log(error)
-                dispatch(loginActions.loadAllLoginInfo.failed({ params: {}, error: error }));
+                dispatch(userActions.loadAllUserInfo.failed({ params: {}, error: error }));
             });
     }
 }
 
 // ログインに使用するアクション
-export const loginActions = {
+export const userActions = {
     inputName: actionCreator<string>("INPUT_NAME"),
     inputEmail: actionCreator<string>("INPUT_EMAIL"),
     inputPassword: actionCreator<string>("INPUT_PASSWORD"),
     inputPasswordConfirmd: actionCreator<string>("INPUT_PASSWORD_CONFIRMD"),
     pushLoginButton: actionCreator<void>("LOGIN_BUTTON"),
-    loadAllLoginInfo: actionCreator.async<{}, {}, {}>("LOAD_ALL_LOGIN_INFO")
+    loadAllUserInfo: actionCreator.async<{}, {}, {}>("LOAD_ALL_USER_INFO")
 };
 
 // ログインに使用するRedux Thunkアクション
 export const postLogIn = (email: string, password: string): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
-        dispatch(loginActions.loadAllLoginInfo.started({ params: {} }));
-        const LOGIN_ENDPOINT = "http://localhost:3000/api/v1/login";
+        dispatch(userActions.loadAllUserInfo.started({ params: {} }));
+        const LOGIN_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/login";
         await axios.post(LOGIN_ENDPOINT, {
             email: email,
             password: password
         })
             .then(results => {
-                dispatch(loginActions.loadAllLoginInfo.done({ params: {}, result: results }));
-                if (localStorage.accessToken === undefined) {
-                    localStorage.accessToken = results.data.token.access_token;
-                }
-                if (localStorage.refreshToken === undefined) {
-                    localStorage.refreshToken = results.data.token.refresh_token;
-                }
+                dispatch(userActions.loadAllUserInfo.done({ params: {}, result: results }));
             })
             .catch(error => {
-                dispatch(loginActions.loadAllLoginInfo.failed({ params: {}, error: error }));
+                dispatch(userActions.loadAllUserInfo.failed({ params: {}, error: error }));
             });
     }
 }
@@ -90,16 +85,17 @@ export const mainButtonActions = {
 export const todoActions = {
     inputTextarea: actionCreator<string>("INPUT_TEXTAREA"),
     loadAllTodo: actionCreator.async<{}, {}, {}>("LOAD_ALL_TODO"),
+    putTodo: actionCreator.async<{}, {}, {}>("PUT_UPDATE_TODO")
 }
 
 // Todo取得に使用するRedux Thunkアクション
 export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
-        const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
+        const TODO_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/parent_tasks";
         await axios.get(TODO_ENDPOINT, {
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+                "Authorization": `Bearer ${store.getState().user.results.data.token.access_token}`
             }
         })
             .then(results => {
@@ -115,13 +111,13 @@ export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Actio
 export const postTodo = (content: string, progress: number): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
         dispatch(todoActions.loadAllTodo.started({ params: {} }));
-        const TODO_ENDPOINT = "http://localhost:3000/api/v1/parent_tasks";
+        const TODO_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/parent_tasks";
         const data = {
             "content": content,
             "progress": progress
         }
         const headers = {
-            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            "Authorization": `Bearer ${store.getState().user.results.data.token.access_token}`
         }
         await axios.post(TODO_ENDPOINT, data, { headers: headers })
             .then(results => {
@@ -136,21 +132,21 @@ export const postTodo = (content: string, progress: number): ThunkAction<Promise
 // TodoのProgressをUpdate
 export const putTodo = (id: number, content: string, progress: number): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
-        dispatch(todoActions.loadAllTodo.started({ params: {} }));
-        const TODO_ENDPOINT = `http://localhost:3000/api/v1/parent_tasks/${id}`;
+        dispatch(todoActions.putTodo.started({ params: {} }));
+        const TODO_ENDPOINT = `https://dogress-api.herokuapp.com/api/v1/parent_tasks/${id}`;
         const data = {
             "content": content,
             "progress": progress
         }
         const headers = {
-            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            "Authorization": `Bearer ${store.getState().user.results.data.token.access_token}`
         }
         await axios.put(TODO_ENDPOINT, data, { headers: headers })
             .then(results => {
-                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results.data.data }));
+                dispatch(todoActions.putTodo.done({ params: {}, result: results.data.data }));
             })
             .catch(error => {
-                dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }))
+                dispatch(todoActions.putTodo.failed({ params: {}, error: error }))
             })
     }
 }

@@ -17,6 +17,11 @@
         height: 64px;
     }
 
+    &__list {
+        display: flex;
+        flex-direction : column-reverse;
+    }
+
     &__item {
         background: #fff;
         border-radius: 8px;
@@ -26,7 +31,7 @@
         padding: 20px 16px;
         height: 96px;
 
-        &:not(:last-child) {
+        &:not(:first-child) {
             margin-bottom: 24px;
         }
     }

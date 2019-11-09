@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import CloseButton from "../../components/Button/CloseButton";
 import store from "../../redux/store";
 import { mainButtonActions } from "../../redux/actions/actionTypes";
+import { map, dateShaping } from "../../lib/lib";
 import "./List.scss";
 
 interface ListInterface {
@@ -15,35 +16,6 @@ export interface ListResponseData {
     progress: number;
     created_at: string;
     updated_at: string;
-}
-
-const map = (value: number, fromMin: number, fromMax: number, toMin: number, toMax: number): number => {
-
-    let result = 0;
-    result = value <= fromMin
-        ? toMin
-        : value >= fromMax
-            ? toMax
-            : (() => {
-                let ratio: number = (toMax - toMin) / (fromMax - fromMin);
-                return (value - fromMin) * ratio + toMin;
-            })();
-
-    return result;
-};
-
-const dateShaping = (value: string, select: string): string => {
-    const processingDate = value.split("T");
-    let date = "";
-    switch (true) {
-        case select === "day":
-            date = processingDate[0].replace(/-/g, ".").substr(5, 5);
-            break;
-        case select === "time":
-            date = processingDate[1].substr(0, 5);
-            break;
-    }
-    return date;
 }
 
 const List: FC<ListInterface> = props => {

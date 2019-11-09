@@ -1,7 +1,10 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
-import { loginActions } from "../actions/actionTypes";
+import { selectActions, userActions } from "../actions/actionTypes";
+import { encrypt } from "../../lib/lib";
 
-export interface LoginState {
+export interface UserState {
+    createAccount: boolean;
+    login: boolean;
     name: string;
     email: string;
     password: string;
@@ -21,7 +24,9 @@ export interface LoginState {
     }
 }
 
-const initialState: LoginState = {
+const initialUserState: UserState = {
+    createAccount: false,
+    login: false,
     name: "",
     email: "",
     password: "",
@@ -41,37 +46,58 @@ const initialState: LoginState = {
     }
 };
 
-export const loginReducer = reducerWithInitialState(initialState)
-    .case(loginActions.inputName, (state, name) => {
+export const loginReducer = reducerWithInitialState(initialUserState)
+    .case(selectActions.selectCreateAccountButton, state => {
+        return {
+            ...state,
+            createAccount: true
+        }
+    })
+    .case(selectActions.selectLoginButton, state => {
+        return {
+            ...state,
+            login: true
+        }
+    })
+    .case(selectActions.backToTopButton, state => {
+        return {
+            ...state,
+            createAccount: false,
+            login: false
+        }
+    })
+    .case(userActions.inputName, (state, name) => {
         return {
             ...state,
             name
         }
     })
-    .case(loginActions.inputEmail, (state, email) => {
+    .case(userActions.inputEmail, (state, email) => {
         return {
             ...state,
             email
         }
     })
-    .case(loginActions.inputPassword, (state, password) => {
+    .case(userActions.inputPassword, (state, password) => {
         return {
             ...state,
             password
         }
     })
-    .case(loginActions.inputPasswordConfirmd, (state, passwordConfirmd) => {
+    .case(userActions.inputPasswordConfirmd, (state, passwordConfirmd) => {
         return {
             ...state,
             passwordConfirmd
         }
     })
-    .case(loginActions.pushLoginButton, state => {
+    .case(userActions.pushLoginButton, state => {
+        localStorage.email = encrypt(state.email)
+        localStorage.password = encrypt(state.password)
         return {
             ...state
         }
     })
-    .case(loginActions.loadAllLoginInfo.started, state => {
+    .case(userActions.loadAllUserInfo.started, state => {
         return {
             ...state,
             loading: true,
@@ -79,7 +105,7 @@ export const loginReducer = reducerWithInitialState(initialState)
             error: null
         }
     })
-    .case(loginActions.loadAllLoginInfo.done, (state, payload: any) => {
+    .case(userActions.loadAllUserInfo.done, (state, payload: any) => {
         return {
             ...state,
             loading: false,
@@ -88,7 +114,7 @@ export const loginReducer = reducerWithInitialState(initialState)
             results: payload.result
         }
     })
-    .case(loginActions.loadAllLoginInfo.failed, (state, payload) => {
+    .case(userActions.loadAllUserInfo.failed, (state, payload) => {
         return {
             ...state,
             loading: false,

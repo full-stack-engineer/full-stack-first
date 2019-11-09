@@ -2,10 +2,10 @@ import { Action } from "typescript-fsa";
 import { connect } from "react-redux";
 import { AppState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
-import { loginActions, postLogIn, postSignUp } from "../actions/actionTypes";
+import { userActions, postLogIn, postSignUp } from "../actions/actionTypes";
 import Login from "../../module/Login/Login";
 
-export interface LoginAction {
+export interface UserAction {
     inputName: (inputValue: string) => Action<string>;
     inputEmail: (inputValue: string) => Action<string>;
     inputPassword: (inputValue: string) => Action<string>;
@@ -17,17 +17,17 @@ export interface LoginAction {
 
 const mapStateToProps = (appState: AppState) => {
     return {
-        ...appState.login
+        ...appState.user
     }
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<string | void>>) => {
     return {
-        inputName: (inputValue: string) => dispatch(loginActions.inputName(inputValue)),
-        inputEmail: (inputValue: string) => dispatch(loginActions.inputEmail(inputValue)),
-        inputPassword: (inputValue: string) => dispatch(loginActions.inputPassword(inputValue)),
-        inputPasswordConfirmed: (inputValue: string) => dispatch(loginActions.inputPasswordConfirmd(inputValue)),
-        pushLoginButton: () => dispatch(loginActions.pushLoginButton()),
+        inputName: (inputValue: string) => dispatch(userActions.inputName(inputValue)),
+        inputEmail: (inputValue: string) => dispatch(userActions.inputEmail(inputValue)),
+        inputPassword: (inputValue: string) => dispatch(userActions.inputPassword(inputValue)),
+        inputPasswordConfirmed: (inputValue: string) => dispatch(userActions.inputPasswordConfirmd(inputValue)),
+        pushLoginButton: () => dispatch(userActions.pushLoginButton()),
         postSignUp: (name: string, email: string, password: string, passwordConfirmed: string) => dispatch(postSignUp(name, email, password, passwordConfirmed)),
         postLogIn: (email: string, password: string) => dispatch(postLogIn(email, password))
     }

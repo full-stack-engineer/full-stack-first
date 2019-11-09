@@ -4,8 +4,8 @@ import { todoActions, mainButtonActions } from "../actions/actionTypes";
 export interface MainState {
     textarea: string;
     loading: boolean;
-    error: any;
-    data: any;
+    error: object;
+    data: any
     doList: boolean;
     doneList: boolean;
     toggle: boolean;
@@ -14,8 +14,8 @@ export interface MainState {
 
 const initialState: MainState = {
     textarea: "",
-    loading: false,
-    error: null,
+    loading: true,
+    error: {},
     data: [],
     doList: false,
     doneList: false,
@@ -34,7 +34,7 @@ export const mainReducer = reducerWithInitialState(initialState)
         return {
             ...state,
             loading: true,
-            error: null
+            error: {}
         }
     })
     .case(todoActions.loadAllTodo.done, (state, payload) => {
@@ -42,7 +42,7 @@ export const mainReducer = reducerWithInitialState(initialState)
             ...state,
             loading: false,
             data: state.data.concat(payload.result),
-            error: null
+            error: {}
         }
     })
     .case(todoActions.loadAllTodo.failed, (state, payload) => {

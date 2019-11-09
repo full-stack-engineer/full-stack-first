@@ -3,13 +3,15 @@ import Loading from "./module/Loading/Loading";
 import LoginContainer from "./redux/container/loginContainer";
 import MainContainer from "./redux/container/mainContainer";
 import SelectContainer from "./redux/container/selectContainer";
+import { UserState } from "./redux/states/userState";
+import { UserAction } from "./redux/container/appContainer";
+import { decrypt } from "./lib/lib";
 import store from "./redux/store";
 
-const App: FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [loginStatus, setLoginStatus] = useState(false);
-  const [select, setSelect] = useState(false);
+type AppProps = UserState & UserAction;
 
+const App: FC<AppProps> = (props: AppProps) => {
+  const [loading, setLoading] = useState(true);
   const setLoadingTime = (timeout: number): void => {
     setTimeout(() => {
       setLoading(false);
@@ -17,31 +19,23 @@ const App: FC = () => {
   }
 
   store.subscribe(() => {
-    if (store.getState().login.loginStatus) {
-      setLoginStatus(true);
-    }
-    store.getState().login.loading || store.getState().main.loading
+    store.getState().user.loading === true || store.getState().main.loading === true
       ? setLoading(true)
       : setLoadingTime(1000);
-    store.getState().select.createAccount || store.getState().select.login
-      ? setSelect(true)
-      : setSelect(false);
   });
 
   useEffect(() => {
-    if (localStorage.accessToken !== undefined) {
-      setLoginStatus(true);
-    } else {
-      setLoadingTime(1000);
-    }
-  }, [])
+    (localStorage.email && localStorage.password !== undefined)
+      ? props.postLogIn(decrypt(String(localStorage.getItem("email"))), decrypt(String(localStorage.getItem("password"))))
+      : setLoadingTime(1000);
+  }, []);
 
   return (
     <React.Fragment>
       {loading && <Loading />}
-      {loginStatus ? <MainContainer /> :
+      {props.loginStatus ? <MainContainer /> :
         <React.Fragment>
-          {select ? <LoginContainer /> : <SelectContainer />}
+          {props.createAccount || props.login ? <LoginContainer /> : <SelectContainer />}
         </React.Fragment>
       }
     </React.Fragment>

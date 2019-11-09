@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { MainState } from "../../redux/states/mainState";
 import { TodoAction } from "../../redux/container/todoContainer";
+import { dateShaping } from "../../lib/lib";
 import store from "../../redux/store";
 import "./Todo.scss";
 
@@ -9,27 +10,12 @@ interface TodoInterface {
 }
 
 export interface TodoResponseData {
-    id: number;
     content: string;
-    user_id: number;
-    progress: number;
     created_at: string;
+    id: number;
+    progress: number;
     updated_at: string;
-}
-
-// 日付, 時間の表示加工
-const dateShaping = (value: string, select: string): string => {
-    const processingDate = value.split("T");
-    let date = "";
-    switch (true) {
-        case select === "day":
-            date = processingDate[0].replace(/-/g, ".");
-            break;
-        case select === "time":
-            date = processingDate[1].substr(0, 5);
-            break;
-    }
-    return date;
+    user_id: number;
 }
 
 // eventだけでなく、event.currentTargetで渡してあげないと参照する値が変化する
@@ -96,7 +82,6 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
                     ))
                     .map((item, i) => (
                         <li className="Todo__item" key={i}>
-                            {console.log("a")}
                             <div
                                 className="Todo__box"
                                 onMouseDown={e => downSetInterval(e.currentTarget, item.progress, item.id)}

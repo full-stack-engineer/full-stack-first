@@ -14,7 +14,7 @@ export interface MainState {
 
 const initialState: MainState = {
     textarea: "",
-    loading: true,
+    loading: false,
     error: {},
     data: [],
     doList: false,

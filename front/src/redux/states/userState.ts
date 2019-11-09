@@ -108,10 +108,10 @@ export const loginReducer = reducerWithInitialState(initialUserState)
     .case(userActions.loadAllUserInfo.done, (state, payload: any) => {
         return {
             ...state,
+            results: payload.result,
             loading: false,
-            error: null,
             loginStatus: true,
-            results: payload.result
+            error: null,
         }
     })
     .case(userActions.loadAllUserInfo.failed, (state, payload) => {

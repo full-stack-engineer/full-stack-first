@@ -66,7 +66,9 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
     });
     return (
         <div className="Todo">
-            <ul className="Todo__list" onScroll={(e) => console.log(e.currentTarget.scrollLeft)}>
+            <ul className="Todo__list"
+                onScroll={(e) => console.log(e.currentTarget.scrollLeft)}
+            >
                 {props.todos.length === 0 &&
                     <div className="Todo__box">
                         <div className="Todo__boxInner">

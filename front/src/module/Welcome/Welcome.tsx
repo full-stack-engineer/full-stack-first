@@ -38,7 +38,7 @@ const Welcome: FC<SelectProps> = (props: SelectProps) => {
                 <LoginSNS
                     src={image}
                     alt="Twitterロゴ"
-                    onClick={() => window.location.href = "http://localhost:3000/api/v1/oauth/twitter"}
+                    onClick={() => window.location.href = "https://dogress-api.herokuapp.com/api/v1/oauth/twitter"}
                 />
             </div>
         </div>

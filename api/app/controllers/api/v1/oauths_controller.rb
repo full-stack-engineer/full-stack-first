@@ -32,7 +32,7 @@ module Api
         provider = "twitter"
         if @user = login_from(provider)
           tokens = Jwt::TokenProvider.refresh_tokens @user
-          redirect_to "#{File.join('http://localhost:8000', '#', '?')}#{tokens.to_query}", :notice => "Logged in from #{provider.titleize}!"
+          redirect_to "#{File.join('https://dogress.herokuapp.com', '#', '?')}#{tokens.to_query}", :notice => "Logged in from #{provider.titleize}!"
         else
           begin
             @user = create_from(provider)
@@ -41,9 +41,9 @@ module Api
             reset_session # protect from session fixation attack
             auto_login(@user)
             tokens = Jwt::TokenProvider.refresh_tokens @user
-            redirect_to "#{File.join('http://localhost:8000', '#', '?')}#{tokens.to_query}", :notice => "Logged in from #{provider.titleize}!"
+            redirect_to "#{File.join('https://dogress.herokuapp.com', '#', '?')}#{tokens.to_query}", :notice => "Logged in from #{provider.titleize}!"
           rescue
-            redirect_to 'http://localhost:8000', :alert => "Failed to login from #{provider.titleize}!"
+            redirect_to 'https://dogress.herokuapp.com', :alert => "Failed to login from #{provider.titleize}!"
           end
         end
       end

@@ -19,7 +19,7 @@ const mapStateToProps = (appState: AppState) => {
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<string | void>>) => {
     return {
         inputTextarea: (inputValue: string) => dispatch(todoActions.inputTextarea(inputValue)),
-        postTodo: (content: string, progress: number) => dispatch(postTodo(content, progress))
+        postTodo: (content: string, progress: number) => dispatch(postTodo(content, progress)),
     }
 }
 

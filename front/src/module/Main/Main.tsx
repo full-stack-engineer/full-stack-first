@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import ListButton from "../../components/Button/ListButton";
 import List from "../List/List";
 import PlusButton from "../../components/Button/PlusButton";
@@ -16,10 +16,8 @@ import "./Main.scss";
 type MainProps = MainState & MainAction;
 
 const Main: FC<MainProps> = (props: MainProps) => {
-    const [doProgress, setDoProgress] = useState(0);
-    const [doneProgress, setDoneProgress] = useState(0);
     useEffect(() => {
-        getTodoCount(props.getTodo, setDoProgress, setDoneProgress)
+        getTodoCount(props.getTodo)
     }, []);
 
     return (
@@ -48,7 +46,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
                     <div className="Main__totalMargin">
                         <Total
                             title={props.toggle ? "Do" : "Done"}
-                            todos={props.toggle ? doProgress : doneProgress}
+                            todos={props.toggle ? props.doProgress : props.doneProgress}
                         />
                     </div>
                     <div className="Main__toggleMargin">

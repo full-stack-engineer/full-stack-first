@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { MainState } from "../../redux/states/mainState";
+import { TodoState } from "../../redux/states/todoState";
 import { TodoAction } from "../../redux/container/todoContainer";
 import { dateShaping } from "../../lib/lib";
 import store from "../../redux/store";
@@ -18,17 +18,29 @@ export interface TodoResponseData {
     user_id: number;
 }
 
+let count = 0;
+store.subscribe(() => {
+    count = store.getState().todo.progressCounter
+})
+
 // eventだけでなく、event.currentTargetで渡してあげないと参照する値が変化する
 let timerId: NodeJS.Timeout;
 let progressCounter = 0;
-let count = 0;
 let setId = 0;
-const downSetInterval = (event: any, itemProgress: number, itemId: number) => {
+const downSetInterval = (
+    event: any,
+    itemProgress: number,
+    itemId: number,
+    pushProgressCounter: () => void,
+    clearProgressCounter: () => void,
+) => {
     const processing = (time: number) => {
+        const todoBar = event.querySelector(".Todo__bar");
         timerId = setInterval(() => {
-            if (itemProgress + count <= 100) {
-                event.getElementsByTagName("span")[0].style.cssText = `width:${itemProgress + count++}%`;
-                progressCounter = itemProgress + count - 1;
+            if (todoBar && itemProgress + count < 100) {
+                pushProgressCounter();
+                todoBar.style.cssText = `width:${itemProgress + count}%`;
+                progressCounter = itemProgress + count;
             }
         }, time);
     }
@@ -41,7 +53,7 @@ const downSetInterval = (event: any, itemProgress: number, itemId: number) => {
             if (setId === itemId) {
                 processing(34);
             } else {
-                count = 0;
+                clearProgressCounter();
                 setId = itemId;
                 processing(34);
             }
@@ -55,7 +67,7 @@ const upClearInterval = (timerId: NodeJS.Timeout) => {
     clearInterval(timerId);
 }
 
-type TodoProps = TodoInterface & MainState & TodoAction;
+type TodoProps = TodoInterface & TodoState & TodoAction;
 
 const Todo: FC<TodoProps> = (props: TodoProps) => {
     const [doList, setDoList] = useState(false);
@@ -86,14 +98,38 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
                         <li className="Todo__item" key={i}>
                             <div
                                 className="Todo__box"
-                                onMouseDown={e => downSetInterval(e.currentTarget, item.progress, item.id)}
+                                onMouseDown={e =>
+                                    downSetInterval(
+                                        e.currentTarget,
+                                        item.progress,
+                                        item.id,
+                                        props.pushProgressCounter,
+                                        props.clearProgressCounter,
+                                    )
+                                }
                                 onMouseUp={() => {
-                                    props.putTodo(item.id, item.content, progressCounter);
+                                    props.putTodo(
+                                        item.id,
+                                        item.content,
+                                        progressCounter
+                                    );
                                     upClearInterval(timerId);
                                 }}
-                                onTouchStart={e => downSetInterval(e.currentTarget, item.progress, item.id)}
+                                onTouchStart={e =>
+                                    downSetInterval(
+                                        e.currentTarget,
+                                        item.progress,
+                                        item.id,
+                                        props.pushProgressCounter,
+                                        props.clearProgressCounter,
+                                    )
+                                }
                                 onTouchEnd={() => {
-                                    props.putTodo(item.id, item.content, progressCounter);
+                                    props.putTodo(
+                                        item.id,
+                                        item.content,
+                                        progressCounter
+                                    );
                                     upClearInterval(timerId);
                                 }}
                             >

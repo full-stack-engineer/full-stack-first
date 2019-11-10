@@ -70,14 +70,18 @@ export const mainButtonActions = {
     pushDoneListButton: actionCreator<void>("DONE_LIST_BUTTON"),
     slideToggleButton: actionCreator<void>("TOOGLE_BUTTON"),
     pushPlusButton: actionCreator<void>("ADD_PLUS_BUTTON"),
-    pushCloseButton: actionCreator<void>("CLOSE_BUTTON")
+    pushCloseButton: actionCreator<void>("CLOSE_BUTTON"),
 }
 
 // Todo取得に使用するアクション
 export const todoActions = {
     inputTextarea: actionCreator<string>("INPUT_TEXTAREA"),
     loadAllTodo: actionCreator.async<{}, {}, {}>("LOAD_ALL_TODO"),
-    putTodo: actionCreator.async<{}, {}, {}>("PUT_UPDATE_TODO")
+    putTodo: actionCreator.async<{}, {}, {}>("PUT_UPDATE_TODO"),
+    addDoProgress: actionCreator<void>("ADD_DO_PROGRESS"),
+    addDoneProgress: actionCreator<void>("ADD_DONE_PROGRESS"),
+    pushProgressCounter: actionCreator<void>("PUSH_PROGRESS_COUNTER"),
+    clearProgressCounter: actionCreator<void>("CLEAR_PROGRESS_COUNTER")
 }
 
 // Todo取得に使用するRedux Thunkアクション

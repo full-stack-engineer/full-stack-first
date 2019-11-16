@@ -19,7 +19,7 @@
 
     &__list {
         display: flex;
-        flex-direction : column-reverse;
+        flex-direction : column;
     }
 
     &__item {
@@ -31,7 +31,7 @@
         padding: 20px 16px;
         height: 96px;
 
-        &:not(:first-child) {
+        &:not(:last-child) {
             margin-bottom: 24px;
         }
     }

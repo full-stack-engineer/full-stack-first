@@ -13,7 +13,7 @@ const Welcome: FC<SelectProps> = (props: SelectProps) => {
     return (
         <div className="Welcome">
             <div className="Welcome__inner">
-                <p className="Welcome__concept">「いま」やらないと<br />いけないことを<br />整理しよう</p>
+                <h1 className="Welcome__concept">「いま」やらないと<br />いけないことを<br />整理しよう</h1>
                 <img
                     className="Welcome__icon"
                     src={icon}

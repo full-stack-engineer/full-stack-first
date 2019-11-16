@@ -44,7 +44,7 @@ export const mainReducer = reducerWithInitialState(initialState)
     .case(todoActions.loadAllTodo.done, (state, payload) => {
         return {
             ...state,
-            data: state.data.concat(payload.result),
+            data: state.data.concat(payload.result).reverse(),
             loading: false,
             error: {}
         }

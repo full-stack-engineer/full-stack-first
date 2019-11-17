@@ -21,7 +21,7 @@ export const map = (value: number, fromMin: number, fromMax: number, toMin: numb
         : value >= fromMax
             ? toMax
             : (() => {
-                let ratio: number = (toMax - toMin) / (fromMax - fromMin);
+                let ratio = (toMax - toMin) / (fromMax - fromMin);
                 return (value - fromMin) * ratio + toMin;
             })();
 

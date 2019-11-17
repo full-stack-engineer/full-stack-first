@@ -43,6 +43,7 @@ export const userActions = {
     inputPassword: actionCreator<string>("INPUT_PASSWORD"),
     inputPasswordConfirmd: actionCreator<string>("INPUT_PASSWORD_CONFIRMD"),
     pushLogInButton: actionCreator<void>("LOGIN_BUTTON"),
+    pushLogOutButton: actionCreator<void>("PUSH_LOGOUT_BUTTON"),
     loadAllUserInfo: actionCreator.async<{}, {}, {}>("LOAD_ALL_USER_INFO")
 };
 
@@ -70,7 +71,7 @@ export const mainButtonActions = {
     pushDoneListButton: actionCreator<void>("DONE_LIST_BUTTON"),
     slideToggleButton: actionCreator<void>("TOOGLE_BUTTON"),
     pushPlusButton: actionCreator<void>("ADD_PLUS_BUTTON"),
-    pushCloseButton: actionCreator<void>("CLOSE_BUTTON"),
+    pushCloseButton: actionCreator<void>("CLOSE_BUTTON")
 }
 
 // Todo取得に使用するアクション
@@ -81,7 +82,9 @@ export const todoActions = {
     addDoProgress: actionCreator<void>("ADD_DO_PROGRESS"),
     addDoneProgress: actionCreator<void>("ADD_DONE_PROGRESS"),
     pushProgressCounter: actionCreator<void>("PUSH_PROGRESS_COUNTER"),
-    clearProgressCounter: actionCreator<void>("CLEAR_PROGRESS_COUNTER")
+    clearProgressCounter: actionCreator<void>("CLEAR_PROGRESS_COUNTER"),
+    scrollStart: actionCreator<void>("SCROLL_START"),
+    scrollEnd: actionCreator<void>("SCROLL_END")
 }
 
 // Todo取得に使用するRedux Thunkアクション

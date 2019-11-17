@@ -3,10 +3,12 @@ import { todoActions } from "../actions/actionTypes";
 
 export interface TodoState {
     progressCounter: number;
+    scrollState: boolean;
 }
 
 const initialState: TodoState = {
-    progressCounter: 0
+    progressCounter: 0,
+    scrollState: false
 }
 
 export const todoReducer = reducerWithInitialState(initialState)
@@ -35,5 +37,17 @@ export const todoReducer = reducerWithInitialState(initialState)
         return {
             ...state,
             progressCounter: 0
+        }
+    })
+    .case(todoActions.scrollStart, state => {
+        return {
+            ...state,
+            scrollState: true
+        }
+    })
+    .case(todoActions.scrollEnd, state => {
+        return {
+            ...state,
+            scrollState: false
         }
     })

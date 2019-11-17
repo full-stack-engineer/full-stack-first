@@ -4,13 +4,13 @@ import { encrypt } from "../../lib/lib";
 
 export interface UserState {
     createAccount: boolean;
-    login: boolean;
+    logIn: boolean;
     name: string;
     email: string;
     password: string;
     passwordConfirmd: string;
     loading: boolean;
-    loginStatus: boolean;
+    logInStatus: boolean;
     results: {
         data: {
             token: {
@@ -26,13 +26,13 @@ export interface UserState {
 
 const initialUserState: UserState = {
     createAccount: false,
-    login: false,
+    logIn: false,
     name: "",
     email: "",
     password: "",
     passwordConfirmd: "",
     loading: false,
-    loginStatus: false,
+    logInStatus: false,
     results: {
         data: {
             token: {
@@ -46,24 +46,24 @@ const initialUserState: UserState = {
     }
 };
 
-export const loginReducer = reducerWithInitialState(initialUserState)
+export const logInReducer = reducerWithInitialState(initialUserState)
     .case(selectActions.selectCreateAccountButton, state => {
         return {
             ...state,
             createAccount: true
         }
     })
-    .case(selectActions.selectLoginButton, state => {
+    .case(selectActions.selectLogInButton, state => {
         return {
             ...state,
-            login: true
+            logIn: true
         }
     })
     .case(selectActions.backToTopButton, state => {
         return {
             ...state,
             createAccount: false,
-            login: false
+            logIn: false
         }
     })
     .case(userActions.inputName, (state, name) => {
@@ -90,7 +90,7 @@ export const loginReducer = reducerWithInitialState(initialUserState)
             passwordConfirmd
         }
     })
-    .case(userActions.pushLoginButton, state => {
+    .case(userActions.pushLogInButton, state => {
         localStorage.email = encrypt(state.email)
         localStorage.password = encrypt(state.password)
         return {
@@ -101,7 +101,7 @@ export const loginReducer = reducerWithInitialState(initialUserState)
         return {
             ...state,
             loading: true,
-            loginStatus: false,
+            logInStatus: false,
             error: null
         }
     })
@@ -110,7 +110,7 @@ export const loginReducer = reducerWithInitialState(initialUserState)
             ...state,
             results: payload.result,
             loading: false,
-            loginStatus: true,
+            logInStatus: true,
             error: null,
         }
     })
@@ -118,7 +118,7 @@ export const loginReducer = reducerWithInitialState(initialUserState)
         return {
             ...state,
             loading: false,
-            loginStatus: false,
+            logInStatus: false,
             error: payload.error
         }
     })

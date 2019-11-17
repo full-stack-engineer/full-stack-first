@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import { UserState, loginReducer } from "./states/userState";
+import { UserState, logInReducer } from "./states/userState";
 import { MainState, mainReducer } from "./states/mainState";
 import { TodoState, todoReducer } from "./states/todoState";
 import { createLogger } from "redux-logger";
@@ -18,7 +18,7 @@ const logger = createLogger({
 
 const store = createStore(
     combineReducers<AppState>({
-        user: loginReducer,
+        user: logInReducer,
         main: mainReducer,
         todo: todoReducer
     }),

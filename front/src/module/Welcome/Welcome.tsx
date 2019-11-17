@@ -1,8 +1,8 @@
 import icon from "../../assets/icon.svg"
 import image from "../../assets/twitter.svg";
 import React, { FC } from "react";
-import LoginButton from "../../components/Login/LoginButton";
-import LoginSNS from "../../components/Login/LoginSNS";
+import LogInButton from "../../components/LogIn/LogInButton";
+import LogInSNS from "../../components/LogIn/LogInSNS";
 import { UserState } from "../../redux/states/userState";
 import { SelectAction } from "../../redux/container/selectContainer";
 import "./Welcome.scss";
@@ -18,8 +18,8 @@ const Welcome: FC<SelectProps> = (props: SelectProps) => {
                     className="Welcome__icon"
                     src={icon}
                     alt="dogressのアイコン" />
-                <div className="Welcome__loginButtonMargin">
-                    <LoginButton
+                <div className="Welcome__logInButtonMargin">
+                    <LogInButton
                         type="submit"
                         name="buttonText"
                         value="アカウントを作成"
@@ -27,15 +27,15 @@ const Welcome: FC<SelectProps> = (props: SelectProps) => {
                         onClick={() => props.selectCreateAccountButton()}
                     />
                 </div>
-                <LoginButton
+                <LogInButton
                     type="submit"
                     name="buttonText"
                     value="ログイン"
                     buttonText="ログイン"
-                    onClick={() => props.selectLoginButton()}
+                    onClick={() => props.selectLogInButton()}
                 />
                 <p className="Welcome__text">または</p>
-                <LoginSNS
+                <LogInSNS
                     src={image}
                     alt="Twitterロゴ"
                     onClick={() => window.location.href = "https://dogress-api.herokuapp.com/api/v1/oauth/twitter"}

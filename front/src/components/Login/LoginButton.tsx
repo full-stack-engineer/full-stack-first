@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import "./LoginButton.scss"
+import "./LogInButton.scss"
 
-interface LoginButtonInterface {
+interface LogInButtonInterface {
     buttonText: string;
     type: "button" | "submit" | "reset";
     name: string;
@@ -9,10 +9,10 @@ interface LoginButtonInterface {
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const LoginButton: FC<LoginButtonInterface> = props => {
+const LogInButton: FC<LogInButtonInterface> = props => {
     return (
         <button
-            className="LoginButton"
+            className="LogInButton"
             type={props.type}
             name={props.name}
             value={props.value}
@@ -23,4 +23,4 @@ const LoginButton: FC<LoginButtonInterface> = props => {
     )
 }
 
-export default LoginButton;
+export default LogInButton;

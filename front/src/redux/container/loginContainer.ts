@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 import { AppState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
 import { userActions, postLogIn, postSignUp } from "../actions/actionTypes";
-import Login from "../../module/Login/Login";
+import LogIn from "../../module/LogIn/LogIn";
 
 export interface UserAction {
     inputName: (inputValue: string) => Action<string>;
     inputEmail: (inputValue: string) => Action<string>;
     inputPassword: (inputValue: string) => Action<string>;
     inputPasswordConfirmed: (inputValue: string) => Action<string>;
-    pushLoginButton: () => Action<void>;
+    pushLogInButton: () => Action<void>;
     postSignUp: (name: string, email: string, password: string, passwordConfirmed: string) => Promise<void>;
     postLogIn: (email: string, password: string) => Promise<void>;
 }
@@ -27,10 +27,10 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<
         inputEmail: (inputValue: string) => dispatch(userActions.inputEmail(inputValue)),
         inputPassword: (inputValue: string) => dispatch(userActions.inputPassword(inputValue)),
         inputPasswordConfirmed: (inputValue: string) => dispatch(userActions.inputPasswordConfirmd(inputValue)),
-        pushLoginButton: () => dispatch(userActions.pushLoginButton()),
+        pushLogInButton: () => dispatch(userActions.pushLogInButton()),
         postSignUp: (name: string, email: string, password: string, passwordConfirmed: string) => dispatch(postSignUp(name, email, password, passwordConfirmed)),
         postLogIn: (email: string, password: string) => dispatch(postLogIn(email, password))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

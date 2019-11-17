@@ -10,7 +10,7 @@ const actionCreator = actionCreatorFactory();
 // アカウント作成 or ログインを選択するアクション
 export const selectActions = {
     selectCreateAccountButton: actionCreator<void>("SELECT_CREATE_ACCOUNT_BUTTON"),
-    selectLoginButton: actionCreator<void>("SELECT_LOGIN_BUTTON"),
+    selectLogInButton: actionCreator<void>("SELECT_LOGIN_BUTTON"),
     backToTopButton: actionCreator<void>("BACK_TO_TOP_BUTTON")
 }
 
@@ -42,7 +42,7 @@ export const userActions = {
     inputEmail: actionCreator<string>("INPUT_EMAIL"),
     inputPassword: actionCreator<string>("INPUT_PASSWORD"),
     inputPasswordConfirmd: actionCreator<string>("INPUT_PASSWORD_CONFIRMD"),
-    pushLoginButton: actionCreator<void>("LOGIN_BUTTON"),
+    pushLogInButton: actionCreator<void>("LOGIN_BUTTON"),
     loadAllUserInfo: actionCreator.async<{}, {}, {}>("LOAD_ALL_USER_INFO")
 };
 

@@ -1,4 +1,4 @@
-.Login {
+.LogIn {
     background: #4665ff;
     display: flex;
     align-items: center;
@@ -15,11 +15,11 @@
         width: 100%;
     }
 
-    &__loginInputBoxMargin {
+    &__logInInputBoxMargin {
         margin-bottom: 24px;
     }
 
-    &__loginButtonMargin {
+    &__logInButtonMargin {
         margin-top: 64px;
     }
 }

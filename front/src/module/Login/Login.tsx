@@ -1,26 +1,26 @@
 import React, { FC } from "react";
-import LoginInputBox from "../../components/Login/LoginInputBox"
-import LoginButton from "../../components/Login/LoginButton";
+import LogInInputBox from "../../components/LogIn/LogInInputBox"
+import LogInButton from "../../components/LogIn/LogInButton";
 import ReturnButton from "../../components/Button/ReturnButton";
 import { UserState } from "../../redux/states/userState";
-import { UserAction } from "../../redux/container/loginContainer";
+import { UserAction } from "../../redux/container/logInContainer";
 import store from "../../redux/store";
 import { selectActions } from "../../redux/actions/actionTypes"
-import "./Login.scss";
+import "./LogIn.scss";
 
-type LoginProps = UserState & UserAction;
+type LogInProps = UserState & UserAction;
 
-const Login: FC<LoginProps> = (props: LoginProps) => {
+const LogIn: FC<LogInProps> = (props: LogInProps) => {
     return (
-        <div className="Login">
-            <div className="Login__inner">
-                <div className="Login__form">
+        <div className="LogIn">
+            <div className="LogIn__inner">
+                <div className="LogIn__form">
                     <ReturnButton
                         onClick={() => store.dispatch(selectActions.backToTopButton())}
                     />
                     {props.createAccount &&
-                        <div className="Login__loginInputBoxMargin">
-                            <LoginInputBox
+                        <div className="LogIn__logInInputBoxMargin">
+                            <LogInInputBox
                                 placeholder="名前"
                                 type="text"
                                 name="text"
@@ -28,16 +28,16 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                             />
                         </div>
                     }
-                    <div className="Login__loginInputBoxMargin">
-                        <LoginInputBox
+                    <div className="LogIn__logInInputBoxMargin">
+                        <LogInInputBox
                             placeholder="メールアドレス"
                             type="email"
                             name="emailText"
                             onChange={e => props.inputEmail(e.target.value)}
                         />
                     </div>
-                    <div className="Login__loginInputBoxMargin">
-                        <LoginInputBox
+                    <div className="LogIn__logInInputBoxMargin">
+                        <LogInInputBox
                             placeholder="パスワード"
                             type="password"
                             name="passwordText"
@@ -45,15 +45,15 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                         />
                     </div>
                     {props.createAccount &&
-                        <LoginInputBox
+                        <LogInInputBox
                             placeholder="パスワード再入力"
                             type="password"
                             name="passwordConfirmdText"
                             onChange={e => props.inputPasswordConfirmed(e.target.value)}
                         />
                     }
-                    <div className="Login__loginButtonMargin">
-                        <LoginButton
+                    <div className="LogIn__logInButtonMargin">
+                        <LogInButton
                             type="submit"
                             name="buttonText"
                             value={props.createAccount ? "アカウント作成" : "ログイン"}
@@ -65,7 +65,7 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
                                 } else {
                                     props.postLogIn(props.email, props.password);
                                 }
-                                props.pushLoginButton();
+                                props.pushLogInButton();
                             }}
                         />
                     </div>
@@ -75,4 +75,4 @@ const Login: FC<LoginProps> = (props: LoginProps) => {
     )
 }
 
-export default Login;
+export default LogIn;

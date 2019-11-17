@@ -1,17 +1,17 @@
 import React, { FC } from "react";
-import "./LoginInputBox.scss";
+import "./LogInInputBox.scss";
 
-interface LoginInputBoxInterface {
+interface LogInInputBoxInterface {
     placeholder: string;
     type: "text" | "email" | "password";
     name: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const LoginInputBox: FC<LoginInputBoxInterface> = props => {
+const LogInInputBox: FC<LogInInputBoxInterface> = props => {
     return (
         <input
-            className="LoginInputBox"
+            className="LogInInputBox"
             placeholder={props.placeholder}
             type={props.type}
             name={props.name}
@@ -20,4 +20,4 @@ const LoginInputBox: FC<LoginInputBoxInterface> = props => {
     )
 }
 
-export default LoginInputBox;
+export default LogInInputBox;

@@ -1,0 +1,25 @@
+.LogIn {
+    background: #4665ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    position: relative;
+    height: 100vh;
+
+    &__inner {
+        width: 100%;
+    }
+
+    &__form {
+        width: 100%;
+    }
+
+    &__logInInputBoxMargin {
+        margin-bottom: 24px;
+    }
+
+    &__logInButtonMargin {
+        margin-top: 64px;
+    }
+}

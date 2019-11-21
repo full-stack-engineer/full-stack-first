@@ -1,0 +1,17 @@
+.LogInInputBox {
+    background: #4665ff;
+    border: 5px solid #6B84ff;
+    border-radius: 32px;
+    color: #fff;
+    font-size: 1.4rem;
+    outline: none;
+    padding-left: 32px;
+    height: 64px;
+    width: 100%;
+    -webkit-appearance: none;
+
+    &::placeholder {
+        color: #6B84ff;
+        font-size: 1.6rem;
+    }
+}

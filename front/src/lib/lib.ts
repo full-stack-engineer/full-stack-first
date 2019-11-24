@@ -1,4 +1,5 @@
 import * as CryptoJS from "crypto-js";
+import { todoActions } from "../redux/actions/actionTypes"
 import store from "../redux/store";
 
 // 暗号化
@@ -20,7 +21,7 @@ export const map = (value: number, fromMin: number, fromMax: number, toMin: numb
         : value >= fromMax
             ? toMax
             : (() => {
-                let ratio: number = (toMax - toMin) / (fromMax - fromMin);
+                let ratio = (toMax - toMin) / (fromMax - fromMin);
                 return (value - fromMin) * ratio + toMin;
             })();
 
@@ -43,7 +44,7 @@ export const dateShaping = (value: string, select: string): string => {
 }
 
 // タスクの数を計算（直列処理）
-export const getTodoCount = async (propsFunc: () => Promise<void>, setDoProgress: React.Dispatch<React.SetStateAction<number>>, setDoneProgress: React.Dispatch<React.SetStateAction<number>>) => {
+export const getTodoCount = async (propsFunc: () => Promise<void>) => {
     await new Promise((resolve) => {
         propsFunc()
         store.subscribe(() => {
@@ -56,8 +57,8 @@ export const getTodoCount = async (propsFunc: () => Promise<void>, setDoProgress
         const progressArray = store.getState().main.data;
         for (const i in progressArray) {
             progressArray[i].progress !== 100
-                ? setDoProgress(doProgress => doProgress + 1)
-                : setDoneProgress(doneProgress => doneProgress + 1)
+                ? store.dispatch(todoActions.addDoProgress())
+                : store.dispatch(todoActions.addDoneProgress())
         }
         resolve()
     })

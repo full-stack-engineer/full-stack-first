@@ -2,7 +2,7 @@ import { Action } from "typescript-fsa";
 import { connect } from "react-redux";
 import { AppState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
-import { mainButtonActions, getTodo } from "../actions/actionTypes";
+import { mainButtonActions, getTodo, todoActions } from "../actions/actionTypes";
 import Main from "../../module/Main/Main";
 
 export interface MainAction {
@@ -11,6 +11,8 @@ export interface MainAction {
     slideToggleButton: () => Action<void>;
     pushPlusButton: () => Action<void>;
     pushCloseButton: () => Action<void>;
+    addDoProgress: () => Action<void>;
+    addDoneProgress: () => Action<void>;
     getTodo: () => Promise<void>;
 }
 
@@ -27,6 +29,8 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<
         slideToggleButton: () => dispatch(mainButtonActions.slideToggleButton()),
         pushPlusButton: () => dispatch(mainButtonActions.pushPlusButton()),
         pushCloseButton: () => dispatch(mainButtonActions.pushCloseButton()),
+        addDoProgress: () => dispatch(todoActions.addDoProgress()),
+        addDoneProgress: () => dispatch(todoActions.addDoneProgress()),
         getTodo: () => dispatch(getTodo()),
     }
 }

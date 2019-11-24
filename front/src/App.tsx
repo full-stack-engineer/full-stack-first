@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import Loading from "./module/Loading/Loading";
-import LoginContainer from "./redux/container/loginContainer";
+import LogInContainer from "./redux/container/logInContainer";
 import MainContainer from "./redux/container/mainContainer";
 import SelectContainer from "./redux/container/selectContainer";
 import { UserState } from "./redux/states/userState";
@@ -33,11 +33,11 @@ const App: FC<AppProps> = (props: AppProps) => {
   return (
     <React.Fragment>
       {loading && <Loading />}
-      {props.loginStatus
+      {props.logInStatus
         ? <MainContainer />
         : <React.Fragment>
-          {props.createAccount || props.login
-            ? <LoginContainer />
+          {props.createAccount || props.logIn
+            ? <LogInContainer />
             : <SelectContainer />}
         </React.Fragment>
       }

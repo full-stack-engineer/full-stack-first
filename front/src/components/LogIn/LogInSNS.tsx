@@ -1,16 +1,16 @@
 import React, { FC } from "react";
-import "./LoginSNS.scss";
+import "./LogInSNS.scss";
 
-interface LoginSNSInterface {
+interface LogInSNSInterface {
     src: string;
     alt?: string;
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const LoginInputBox: FC<LoginSNSInterface> = props => {
+const LogInInputBox: FC<LogInSNSInterface> = props => {
     return (
         <button
-            className="LoginSNS"
+            className="LogInSNS"
             onClick={props.onClick}
         >
             <img
@@ -21,4 +21,4 @@ const LoginInputBox: FC<LoginSNSInterface> = props => {
     )
 }
 
-export default LoginInputBox;
+export default LogInInputBox;

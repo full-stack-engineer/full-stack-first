@@ -10,6 +10,8 @@ export interface MainState {
     doneList: boolean;
     toggle: boolean;
     puls: boolean;
+    doProgress: number;
+    doneProgress: number;
 }
 
 const initialState: MainState = {
@@ -21,6 +23,8 @@ const initialState: MainState = {
     doneList: false,
     toggle: true,
     puls: false,
+    doProgress: 0,
+    doneProgress: 0,
 };
 
 export const mainReducer = reducerWithInitialState(initialState)
@@ -40,7 +44,7 @@ export const mainReducer = reducerWithInitialState(initialState)
     .case(todoActions.loadAllTodo.done, (state, payload) => {
         return {
             ...state,
-            data: state.data.concat(payload.result),
+            data: state.data.concat(payload.result).reverse(),
             loading: false,
             error: {}
         }
@@ -50,21 +54,6 @@ export const mainReducer = reducerWithInitialState(initialState)
             ...state,
             loading: false,
             error: payload.error
-        }
-    })
-    .case(todoActions.putTodo.started, state => {
-        return {
-            ...state
-        }
-    })
-    .case(todoActions.putTodo.done, state => {
-        return {
-            ...state
-        }
-    })
-    .case(todoActions.putTodo.failed, state => {
-        return {
-            ...state
         }
     })
     .case(mainButtonActions.pushDoListButton, state => {
@@ -97,5 +86,17 @@ export const mainReducer = reducerWithInitialState(initialState)
             doList: false,
             doneList: false,
             puls: false
+        }
+    })
+    .case(todoActions.addDoProgress, state => {
+        return {
+            ...state,
+            doProgress: state.doProgress + 1
+        }
+    })
+    .case(todoActions.addDoneProgress, state => {
+        return {
+            ...state,
+            doneProgress: state.doneProgress + 1
         }
     })

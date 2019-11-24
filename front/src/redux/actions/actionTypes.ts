@@ -10,7 +10,7 @@ const actionCreator = actionCreatorFactory();
 // アカウント作成 or ログインを選択するアクション
 export const selectActions = {
     selectCreateAccountButton: actionCreator<void>("SELECT_CREATE_ACCOUNT_BUTTON"),
-    selectLoginButton: actionCreator<void>("SELECT_LOGIN_BUTTON"),
+    selectLogInButton: actionCreator<void>("SELECT_LOGIN_BUTTON"),
     backToTopButton: actionCreator<void>("BACK_TO_TOP_BUTTON")
 }
 
@@ -42,7 +42,8 @@ export const userActions = {
     inputEmail: actionCreator<string>("INPUT_EMAIL"),
     inputPassword: actionCreator<string>("INPUT_PASSWORD"),
     inputPasswordConfirmd: actionCreator<string>("INPUT_PASSWORD_CONFIRMD"),
-    pushLoginButton: actionCreator<void>("LOGIN_BUTTON"),
+    pushLogInButton: actionCreator<void>("LOGIN_BUTTON"),
+    pushLogOutButton: actionCreator<void>("PUSH_LOGOUT_BUTTON"),
     loadAllUserInfo: actionCreator.async<{}, {}, {}>("LOAD_ALL_USER_INFO")
 };
 
@@ -77,7 +78,13 @@ export const mainButtonActions = {
 export const todoActions = {
     inputTextarea: actionCreator<string>("INPUT_TEXTAREA"),
     loadAllTodo: actionCreator.async<{}, {}, {}>("LOAD_ALL_TODO"),
-    putTodo: actionCreator.async<{}, {}, {}>("PUT_UPDATE_TODO")
+    putTodo: actionCreator.async<{}, {}, {}>("PUT_UPDATE_TODO"),
+    addDoProgress: actionCreator<void>("ADD_DO_PROGRESS"),
+    addDoneProgress: actionCreator<void>("ADD_DONE_PROGRESS"),
+    pushProgressCounter: actionCreator<void>("PUSH_PROGRESS_COUNTER"),
+    clearProgressCounter: actionCreator<void>("CLEAR_PROGRESS_COUNTER"),
+    scrollStart: actionCreator<void>("SCROLL_START"),
+    scrollEnd: actionCreator<void>("SCROLL_END")
 }
 
 // Todo取得に使用するRedux Thunkアクション

@@ -7,7 +7,7 @@ import Welcome from "../../module/Welcome/Welcome";
 
 export interface SelectAction {
     selectCreateAccountButton: () => Action<void>;
-    selectLoginButton: () => Action<void>;
+    selectLogInButton: () => Action<void>;
     backToTopButton: () => Action<void>;
 }
 
@@ -20,7 +20,7 @@ const mapStateToProps = (appState: AppState) => {
 const mapDispatchToProps = (dispatch: Dispatch<Action<void>>) => {
     return {
         selectCreateAccountButton: () => dispatch(selectActions.selectCreateAccountButton()),
-        selectLoginButton: () => dispatch(selectActions.selectLoginButton()),
+        selectLogInButton: () => dispatch(selectActions.selectLogInButton()),
         backToTopButton: () => dispatch(selectActions.backToTopButton())
     }
 }

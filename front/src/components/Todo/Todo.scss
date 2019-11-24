@@ -1,14 +1,11 @@
 .Todo {
     margin: 0 -24px;
     min-height: 200px;
-    user-select: none;
-    -webkit-touch-callout: none;
 
     &__list {
         display: flex;
         overflow: auto;
         scroll-snap-type: x mandatory;
-        flex-direction : row-reverse;
     }
 
     &__item {

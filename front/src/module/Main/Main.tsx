@@ -1,21 +1,34 @@
-import React, { FC, useEffect } from "react";
-import ListButton from "../../components/Button/ListButton";
+import React, { FC, useState, useEffect } from "react";
+import AddTodoContainer from "../../redux/container/addTodoContainer";
 import List from "../List/List";
 import PlusButton from "../../components/Button/PlusButton";
 import Profile from "../../components/Profile/Profile";
 import Total from "../../components/Total/Total";
+import TodoContainer from "../../redux/container/todoContainer";
 import Toggle from "../../components/Toggle/Toggle";
+import TransformButton from "../../components/Button/TransformButton";
+import { getTodoCount } from "../../lib/lib";
 import { MainState } from "../../redux/states/mainState";
 import { MainAction } from "../../redux/container/mainContainer";
-import AddTodoContainer from "../../redux/container/addTodoContainer";
-import TodoContainer from "../../redux/container/todoContainer";
-import { getTodoCount } from "../../lib/lib";
+import { useTransition, animated } from "react-spring";
 import store from "../../redux/store";
 import "./Main.scss";
 
 type MainProps = MainState & MainAction;
 
 const Main: FC<MainProps> = (props: MainProps) => {
+    const { data } = props
+    const transitionList = useTransition(props.doList || props.doneList, null, {
+        from: { left: '100%' },
+        enter: { left: '0%' },
+        leave: { left: '100%' }
+    });
+    const transitionAddTodo = useTransition(props.puls, null, {
+        from: { bottom: '100%' },
+        enter: { bottom: '0%' },
+        leave: { bottom: "100%" }
+    })
+
     useEffect(() => {
         getTodoCount(props.getTodo)
     }, []);
@@ -31,15 +44,16 @@ const Main: FC<MainProps> = (props: MainProps) => {
                             alt="プロフィール画像"
                             name={store.getState().user.results.data.user.name}
                         />
-                        <ListButton
-                            addClassName={
+                        <TransformButton
+                            onClick={
                                 props.toggle
-                                    ? ""
-                                    : "ListButton--done"
+                                    ? props.pushDoListButton
+                                    : props.pushDoneListButton
                             }
-                            onClick={props.toggle
-                                ? props.pushDoListButton
-                                : props.pushDoneListButton
+                            listFlag={
+                                (props.doList || props.doneList || props.puls)
+                                    ? true
+                                    : false
                             }
                         />
                     </div>
@@ -61,7 +75,28 @@ const Main: FC<MainProps> = (props: MainProps) => {
                 </div>
             </div>
             {props.puls && <AddTodoContainer />}
-            {(props.doList || props.doneList) && <List todos={props.data} />}
+            {transitionAddTodo.map(({ item, key, props }) => (
+                item && (
+                    <animated.div
+                        className="AddTodo"
+                        key={key}
+                        style={props}
+                    >
+                        <AddTodoContainer />
+                    </animated.div>
+                )
+            ))}
+            {transitionList.map(({ item, key, props }) => (
+                item && (
+                    <animated.div
+                        className="List"
+                        key={key}
+                        style={props}
+                    >
+                        <List todos={data} />
+                    </animated.div>
+                )
+            ))}
         </React.Fragment>
     )
 }

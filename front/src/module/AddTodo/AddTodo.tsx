@@ -1,8 +1,6 @@
 import React, { FC } from "react";
-import Profile from "../../components/Profile/Profile";
 import TextArea from "../../components/TextArea/TextArea";
 import AddTodoButton from "../../components/Button/AddTodoButton";
-import CloseButton from "../../components/Button/CloseButton";
 import store from "../../redux/store";
 import { mainButtonActions, todoActions } from "../../redux/actions/actionTypes";
 import { MainState } from "../../redux/states/mainState";
@@ -13,30 +11,18 @@ type AddTodoProps = MainState & AddTodoAction;
 
 const AddTodo: FC<AddTodoProps> = (props: AddTodoProps) => {
     return (
-        <div className="AddTodo">
-            <div className="AddTodo__topAreaMargin">
-                <Profile
-                    src="https://66.media.tumblr.com/624be961c064f228f52ceb3d17c00998/tumblr_p9iby2ty8P1vc1y9yo1_1280.jpg"
-                    alt="プロフィール画像"
-                    name={store.getState().user.results.data.user.name}
-                />
-                <CloseButton onClick={() => { store.dispatch(mainButtonActions.pushCloseButton()) }} />
-            </div>
-            <div className="AddTodo__textareaMargin">
-                <TextArea
-                    placeholder="タスクを追加してみよう！"
-                    onChange={e => props.inputTextarea(e.target.value.replace(/\n/g, " "))}
-                />
-            </div>
-            <div className="AddTodo__AddTodoButtonCenter">
-                <AddTodoButton
-                    onClick={() => {
-                        props.postTodo(props.textarea, 0);
-                        store.dispatch(todoActions.addDoProgress());
-                        store.dispatch(mainButtonActions.pushCloseButton());
-                    }}
-                />
-            </div>
+        <div className="AddTodo__inner">
+            <TextArea
+                placeholder="タスクを追加してみよう！"
+                onChange={e => props.inputTextarea(e.target.value.replace(/\n/g, " "))}
+            />
+            <AddTodoButton
+                onClick={() => {
+                    props.postTodo(props.textarea, 0);
+                    store.dispatch(todoActions.addDoProgress());
+                    store.dispatch(mainButtonActions.pushCloseButton());
+                }}
+            />
         </div>
     )
 }

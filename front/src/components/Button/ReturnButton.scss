@@ -16,14 +16,14 @@
         &::before,
         &::after {
             background: #fff;
-            border-radius: 2.5px;
+            border-radius: 1.5px;
             content: '';
             position: absolute;
-            height: 5px;
+            height: 3px;
         }
 
         &::before {
-            top: calc(50% + 4px);
+            top: calc(50% + 5px);
             left: calc(50% - 20px);
             width: 40px;
         }

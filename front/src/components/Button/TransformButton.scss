@@ -1,0 +1,83 @@
+.TransformButton {
+    background: transparent;
+    outline: none;
+    position: fixed;
+    top: 70px;
+    right: 24px;
+    z-index: 4;
+
+    &__inner {
+        position: relative;
+        width: 44px;
+        height: 44px;
+    }
+
+    span {
+        transition: width 0.2s, right 0.2s, left 0.2s;
+        background: #fff;
+        border-radius: 1px;
+        display: block;
+        position: absolute;
+        top: 50%;
+        width: 40px;
+        height: 2px;
+    }
+    
+    & &__top {
+        transform: translateY(-12px);
+        left: 0px;
+        right: 0px;
+    }
+
+    & &__middle {
+        transform: translateY(0px);
+        position: relative;
+        background: none;
+
+        &::before, 
+        &::after {
+            background: #fff;
+            border-radius: 1px;;
+            content: "";
+            display: block;
+            transition: all 0.2s;
+            transform: rotate(0deg);
+            position: absolute;
+            width: 40px;
+            height: 2px;
+        }
+    }
+    
+    & &__bottom {
+        transform: translateY(12px);
+        left: 0px;
+        right: 0px;
+    }
+
+    &.is-open .TransformButton{
+        &__top {
+            left: 100%;
+            width: 0px;
+        }
+        
+        &__middle {
+            &::before,
+            &::after {
+                box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
+            }
+
+            &::before {
+                transform: rotate(135deg);
+            }
+
+            &::after {
+                transform: rotate(45deg);
+            }
+        }
+            
+        &__bottom {
+            right: 100%;
+            width: 0px;
+        }
+    }
+}

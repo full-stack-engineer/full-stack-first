@@ -11,6 +11,7 @@ export interface UserState {
     passwordConfirmd: string;
     loading: boolean;
     logInStatus: boolean;
+    error: ErrorConstructor;
     results: {
         data: {
             token: {
@@ -33,6 +34,7 @@ const initialUserState: UserState = {
     passwordConfirmd: "",
     loading: false,
     logInStatus: false,
+    error: null,
     results: {
         data: {
             token: {
@@ -114,7 +116,7 @@ export const logInReducer = reducerWithInitialState(initialUserState)
             error: null,
         }
     })
-    .case(userActions.loadAllUserInfo.failed, (state, payload) => {
+    .case(userActions.loadAllUserInfo.failed, (state, payload: any) => {
         return {
             ...state,
             loading: false,

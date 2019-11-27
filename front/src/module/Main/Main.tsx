@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import AddTodoContainer from "../../redux/container/addTodoContainer";
 import List from "../List/List";
 import PlusButton from "../../components/Button/PlusButton";

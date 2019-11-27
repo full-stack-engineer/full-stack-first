@@ -4,7 +4,7 @@ import React, { FC } from "react";
 import LogInButton from "../../components/LogIn/LogInButton";
 import LogInSNS from "../../components/LogIn/LogInSNS";
 import { UserState } from "../../redux/states/userState";
-import { SelectAction } from "../../redux/container/selectContainer";
+import { SelectAction } from "../../redux/container/welcomeContainer";
 import "./Welcome.scss";
 
 type SelectProps = UserState & SelectAction;

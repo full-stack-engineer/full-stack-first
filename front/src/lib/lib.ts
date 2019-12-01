@@ -63,3 +63,13 @@ export const getTodoCount = async (propsFunc: () => Promise<void>) => {
         resolve()
     })
 }
+
+// スクロール発生判定
+export const scrollJudge = () => {
+    let scrollTimerId: NodeJS.Timeout;
+    store.dispatch(todoActions.scrollStart())
+    clearTimeout(scrollTimerId)
+    scrollTimerId = setTimeout(() => {
+        store.dispatch(todoActions.scrollEnd())
+    }, 100)
+}

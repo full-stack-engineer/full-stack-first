@@ -21,6 +21,9 @@ const AddTodo: FC<AddTodoProps> = (props: AddTodoProps) => {
                     props.postTodo(props.textarea, 0);
                     store.dispatch(todoActions.addDoProgress());
                     store.dispatch(mainButtonActions.pushCloseButton());
+                    setTimeout(() => {
+                        props.getTodo()
+                    }, 1000)
                 }}
             />
         </div>

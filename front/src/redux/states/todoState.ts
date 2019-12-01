@@ -4,11 +4,13 @@ import { todoActions } from "../actions/actionTypes";
 export interface TodoState {
     progressCounter: number;
     scrollState: boolean;
+    deleteFlag: boolean;
 }
 
 const initialState: TodoState = {
     progressCounter: 0,
-    scrollState: false
+    scrollState: false,
+    deleteFlag: false
 }
 
 export const todoReducer = reducerWithInitialState(initialState)

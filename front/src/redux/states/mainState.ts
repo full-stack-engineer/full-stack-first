@@ -34,26 +34,64 @@ export const mainReducer = reducerWithInitialState(initialState)
             textarea
         }
     })
-    .case(todoActions.loadAllTodo.started, state => {
+    .case(todoActions.getTodo.started, state => {
         return {
             ...state,
             loading: true,
             error: {}
         }
     })
-    .case(todoActions.loadAllTodo.done, (state, payload) => {
+    .case(todoActions.getTodo.done, (state, payload) => {
+
         return {
             ...state,
-            data: state.data.concat(payload.result).reverse(),
+            data: payload.result,
             loading: false,
             error: {}
         }
     })
-    .case(todoActions.loadAllTodo.failed, (state, payload) => {
+    .case(todoActions.getTodo.failed, (state, payload) => {
         return {
             ...state,
             loading: false,
             error: payload.error
+        }
+    })
+    .case(todoActions.postTodo.started, state => {
+        return {
+            ...state,
+            loading: true
+        }
+    })
+    .case(todoActions.postTodo.done, state => {
+
+        return {
+            ...state,
+            loading: false
+        }
+    })
+    .case(todoActions.postTodo.failed, state => {
+        return {
+            ...state,
+            loading: false
+        }
+    })
+    .case(todoActions.deleteTodo.started, state => {
+        return {
+            ...state,
+            loading: true
+        }
+    })
+    .case(todoActions.deleteTodo.done, state => {
+        return {
+            ...state,
+            loading: false
+        }
+    })
+    .case(todoActions.deleteTodo.failed, state => {
+        return {
+            ...state,
+            loading: false
         }
     })
     .case(mainButtonActions.pushDoListButton, state => {

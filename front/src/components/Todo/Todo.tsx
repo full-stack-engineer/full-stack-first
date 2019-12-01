@@ -1,8 +1,10 @@
 import React, { FC, useState, useEffect, useRef } from "react";
+import CloseButton from "../Button/CloseButton";
 import { TodoState } from "../../redux/states/todoState";
 import { TodoAction } from "../../redux/container/todoContainer";
 import { dateShaping } from "../../lib/lib";
 import { todoActions } from "../../redux/actions/actionTypes";
+import { scrollJudge } from "../../lib/lib";
 import store from "../../redux/store";
 import "./Todo.scss";
 
@@ -42,7 +44,7 @@ const downSetInterval = (
                     }
                 }, time);
             }
-        }, 400)
+        }, 200)
     }
     switch (true) {
         case count === 0:
@@ -66,15 +68,6 @@ const downSetInterval = (
 const upClearInterval = (setIntervalId: NodeJS.Timeout, setTimeoutId: NodeJS.Timeout) => {
     clearInterval(setIntervalId);
     clearInterval(setTimeoutId)
-}
-
-let scrollTimerId: NodeJS.Timeout;
-const scrollJudge = () => {
-    store.dispatch(todoActions.scrollStart())
-    clearTimeout(scrollTimerId)
-    scrollTimerId = setTimeout(() => {
-        store.dispatch(todoActions.scrollEnd())
-    }, 100)
 }
 
 type TodoProps = TodoInterface & TodoState & TodoAction;
@@ -115,6 +108,12 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
                     ))
                     .map((item, i) => (
                         <li className="Todo__item" key={i}>
+                            <CloseButton onClick={() => {
+                                props.deleteTodo(item.id);
+                                setTimeout(() => {
+                                    props.getTodo();
+                                }, 1000)
+                            }} />
                             <div
                                 className="Todo__box"
                                 onMouseDown={e =>

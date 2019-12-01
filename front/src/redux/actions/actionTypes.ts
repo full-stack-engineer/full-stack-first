@@ -77,8 +77,10 @@ export const mainButtonActions = {
 // Todo取得に使用するアクション
 export const todoActions = {
     inputTextarea: actionCreator<string>("INPUT_TEXTAREA"),
-    loadAllTodo: actionCreator.async<{}, {}, {}>("LOAD_ALL_TODO"),
+    getTodo: actionCreator.async<{}, {}, {}>("GET_TODO"),
+    postTodo: actionCreator.async<{}, {}, {}>("POST_TODO"),
     putTodo: actionCreator.async<{}, {}, {}>("PUT_UPDATE_TODO"),
+    deleteTodo: actionCreator.async<{}, {}, {}>("DELETE_TODO"),
     addDoProgress: actionCreator<void>("ADD_DO_PROGRESS"),
     addDoneProgress: actionCreator<void>("ADD_DONE_PROGRESS"),
     pushProgressCounter: actionCreator<void>("PUSH_PROGRESS_COUNTER"),
@@ -90,7 +92,7 @@ export const todoActions = {
 // Todo取得に使用するRedux Thunkアクション
 export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
-        dispatch(todoActions.loadAllTodo.started({ params: {} }));
+        dispatch(todoActions.getTodo.started({ params: {} }));
         const TODO_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/parent_tasks";
         await axios.get(TODO_ENDPOINT, {
             headers: {
@@ -98,10 +100,10 @@ export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Actio
             }
         })
             .then(results => {
-                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results.data.data }));
+                dispatch(todoActions.getTodo.done({ params: {}, result: results.data.data }));
             })
             .catch(error => {
-                dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }));
+                dispatch(todoActions.getTodo.failed({ params: {}, error: error }));
             });
     }
 }
@@ -109,7 +111,7 @@ export const getTodo = (): ThunkAction<Promise<void>, AppState, undefined, Actio
 // Todoを追加する
 export const postTodo = (content: string, progress: number): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
     return async (dispatch: Dispatch<Action<any>>) => {
-        dispatch(todoActions.loadAllTodo.started({ params: {} }));
+        dispatch(todoActions.postTodo.started({ params: {} }));
         const TODO_ENDPOINT = "https://dogress-api.herokuapp.com/api/v1/parent_tasks";
         const data = {
             "content": content,
@@ -120,10 +122,10 @@ export const postTodo = (content: string, progress: number): ThunkAction<Promise
         }
         await axios.post(TODO_ENDPOINT, data, { headers: headers })
             .then(results => {
-                dispatch(todoActions.loadAllTodo.done({ params: {}, result: results.data.data }));
+                dispatch(todoActions.postTodo.done({ params: {}, result: results.data.data }));
             })
             .catch(error => {
-                dispatch(todoActions.loadAllTodo.failed({ params: {}, error: error }))
+                dispatch(todoActions.postTodo.failed({ params: {}, error: error }))
             })
     }
 }
@@ -146,6 +148,25 @@ export const putTodo = (id: number, content: string, progress: number): ThunkAct
             })
             .catch(error => {
                 dispatch(todoActions.putTodo.failed({ params: {}, error: error }))
+            })
+    }
+}
+
+// TodoをDelete
+export const deleteTodo = (id: number): ThunkAction<Promise<void>, AppState, undefined, Action<AppState>> => {
+    return async (dispatch: Dispatch<Action<any>>) => {
+        dispatch(todoActions.deleteTodo.started({ params: {} }));
+        const TODO_ENDPOINT = `https://dogress-api.herokuapp.com/api/v1/parent_tasks/${id}`;
+        await axios.delete(TODO_ENDPOINT, {
+            headers: {
+                "Authorization": `Bearer ${store.getState().user.results.data.token.access_token}`
+            }
+        })
+            .then(results => {
+                dispatch(todoActions.deleteTodo.done({ params: {}, result: results.data.data }));
+            })
+            .catch(error => {
+                dispatch(todoActions.deleteTodo.failed({ params: {}, error: error }))
             })
     }
 }

@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from "react";
 import AddTodoContainer from "../../redux/container/addTodoContainer";
+import icon from "../../assets/icon.svg";
 import List from "../List/List";
 import PlusButton from "../../components/Button/PlusButton";
 import Profile from "../../components/Profile/Profile";
@@ -31,16 +32,18 @@ const Main: FC<MainProps> = (props: MainProps) => {
 
     useEffect(() => {
         getTodoCount(props.getTodo)
-    }, []);
+    }, [props.getTodo]);
 
     return (
         <React.Fragment>
             <div className="Main">
-                <div className="Main__bg" />
-                <div className="Main__inner">
+                <div className="Main__bg" >
+                    <div className="Main__bgInner" />
+                </div>
+                <div className="Main__topInner">
                     <div className="Main__topArea">
                         <Profile
-                            src="https://66.media.tumblr.com/624be961c064f228f52ceb3d17c00998/tumblr_p9iby2ty8P1vc1y9yo1_1280.jpg"
+                            src={icon}
                             alt="プロフィール画像"
                             name={store.getState().user.results.data.user.name}
                         />
@@ -63,6 +66,8 @@ const Main: FC<MainProps> = (props: MainProps) => {
                             todos={props.toggle ? props.doProgress : props.doneProgress}
                         />
                     </div>
+                </div>
+                <div className="Main__bottomInner">
                     <div className="Main__toggleMargin">
                         <Toggle onChange={props.slideToggleButton} />
                     </div>
@@ -74,30 +79,33 @@ const Main: FC<MainProps> = (props: MainProps) => {
                     </div>
                 </div>
             </div>
-            {props.puls && <AddTodoContainer />}
-            {transitionAddTodo.map(({ item, key, props }) => (
-                item && (
-                    <animated.div
-                        className="AddTodo"
-                        key={key}
-                        style={props}
-                    >
-                        <AddTodoContainer />
-                    </animated.div>
-                )
-            ))}
-            {transitionList.map(({ item, key, props }) => (
-                item && (
-                    <animated.div
-                        className="List"
-                        key={key}
-                        style={props}
-                    >
-                        <List todos={data} />
-                    </animated.div>
-                )
-            ))}
-        </React.Fragment>
+            {
+                transitionAddTodo.map(({ item, key, props }) => (
+                    item && (
+                        <animated.div
+                            className="AddTodo"
+                            key={key}
+                            style={props}
+                        >
+                            <AddTodoContainer />
+                        </animated.div>
+                    )
+                ))
+            }
+            {
+                transitionList.map(({ item, key, props }) => (
+                    item && (
+                        <animated.div
+                            className="List"
+                            key={key}
+                            style={props}
+                        >
+                            <List todos={data} />
+                        </animated.div>
+                    )
+                ))
+            }
+        </React.Fragment >
     )
 }
 

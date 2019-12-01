@@ -1,6 +1,7 @@
 .Toggle {
     position: relative;
     line-height: 1;
+    height: 56px;
 
     &__input {
         opacity: 0;
@@ -25,7 +26,7 @@
         display: inline-block;
         position: relative;
         transition: all .5s;
-        height: 56px;
+        height: 100%;
         width: 100%;
 
         &::before,

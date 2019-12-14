@@ -17,58 +17,70 @@ const App: FC<AppProps> = (props: AppProps) => {
     setTimeout(() => {
       setLoading(false);
     }, timeout);
-  }
+  };
 
-  const transitionWelcome = useTransition(props.createAccount || props.logIn, null, {
-    from: { position: 'absolute', left: '-100%', width: '100%' },
-    enter: { position: 'absolute', left: '0%', width: '100%' },
-    leave: { position: 'absolute', left: '-100%', width: '100%' }
-  });
+  const transitionWelcome = useTransition(
+    props.createAccount || props.logIn,
+    null,
+    {
+      from: { position: "absolute", left: "-100%", width: "100%" },
+      enter: { position: "absolute", left: "0%", width: "100%" },
+      leave: { position: "absolute", left: "-100%", width: "100%" }
+    }
+  );
 
-  const transitionLogIn = useTransition(props.createAccount || props.logIn, null, {
-    from: { position: 'absolute', left: '100%', zIndex: 2, width: '100%' },
-    enter: { position: 'absolute', left: '0%', zIndex: 2, width: '100%' },
-    leave: { position: 'absolute', left: '100%', zIndex: 2, width: '100%' }
-  });
+  const transitionLogIn = useTransition(
+    props.createAccount || props.logIn,
+    null,
+    {
+      from: { position: "absolute", left: "100%", zIndex: 2, width: "100%" },
+      enter: { position: "absolute", left: "0%", zIndex: 2, width: "100%" },
+      leave: { position: "absolute", left: "100%", zIndex: 2, width: "100%" }
+    }
+  );
 
   store.subscribe(() => {
-    store.getState().user.loading === true || store.getState().main.loading === true
+    store.getState().user.loading === true
       ? setLoading(true)
       : setLoadingTime(1000);
   });
 
   useEffect(() => {
-    (localStorage.email && localStorage.password !== undefined)
-      ? props.postLogIn(decrypt(String(localStorage.getItem("email"))), decrypt(String(localStorage.getItem("password"))))
+    localStorage.email && localStorage.password !== undefined
+      ? props.postLogIn(
+          decrypt(String(localStorage.getItem("email"))),
+          decrypt(String(localStorage.getItem("password")))
+        )
       : setLoadingTime(1000);
   }, []);
 
   return (
     <React.Fragment>
       {loading && <Loading />}
-      {props.logInStatus
-        ? <MainContainer />
-        : <React.Fragment>
-          {transitionWelcome.map(({ item, key, props }) => (
-            !item && <animated.div
-              key={key}
-              style={props}
-            >
-              <WelcomeContainer />
-            </animated.div>
-          ))}
-          {transitionLogIn.map(({ item, key, props }) => (
-            item && <animated.div
-              key={key}
-              style={props}
-            >
-              <LogInContainer />
-            </animated.div>
-          ))}
+      {props.logInStatus ? (
+        <MainContainer />
+      ) : (
+        <React.Fragment>
+          {transitionWelcome.map(
+            ({ item, key, props }) =>
+              !item && (
+                <animated.div key={key} style={props}>
+                  <WelcomeContainer />
+                </animated.div>
+              )
+          )}
+          {transitionLogIn.map(
+            ({ item, key, props }) =>
+              item && (
+                <animated.div key={key} style={props}>
+                  <LogInContainer />
+                </animated.div>
+              )
+          )}
         </React.Fragment>
-      }
+      )}
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default App;

@@ -1,10 +1,10 @@
 .TransformButton {
     background: transparent;
     outline: none;
-    position: fixed;
+    position: absolute;
     top: 70px;
     right: 24px;
-    z-index: 4;
+    z-index: 5;
 
     &__inner {
         position: relative;

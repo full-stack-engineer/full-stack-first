@@ -55,10 +55,14 @@ export const getTodoCount = async (propsFunc: () => Promise<void>) => {
     })
     await new Promise((resolve) => {
         const progressArray = store.getState().main.data;
-        for (const i in progressArray) {
-            progressArray[i].progress !== 100
-                ? store.dispatch(todoActions.addDoProgress())
-                : store.dispatch(todoActions.addDoneProgress())
+        store.getState().main.doProgress = 0;
+        store.getState().main.doneProgress = 0;
+        if (progressArray.length !== 0) {
+            for (let i = 0; i < progressArray.length; i++) {
+                progressArray[i].progress !== 100
+                    ? store.dispatch(todoActions.addDoProgress())
+                    : store.dispatch(todoActions.addDoneProgress())
+            }
         }
         resolve()
     })

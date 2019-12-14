@@ -2,7 +2,7 @@ import { Action } from "typescript-fsa";
 import { connect } from "react-redux";
 import { AppState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
-import { getTodo, putTodo, deleteTodo, todoActions } from "../actions/actionTypes";
+import { putTodo, deleteTodo, todoActions } from "../actions/actionTypes";
 import Todo from "../../components/Todo/Todo";
 
 export interface TodoAction {
@@ -12,7 +12,6 @@ export interface TodoAction {
     clearProgressCounter: () => Action<void>;
     scrollStart: () => Action<void>;
     scrollEnd: () => Action<void>;
-    getTodo: () => Promise<void>;
 }
 
 const mapStateToProps = (appState: AppState) => {
@@ -29,7 +28,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<
         clearProgressCounter: () => dispatch(todoActions.clearProgressCounter()),
         scrollStart: () => dispatch(todoActions.scrollStart()),
         scrollEnd: () => dispatch(todoActions.scrollEnd()),
-        getTodo: () => dispatch(getTodo())
     }
 }
 

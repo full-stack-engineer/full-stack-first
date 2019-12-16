@@ -2,11 +2,7 @@ import { Action } from "typescript-fsa";
 import { connect } from "react-redux";
 import { AppState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
-import {
-  mainButtonActions,
-  getTodo,
-  todoActions
-} from "../actions/actionTypes";
+import { mainButtonActions, getTodo } from "../actions/actionTypes";
 import Main from "../../module/Main/Main";
 
 export interface MainAction {

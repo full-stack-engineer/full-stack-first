@@ -1,8 +1,6 @@
 import React, { FC } from "react";
 import TextArea from "../../components/TextArea/TextArea";
 import AddTodoButton from "../../components/Button/AddTodoButton";
-import store from "../../redux/store";
-import { mainButtonActions } from "../../redux/actions/actionTypes";
 import { MainState } from "../../redux/states/mainState";
 import { AddTodoAction } from "../../redux/container/addTodoContainer";
 import "./AddTodo.scss";
@@ -19,7 +17,7 @@ const AddTodo: FC<AddTodoProps> = (props: AddTodoProps) => {
       <AddTodoButton
         onClick={() => {
           props.postTodo(props.textarea, 0);
-          store.dispatch(mainButtonActions.pushCloseButton());
+          props.pushCloseButton();
         }}
       />
     </div>

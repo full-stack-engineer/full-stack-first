@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from "react";
 import AddTodoContainer from "../../redux/container/addTodoContainer";
-import icon from "../../assets/icon.svg";
 import List from "../List/List";
 import PlusButton from "../../components/Button/PlusButton";
 import Profile from "../../components/Profile/Profile";
@@ -17,20 +16,16 @@ import "./Main.scss";
 type MainProps = MainState & MainAction;
 
 const Main: FC<MainProps> = (props: MainProps) => {
-  const { data } = props;
+  const { data, toggle } = props;
   const transitionList = useTransition(props.doList || props.doneList, null, {
     from: { left: "100%" },
     enter: { left: "0%" },
     leave: { left: "100%" }
   });
   const transitionAddTodo = useTransition(props.puls, null, {
-    from: {
-      bottom: "100%"
-    },
+    from: { bottom: "100%" },
     enter: { bottom: "0%" },
-    leave: {
-      bottom: "100%"
-    }
+    leave: { bottom: "100%" }
   });
 
   useEffect(() => {
@@ -45,11 +40,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
         </div>
         <div className="Main__topInner">
           <div className="Main__topArea">
-            <Profile
-              src={icon}
-              alt="プロフィール画像"
-              name={store.getState().user.results.data.user.name}
-            />
+            <Profile name={store.getState().user.results.data.user.name} />
             <TransformButton
               onClick={
                 props.toggle ? props.pushDoListButton : props.pushDoneListButton
@@ -75,7 +66,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
             <Toggle onChange={props.slideToggleButton} />
           </div>
           <div className="Main__todoMargin">
-            <TodoContainer todos={props.data} />
+            <TodoContainer todos={props.data} toggle={props.toggle} />
           </div>
           <div className="Main__plusButtonCenter">
             <PlusButton onClick={props.pushPlusButton} />
@@ -94,7 +85,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
         ({ item, key, props }) =>
           item && (
             <animated.div className="List" key={key} style={props}>
-              <List todos={data} />
+              <List todos={data} toggle={toggle} />
             </animated.div>
           )
       )}

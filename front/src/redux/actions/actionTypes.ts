@@ -102,8 +102,6 @@ export const todoActions = {
   postTodo: actionCreator.async<{}, {}, {}>("POST_TODO"),
   putTodo: actionCreator.async<{}, {}, {}>("PUT_UPDATE_TODO"),
   deleteTodo: actionCreator.async<{}, {}, {}>("DELETE_TODO"),
-  pushProgressCounter: actionCreator<void>("PUSH_PROGRESS_COUNTER"),
-  clearProgressCounter: actionCreator<void>("CLEAR_PROGRESS_COUNTER"),
   scrollStart: actionCreator<void>("SCROLL_START"),
   scrollEnd: actionCreator<void>("SCROLL_END")
 };

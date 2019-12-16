@@ -8,8 +8,6 @@ import Todo from "../../components/Todo/Todo";
 export interface TodoAction {
   putTodo: (id: number, content: string, progress: number) => Promise<void>;
   deleteTodo: (id: number) => Promise<void>;
-  pushProgressCounter: () => Action<void>;
-  clearProgressCounter: () => Action<void>;
   scrollStart: () => Action<void>;
   scrollEnd: () => Action<void>;
 }
@@ -27,8 +25,6 @@ const mapDispatchToProps = (
     putTodo: (id: number, content: string, progress: number) =>
       dispatch(putTodo(id, content, progress)),
     deleteTodo: (id: number) => dispatch(deleteTodo(id)),
-    pushProgressCounter: () => dispatch(todoActions.pushProgressCounter()),
-    clearProgressCounter: () => dispatch(todoActions.clearProgressCounter()),
     scrollStart: () => dispatch(todoActions.scrollStart()),
     scrollEnd: () => dispatch(todoActions.scrollEnd())
   };

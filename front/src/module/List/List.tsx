@@ -5,6 +5,7 @@ import "./List.scss";
 
 interface ListInterface {
   todos: ListResponseData[];
+  toggle: boolean;
 }
 
 export interface ListResponseData {
@@ -19,14 +20,31 @@ export interface ListResponseData {
 const List: FC<ListInterface> = props => {
   const [doList, setDoList] = useState(false);
   useEffect(() => {
-    store.getState().main.doList ? setDoList(true) : setDoList(false);
-  }, []);
+    props.toggle ? setDoList(true) : setDoList(false);
+  }, [props.toggle]);
+
   return (
     <ul className="List__list">
+      {props.toggle === true
+        ? props.todos.filter(item => item.progress !== 100).length === 0 && (
+            <li className="List__item">
+              <p className="List__text List__text--center">
+                進行中のタスクはありません
+              </p>
+            </li>
+          )
+        : props.todos.filter(item => item.progress === 100).length === 0 && (
+            <li className="List__item">
+              <p className="List__text List__text--center">
+                完了したのタスクはありません
+              </p>
+            </li>
+          )}
       {props.todos
         .filter(item =>
           doList ? item.progress !== 100 : item.progress === 100
         )
+        .sort((a, b) => (a.progress < b.progress ? 1 : -1))
         .map((item, i) => (
           <li className="List__item" key={i}>
             {doList ? (

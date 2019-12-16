@@ -1,31 +1,31 @@
 .Loading {
-    background: #4665ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 6;
-    width: 100%;
-    height: 100vh;
+  background: #4665ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  width: 100%;
+  height: 100vh;
 
-    &__icon {
-        height: 104px;
-        width: 104px;
+  &__icon {
+    height: 104px;
+    width: 104px;
 
-        &--animation {
-            animation: LoadingRotateIcon 1.6s ease-in-out infinite;
-        }
+    &--animation {
+      animation: LoadingRotateIcon 1.6s ease-in-out infinite;
     }
+  }
 }
 
-@keyframes LoadingRotateIcon{
-    0% {
-        transform: roteta(0deg);
-    }
+@keyframes LoadingRotateIcon {
+  0% {
+    transform: roteta(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg)
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }

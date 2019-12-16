@@ -1,33 +1,36 @@
 .CloseButton {
-    background: transparent;
-    position: absolute;
-    top: 24px;
-    right: 64px;
-    height: 24px;
-    width: 24px;
+  background: transparent;
+  position: absolute;
+  top: 16px;
+  right: 56px;
+  height: 24px;
+  width: 24px;
 
-    &__inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        
-        &::before,
-        &::after {
-            background: #ddd;
-            border-radius: 1.5px;
-            content: "";
-            display: block;
-            position: absolute;
-            width: 24px;
-            height: 3px;
-        }
+  &__inner {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
 
-        &::before {
-            transform: rotate(135deg);
-        }
-
-        &::after {
-            transform: rotate(45deg);
-        }
+    &::before,
+    &::after {
+      background: #ddd;
+      border-radius: 1.5px;
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 24px;
+      height: 3px;
     }
+
+    &::before {
+      transform: rotate(135deg);
+    }
+
+    &::after {
+      transform: rotate(45deg);
+    }
+  }
 }

@@ -8,7 +8,6 @@ import Total from "../../components/Total/Total";
 import TodoContainer from "../../redux/container/todoContainer";
 import Toggle from "../../components/Toggle/Toggle";
 import TransformButton from "../../components/Button/TransformButton";
-import { getTodoCount } from "../../lib/lib";
 import { MainState } from "../../redux/states/mainState";
 import { MainAction } from "../../redux/container/mainContainer";
 import { useTransition, animated } from "react-spring";
@@ -35,7 +34,7 @@ const Main: FC<MainProps> = (props: MainProps) => {
   });
 
   useEffect(() => {
-    getTodoCount(props.getTodo);
+    props.getTodo();
   }, [props.updateDataFlag]);
 
   return (

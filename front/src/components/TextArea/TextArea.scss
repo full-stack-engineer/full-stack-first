@@ -1,39 +1,39 @@
 .TextArea {
-    position: relative;
+  position: relative;
+  width: 100%;
+
+  &__outsidePlaceholder {
+    color: #fff;
+    font-size: 1.4rem;
+    position: absolute;
+    left: 0;
+  }
+
+  &__textArea {
+    background: none;
+    border: none;
+    color: #fff;
+    caret-color: #fff;
+    font-size: 2rem;
+    font-weight: 400;
+    outline: none;
+    padding: 4px 0;
+    letter-spacing: 1.6px;
+    line-height: inherit;
     width: 100%;
 
-    &__outsidePlaceholder {
-        color: #fff;
-        font-size: 1.4rem;
-        position: absolute;
-        left: 0;
+    &::placeholder {
+      color: #6b84ff;
+      font-size: 2rem;
+      font-weight: 900;
+      padding-left: 4px;
+      position: relative;
+      transition: all 0.5s;
+      top: -3.2px;
     }
 
-    &__textArea {
-        background: none;
-        border: none;
-        color: #fff;
-        caret-color: #fff;
-        font-size: 2rem;
-        font-weight: 400;
-        outline: none;
-        padding: 4px 0;
-        letter-spacing: 1.6px;
-        line-height: inherit;
-        width: 100%;
-
-        &::placeholder {
-            color: #6B84ff;
-            font-size: 2rem;
-            font-weight: 900;
-            padding-left: 4px;
-            position: relative;
-            transition: all .5s;
-            top: -3.2px;
-        }
-
-        &:focus::placeholder {
-            color: transparent;
-        }
+    &:focus::placeholder {
+      color: transparent;
     }
+  }
 }

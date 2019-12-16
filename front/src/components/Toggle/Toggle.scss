@@ -1,67 +1,67 @@
 .Toggle {
+  position: relative;
+  line-height: 1;
+  height: 56px;
+
+  &__input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+
+    &:checked {
+      + .Toggle__label > .Toggle__bar {
+        left: 50%;
+      }
+    }
+  }
+
+  &__label {
+    background: #4665ff;
+    border-radius: 28px;
+    box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
+    display: inline-block;
     position: relative;
-    line-height: 1;
+    transition: all 0.5s;
+    height: 100%;
+    width: 100%;
+
+    &::before,
+    &::after {
+      color: #6b84ff;
+      font-size: 1.6rem;
+      position: absolute;
+      top: 20px;
+      z-index: 2;
+    }
+
+    &::before {
+      content: "Do";
+      left: 22%;
+    }
+
+    &::after {
+      content: "Done";
+      right: 19%;
+    }
+  }
+
+  &__bar {
+    background: #fff;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.5s;
     height: 56px;
-
-    &__input {
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-        
-        &:checked {
-            +.Toggle__label > .Toggle__bar {
-                left: 50%
-            }
-        }
-    }
-
-    &__label {
-        background: #4665ff;
-        border-radius: 28px;
-        box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
-        display: inline-block;
-        position: relative;
-        transition: all .5s;
-        height: 100%;
-        width: 100%;
-
-        &::before,
-        &::after {
-            color: #6B84ff;
-            font-size: 1.6rem;
-            position: absolute;
-            top: 20px;
-            z-index: 2;
-        }
-
-        &::before {
-            content: "Do";
-            left: 22%;
-        }
-
-        &::after {
-            content: "Done";
-            right: 19%;
-        }
-    }
-
-    &__bar {
-        background: #fff;
-        border-radius: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.6rem;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transition: all .5s;
-        height: 56px;
-        width: 50%;
-        z-index: 3;;
-    }
+    width: 50%;
+    z-index: 3;
+  }
 }

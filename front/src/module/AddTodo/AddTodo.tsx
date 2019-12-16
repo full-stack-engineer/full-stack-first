@@ -10,20 +10,20 @@ import "./AddTodo.scss";
 type AddTodoProps = MainState & AddTodoAction;
 
 const AddTodo: FC<AddTodoProps> = (props: AddTodoProps) => {
-    return (
-        <div className="AddTodo__inner">
-            <TextArea
-                placeholder="タスクを追加してみよう！"
-                onChange={e => props.inputTextarea(e.target.value.replace(/\n/g, " "))}
-            />
-            <AddTodoButton
-                onClick={() => {
-                    props.postTodo(props.textarea, 0);
-                    store.dispatch(mainButtonActions.pushCloseButton());
-                }}
-            />
-        </div>
-    )
-}
+  return (
+    <div className="AddTodo__inner">
+      <TextArea
+        placeholder="タスクを追加してみよう！"
+        onChange={e => props.inputTextarea(e.target.value.replace(/\n/g, " "))}
+      />
+      <AddTodoButton
+        onClick={() => {
+          props.postTodo(props.textarea, 0);
+          store.dispatch(mainButtonActions.pushCloseButton());
+        }}
+      />
+    </div>
+  );
+};
 
 export default AddTodo;

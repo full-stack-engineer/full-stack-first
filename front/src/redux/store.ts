@@ -6,24 +6,24 @@ import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
 
 export type AppState = {
-    user: UserState,
-    main: MainState,
-    todo: TodoState
+  user: UserState;
+  main: MainState;
+  todo: TodoState;
 };
 
 const logger = createLogger({
-    diff: true,
-    collapsed: true,
-})
+  diff: true,
+  collapsed: true
+});
 
 const store = createStore(
-    combineReducers<AppState>({
-        user: logInReducer,
-        main: mainReducer,
-        todo: todoReducer
-    }),
-    {},
-    applyMiddleware(thunk, logger)
-)
+  combineReducers<AppState>({
+    user: logInReducer,
+    main: mainReducer,
+    todo: todoReducer
+  }),
+  {},
+  applyMiddleware(thunk, logger)
+);
 
 export default store;

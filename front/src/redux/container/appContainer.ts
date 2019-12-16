@@ -6,19 +6,22 @@ import { postLogIn } from "../actions/actionTypes";
 import App from "../../App";
 
 export interface UserAction {
-    postLogIn: (email: string, password: string) => Promise<void>;
+  postLogIn: (email: string, password: string) => Promise<void>;
 }
 
 const mapStateToProps = (appState: AppState) => {
-    return {
-        ...appState.user
-    }
-}
+  return {
+    ...appState.user
+  };
+};
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, Action<string | void>>) => {
-    return {
-        postLogIn: (email: string, password: string) => dispatch(postLogIn(email, password))
-    }
-}
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<AppState, undefined, Action<string | void>>
+) => {
+  return {
+    postLogIn: (email: string, password: string) =>
+      dispatch(postLogIn(email, password))
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

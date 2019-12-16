@@ -1,38 +1,38 @@
 .ReturnButton {
-    background: transparent;
-    outline: none;
-    position: absolute;
-    top: 60px;
-    left: 24px;
-    height: 44px;
-    width: 44px;
+  background: transparent;
+  outline: none;
+  position: absolute;
+  top: 60px;
+  left: 24px;
+  height: 44px;
+  width: 44px;
 
-    &__icon {
-        display: block;
-        position: relative;
-        height: 100%;
-        width: 100%;
+  &__icon {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
 
-        &::before,
-        &::after {
-            background: #fff;
-            border-radius: 1.5px;
-            content: '';
-            position: absolute;
-            height: 3px;
-        }
-
-        &::before {
-            top: calc(50% + 5px);
-            left: calc(50% - 20px);
-            width: 40px;
-        }
-
-        &::after {
-            transform: rotate(-45deg);
-            top: calc(50% - 3px);
-            left: calc(50% - 23px);
-            width: 24px;
-        }
+    &::before,
+    &::after {
+      background: #fff;
+      border-radius: 1.5px;
+      content: "";
+      position: absolute;
+      height: 3px;
     }
+
+    &::before {
+      top: calc(50% + 5px);
+      left: calc(50% - 20px);
+      width: 40px;
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+      top: calc(50% - 3px);
+      left: calc(50% - 23px);
+      width: 24px;
+    }
+  }
 }

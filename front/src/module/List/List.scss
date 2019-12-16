@@ -1,104 +1,115 @@
 .List {
-    background: #4665ff;
-    overflow-y: scroll;
-    padding: 60px 24px 56px;
-    position: fixed;
-    top: 0;
-    z-index: 4;
+  background: #4665ff;
+  overflow-y: scroll;
+  padding: 60px 24px 56px;
+  position: fixed;
+  top: 0;
+  z-index: 4;
+  height: 100%;
+  width: 100%;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding-top: 104px;
     height: 100%;
-    width: 100%;
+  }
 
-    &__list {
-        display: flex;
-        flex-direction : column;
-        margin-top: 104px;
+  &__item {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.24);
+    display: flex;
+    align-items: center;
+    padding: 20px 16px;
+    height: 96px;
+
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__circle {
+    background: #4665ff;
+    border-radius: 50%;
+    flex-shrink: 0;
+    overflow: hidden;
+    margin-right: 24px;
+    position: relative;
+    text-align: center;
+    width: 56px;
+    height: 56px;
+    z-index: 1;
+
+    &Progress {
+      background: #ddd;
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 56px;
+      height: 56px;
+
+      &--right {
+        transform-origin: left 28px;
+        left: 28px;
+        z-index: 3;
+      }
+
+      &--left {
+        transform-origin: right 28px;
+        left: -28px;
+        z-index: 2;
+      }
     }
 
-    &__item {
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.24);
-        display: flex;
-        align-items: center;
-        padding: 20px 16px;
-        height: 96px;
+    &Inner {
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 36px;
+      height: 36px;
+      z-index: 4;
+    }
+  }
 
-        &:not(:last-child) {
-            margin-bottom: 24px;
-        }
+  &__success {
+    border-right: 3px solid #eee;
+    display: flex;
+    padding-right: 12px;
+    flex-direction: column;
+
+    &Day {
+      color: #4665ff;
+      font-size: 1.5rem;
     }
 
-    &__circle {
-        background: #4665ff;
-        border-radius: 50%;
-        flex-shrink: 0;
-        overflow: hidden;
-        position: relative;
-        text-align: center;
-        width: 56px;
-        height: 56px;
-        z-index: 1;
-
-        &Progress {
-            background: #ddd;
-            content: "";
-            display: block;
-            position: absolute;
-            top: 0;
-            width: 56px;
-            height: 56px;
-
-            &--right {
-                transform-origin: left 28px;
-                left: 28px;
-                z-index: 3;
-            }
-
-            &--left {
-                transform-origin: right 28px;
-                left: -28px;
-                z-index: 2;
-            }
-        }
-
-        &Inner {
-            background: #fff;
-            border-radius: 50%;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 36px;
-            height: 36px;
-            z-index: 4;
-        }
+    &Time {
+      color: #ccc;
+      font-size: 1.3rem;
+      font-weight: 700;
     }
+  }
 
-    &__success {
-        border-right: 3px solid #eee;
-        display: flex;
-        padding-right: 12px;
-        flex-direction: column;
+  &__text {
+    display: -webkit-box;
+    font-size: 1.4rem;
+    text-align: justify;
+    line-height: calc(28 / 14);
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 
-        &Day {
-            color: #4665ff;
-            font-size: 1.5rem;
-        }
-
-        &Time {
-            color: #ccc;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
+    &--center {
+      text-align: center;
+      width: 100%;
     }
+  }
 
-    &__text {
-        display: -webkit-box;
-        font-size: 1.4rem;
-        text-align: justify;
-        margin-left: 24px;
-        line-height: calc(28 / 14);
-        overflow: hidden;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-    }
+  &__empty {
+    color: #fff;
+    font-size: 1.4rem;
+  }
 }

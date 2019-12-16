@@ -1,51 +1,51 @@
 .Main {
-    position: relative;
-    height: 100%;
+  position: relative;
+  height: 100%;
 
-    &__bg {
-        padding-bottom: 62px;
-        margin-bottom: 64px;
+  &__bg {
+    padding-bottom: 62px;
+    margin-bottom: 64px;
 
-        &Inner {
-            background: #4665ff;
-            height: 230px;
-        }
+    &Inner {
+      background: #4665ff;
+      height: 230px;
     }
+  }
 
-    &__topInner {
-        padding: 60px 24px 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 292px;
-        width: 100%;
-    }
+  &__topInner {
+    padding: 60px 24px 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 292px;
+    width: 100%;
+  }
 
-    &__bottomInner {
-        padding: 0 24px 56px;
-    }
+  &__bottomInner {
+    padding: 0 24px 56px;
+  }
 
-    &__topArea {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 44px;
-        height: 64px;
-    }
+  &__topArea {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 44px;
+    height: 64px;
+  }
 
-    &__totalMargin {
-        margin-bottom: 64px;
-    }
+  &__totalMargin {
+    margin-bottom: 64px;
+  }
 
-    &__toggleMargin {
-        margin-bottom: 32px;
-    }
+  &__toggleMargin {
+    margin-bottom: 32px;
+  }
 
-    &__todoMargin {
-        margin-bottom: 32px;
-    }
+  &__todoMargin {
+    margin-bottom: 32px;
+  }
 
-    &__plusButtonCenter {
-        text-align: center;
-    }
+  &__plusButtonCenter {
+    text-align: center;
+  }
 }

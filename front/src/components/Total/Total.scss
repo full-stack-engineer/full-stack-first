@@ -1,37 +1,37 @@
 .Total {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
-    height: 124px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
+  height: 124px;
 
-    &__inner {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        height: 100%;
-        position: relative;
-    }
+  &__inner {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+  }
 
-    &__title {
-        color: #4665ff;
-        font-size: 1.6rem;
-        position: absolute;
-        top: 24px;
-    }
+  &__title {
+    color: #4665ff;
+    font-size: 1.6rem;
+    position: absolute;
+    top: 24px;
+  }
 
-    &__todo {
-        display: flex;
-        align-items: baseline;
-        position: absolute;
-        bottom: 8px;
-    }
+  &__todo {
+    display: flex;
+    align-items: baseline;
+    position: absolute;
+    bottom: 8px;
+  }
 
-    &__number {
-        font-size: 4rem;
-        margin-right: 8px;
-    }
+  &__number {
+    font-size: 4rem;
+    margin-right: 8px;
+  }
 
-    &__text {
-        font-size: 1.4rem;
-    }
+  &__text {
+    font-size: 1.4rem;
+  }
 }

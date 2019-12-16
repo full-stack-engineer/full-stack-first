@@ -153,16 +153,4 @@ export const mainReducer = reducerWithInitialState(initialState)
       doneList: false,
       puls: false
     };
-  })
-  .case(todoActions.addDoProgress, state => {
-    return {
-      ...state,
-      doProgress: state.doProgress + 1
-    };
-  })
-  .case(todoActions.addDoneProgress, state => {
-    return {
-      ...state,
-      doneProgress: state.doneProgress + 1
-    };
   });

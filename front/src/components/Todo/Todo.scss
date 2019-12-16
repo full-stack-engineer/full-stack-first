@@ -1,80 +1,93 @@
 .Todo {
-    margin: 0 -24px;
-    min-height: 200px;
+  margin: 0 -24px;
+  min-height: 200px;
 
-    &__list {
-        display: flex;
-        overflow: auto;
-        scroll-snap-type: x mandatory;
+  &__list {
+    display: flex;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    scroll-snap-align: start;
+    position: relative;
+    width: 100%;
+  }
+
+  &__box {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
+    border-radius: 8px;
+    padding: 24px 40px;
+    margin: 8px 48px;
+    height: 184px;
+    width: 100vw;
+  }
+
+  &__boxInner {
+    width: 100%;
+  }
+
+  &__bgBar {
+    background: #ddd;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    position: relative;
+    height: 10px;
+  }
+
+  &__bar {
+    background: #4665ff;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10px;
+  }
+
+  &__success {
+    border-bottom: 3px solid #eee;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 3px;
+
+    &Day {
+      color: #4665ff;
+      font-size: 1.5rem;
     }
 
-    &__item {
-        display: flex;
-        justify-content: center;
-        scroll-snap-align: start;
-        position: relative;
-        width: 100%;
+    &Time {
+      color: #ccc;
+      font-size: 1.3rem;
+      font-weight: 700;
     }
+  }
 
-    &__box {
-        display: flex;
-        align-items: center;
-        box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
-        border-radius: 8px;
-        padding: 24px 40px;
-        margin: 8px 48px;
-        height: 184px;
-        width: 100vw;
-    }
+  &__text {
+    display: -webkit-box;
+    font-size: 1.6rem;
+    text-align: justify;
+    line-height: calc(32 / 16);
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
 
-    &__boxInner {
-        width: 100%;        
-    }
+.fadeIn {
+  animation: 0.4s ease-in forwards fadeIn;
+}
 
-    &__bgBar {
-        background: #ddd;
-        border-radius: 5px;
-        margin-bottom: 30px;
-        position: relative;
-        height: 10px;
-    }
-
-    &__bar {
-        background: #4665ff;
-        border-radius: 5px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 10px;   
-    }
-
-    &__success {
-        border-bottom: 3px solid #eee;
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        padding-bottom: 3px;
-
-        &Day {
-            color: #4665ff;
-            font-size: 1.5rem;
-        }
-
-        &Time {
-            color: #ccc;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-    }
-
-    &__text {
-        display: -webkit-box;
-        font-size: 1.6rem;
-        text-align: justify;
-        line-height: calc(32 / 16);
-        overflow: hidden;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-    }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

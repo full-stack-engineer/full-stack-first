@@ -3,12 +3,12 @@ import CloseButton from "../Button/CloseButton";
 import { TodoState } from "../../redux/states/todoState";
 import { TodoAction } from "../../redux/container/todoContainer";
 import { dateShaping, scrollJudge } from "../../lib/lib";
-import { todoActions } from "../../redux/actions/actionTypes";
 import store from "../../redux/store";
 import "./Todo.scss";
 
 interface TodoInterface {
   todos: TodoResponseData[];
+  toggle: boolean;
 }
 
 export interface TodoResponseData {
@@ -24,40 +24,19 @@ export interface TodoResponseData {
 let progressTimerId: NodeJS.Timeout;
 let delayTimerId: NodeJS.Timeout;
 let progressCounter = 0;
-let count = 0;
-let setId = 0;
-const downSetInterval = (event: any, itemProgress: number, itemId: number) => {
-  const processing = (time: number) => {
-    delayTimerId = setTimeout(() => {
-      if (store.getState().todo.scrollState === false) {
-        const todoBar = event.querySelector(".Todo__bar");
-        progressTimerId = setInterval(() => {
-          if (todoBar && itemProgress + count < 100) {
-            store.dispatch(todoActions.pushProgressCounter());
-            todoBar.style.cssText = `width:${itemProgress + count}%`;
-            progressCounter = itemProgress + count;
-          }
-        }, time);
-      }
-    }, 200);
-  };
-  switch (true) {
-    case count === 0:
-      processing(34);
-      setId = itemId;
-      break;
-    case count !== 0:
-      if (setId === itemId) {
-        processing(34);
-      } else {
-        store.dispatch(todoActions.clearProgressCounter());
-        setId = itemId;
-        processing(34);
-      }
-      break;
-    default:
-      break;
-  }
+const downSetInterval = (event: any, itemProgress: number) => {
+  let count = 0;
+  delayTimerId = setTimeout(() => {
+    if (store.getState().todo.scrollState === false) {
+      const todoBar = event.querySelector(".Todo__bar");
+      progressTimerId = setInterval(() => {
+        if (todoBar && itemProgress + count < 100) {
+          todoBar.style.cssText = `width:${itemProgress + count++ + 1}%`;
+          progressCounter = itemProgress + count;
+        }
+      }, 32);
+    }
+  }, 200);
 };
 
 const upClearInterval = (
@@ -75,40 +54,45 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
   const todoListRef = useRef(null);
 
   useEffect(() => {
+    props.toggle ? setDoList(true) : setDoList(false);
     todoListRef.current.scrollLeft = 0;
-  }, [doList]);
-
-  store.subscribe(() => {
-    store.getState().main.toggle ? setDoList(true) : setDoList(false);
-    count = store.getState().todo.progressCounter;
-  });
+  }, [props.toggle]);
 
   return (
     <div className="Todo">
       <ul className="Todo__list" ref={todoListRef} onScroll={scrollJudge}>
-        {props.todos.length === 0 && (
-          <div className="Todo__box">
-            <div className="Todo__boxInner">
-              <p className="Todo__text">
-                「+」ボタンから
-                <br />
-                タスクを追加してみよう！
-              </p>
-            </div>
-          </div>
-        )}
+        {props.toggle === true
+          ? props.todos.filter(item => item.progress !== 100).length === 0 && (
+              <div className="Todo__box">
+                <div className="Todo__boxInner">
+                  <p className="Todo__text">
+                    「+」ボタンからタスクを追加してみましょう
+                  </p>
+                </div>
+              </div>
+            )
+          : props.todos.filter(item => item.progress === 100).length === 0 && (
+              <div className="Todo__box">
+                <div className="Todo__boxInner">
+                  <p className="Todo__text">
+                    タスクを完了できるように頑張りましょう
+                  </p>
+                </div>
+              </div>
+            )}
         {props.todos
           .filter(item =>
             doList ? item.progress !== 100 : item.progress === 100
           )
+          .sort((a, b) => (a.progress < b.progress ? 1 : -1))
           .map((item, i) => (
-            <li className="Todo__item" key={i}>
+            <li className="Todo__item fadeIn" key={i}>
               <CloseButton onClick={() => props.deleteTodo(item.id)} />
               <div
                 className="Todo__box"
                 onMouseDown={e =>
                   !props.scrollState &&
-                  downSetInterval(e.currentTarget, item.progress, item.id)
+                  downSetInterval(e.currentTarget, item.progress)
                 }
                 onMouseUp={() => {
                   props.putTodo(item.id, item.content, progressCounter);
@@ -116,7 +100,7 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
                 }}
                 onTouchStart={e =>
                   !props.scrollState &&
-                  downSetInterval(e.currentTarget, item.progress, item.id)
+                  downSetInterval(e.currentTarget, item.progress)
                 }
                 onTouchEnd={() => {
                   props.putTodo(item.id, item.content, progressCounter);

@@ -63,7 +63,7 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
       <ul className="Todo__list" ref={todoListRef} onScroll={scrollJudge}>
         {props.toggle === true
           ? props.todos.filter(item => item.progress !== 100).length === 0 && (
-              <div className="Todo__box">
+              <div className="Todo__box ">
                 <div className="Todo__boxInner">
                   <p className="Todo__text">
                     「+」ボタンからタスクを追加してみましょう
@@ -86,7 +86,7 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
           )
           .sort((a, b) => (a.progress < b.progress ? 1 : -1))
           .map((item, i) => (
-            <li className="Todo__item fadeIn" key={i}>
+            <li className="Todo__item" key={i}>
               <CloseButton onClick={() => props.deleteTodo(item.id)} />
               <div
                 className="Todo__box"

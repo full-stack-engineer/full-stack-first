@@ -36,6 +36,7 @@ const TextArea: FC<TextAreaInterface> = props => {
         placeholder={props.placeholder}
         onFocus={() => setShow(true)}
         onBlur={() => setShow(false)}
+        required
       />
     </div>
   );

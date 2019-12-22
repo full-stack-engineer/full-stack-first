@@ -82,6 +82,7 @@ export const mainReducer = reducerWithInitialState(initialState)
   .case(todoActions.postTodo.done, state => {
     return {
       ...state,
+      textarea: "",
       updateDataFlag: !state.updateDataFlag
     };
   })

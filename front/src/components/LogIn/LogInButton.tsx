@@ -6,6 +6,7 @@ interface LogInButtonInterface {
   type: "button" | "submit" | "reset";
   name: string;
   value: string;
+  disabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
@@ -17,6 +18,7 @@ const LogInButton: FC<LogInButtonInterface> = props => {
       name={props.name}
       value={props.value}
       onClick={props.onClick}
+      disabled={props.disabled}
     >
       {props.buttonText}
     </button>

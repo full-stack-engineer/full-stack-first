@@ -58,6 +58,7 @@ const LogIn: FC<LogInProps> = (props: LogInProps) => {
               name="buttonText"
               value={props.createAccount ? "アカウント作成" : "ログイン"}
               buttonText={props.createAccount ? "アカウント作成" : "ログイン"}
+              disabled={props.email && props.password ? false : true}
               // 関数で発火させないと無限ループ
               onClick={() => {
                 if (props.createAccount) {

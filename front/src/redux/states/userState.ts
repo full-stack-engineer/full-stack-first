@@ -65,7 +65,11 @@ export const logInReducer = reducerWithInitialState(initialUserState)
     return {
       ...state,
       createAccount: false,
-      logIn: false
+      logIn: false,
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirmd: ""
     };
   })
   .case(userActions.inputName, (state, name) => {
@@ -113,6 +117,10 @@ export const logInReducer = reducerWithInitialState(initialUserState)
       results: payload.result,
       loading: false,
       logInStatus: true,
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirmd: "",
       error: null
     };
   })
@@ -121,6 +129,10 @@ export const logInReducer = reducerWithInitialState(initialUserState)
       ...state,
       loading: false,
       logInStatus: false,
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirmd: "",
       error: payload.error
     };
   });

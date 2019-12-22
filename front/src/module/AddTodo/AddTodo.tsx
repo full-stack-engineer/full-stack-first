@@ -15,6 +15,7 @@ const AddTodo: FC<AddTodoProps> = (props: AddTodoProps) => {
         onChange={e => props.inputTextarea(e.target.value.replace(/\n/g, " "))}
       />
       <AddTodoButton
+        disable={props.textarea.length !== 0 ? false : true}
         onClick={() => {
           props.postTodo(props.textarea, 0);
           props.pushCloseButton();

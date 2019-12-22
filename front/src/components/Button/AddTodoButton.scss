@@ -12,4 +12,8 @@
   margin: auto;
   height: 56px;
   width: 176px;
+
+  &:disabled {
+    opacity: 0.4;
+  }
 }

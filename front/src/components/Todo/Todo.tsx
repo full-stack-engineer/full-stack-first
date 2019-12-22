@@ -51,6 +51,7 @@ type TodoProps = TodoInterface & TodoState & TodoAction;
 
 const Todo: FC<TodoProps> = (props: TodoProps) => {
   const [doList, setDoList] = useState(false);
+  const [isActive, setActive] = useState(-1);
   const todoListRef = useRef(null);
 
   useEffect(() => {
@@ -87,26 +88,38 @@ const Todo: FC<TodoProps> = (props: TodoProps) => {
           .sort((a, b) => (a.progress < b.progress ? 1 : -1))
           .map((item, i) => (
             <li className="Todo__item" key={i}>
-              <CloseButton onClick={() => props.deleteTodo(item.id)} />
               <div
-                className="Todo__box"
-                onMouseDown={e =>
-                  !props.scrollState &&
-                  downSetInterval(e.currentTarget, item.progress)
-                }
-                onMouseUp={() => {
-                  props.putTodo(item.id, item.content, progressCounter);
-                  upClearInterval(progressTimerId, delayTimerId);
+                className={"Todo__box " + (i === isActive ? "isScale" : "")}
+                onMouseDown={e => {
+                  if (doList) {
+                    !props.scrollState &&
+                      downSetInterval(e.currentTarget, item.progress);
+                    setActive(i);
+                  }
                 }}
-                onTouchStart={e =>
-                  !props.scrollState &&
-                  downSetInterval(e.currentTarget, item.progress)
-                }
+                onMouseUp={() => {
+                  if (doList) {
+                    props.putTodo(item.id, item.content, progressCounter);
+                    upClearInterval(progressTimerId, delayTimerId);
+                    setActive(-1);
+                  }
+                }}
+                onTouchStart={e => {
+                  if (doList) {
+                    !props.scrollState &&
+                      downSetInterval(e.currentTarget, item.progress);
+                    setActive(i);
+                  }
+                }}
                 onTouchEnd={() => {
-                  props.putTodo(item.id, item.content, progressCounter);
-                  upClearInterval(progressTimerId, delayTimerId);
+                  if (doList) {
+                    props.putTodo(item.id, item.content, progressCounter);
+                    upClearInterval(progressTimerId, delayTimerId);
+                    setActive(-1);
+                  }
                 }}
               >
+                <CloseButton onClick={() => props.deleteTodo(item.id)} />
                 <div className="Todo__boxInner">
                   {doList ? (
                     <div className="Todo__bgBar">

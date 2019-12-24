@@ -25,7 +25,7 @@
     box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.24);
     display: inline-block;
     position: relative;
-    transition: all 0.5s;
+    transition: transform 0.5s;
     height: 100%;
     width: 100%;
 
@@ -59,7 +59,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    transition: all 0.5s;
+    transition: left 0.5s;
     height: 56px;
     width: 50%;
     z-index: 3;

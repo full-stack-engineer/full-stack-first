@@ -1,5 +1,4 @@
 import React, { FC, useState, useEffect } from "react";
-import store from "../../redux/store";
 import { map, dateShaping } from "../../lib/lib";
 import "./List.scss";
 

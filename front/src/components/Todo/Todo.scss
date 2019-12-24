@@ -24,7 +24,8 @@
     position: relative;
     margin: 8px 48px;
     transform: scale(1);
-    transition: all 0.4s;
+    transition: transform 0.4s;
+    will-change: transform;
     height: 184px;
     width: 100vw;
   }
